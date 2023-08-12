@@ -1,7 +1,5 @@
 package net.minecraft.world.biome;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.entity.passive.EntityHorse;
@@ -11,6 +9,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenSavannaTree;
+
+import java.util.Random;
 
 public class BiomeGenSavanna extends BiomeGenBase {
     private static final WorldGenSavannaTree field_150627_aC = new WorldGenSavannaTree(false);

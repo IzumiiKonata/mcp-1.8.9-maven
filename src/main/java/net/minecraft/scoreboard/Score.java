@@ -1,9 +1,9 @@
 package net.minecraft.scoreboard;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import java.util.Comparator;
 import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class Score {
     public static final Comparator<Score> scoreComparator = new Comparator<Score>() {

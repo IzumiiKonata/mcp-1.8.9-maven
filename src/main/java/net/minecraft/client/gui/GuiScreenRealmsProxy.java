@@ -1,14 +1,13 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+import net.minecraft.item.ItemStack;
+import net.minecraft.realms.RealmsButton;
+import net.minecraft.realms.RealmsScreen;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.realms.RealmsButton;
-import net.minecraft.realms.RealmsScreen;
 
 public class GuiScreenRealmsProxy extends GuiScreen {
     private final RealmsScreen field_154330_a;

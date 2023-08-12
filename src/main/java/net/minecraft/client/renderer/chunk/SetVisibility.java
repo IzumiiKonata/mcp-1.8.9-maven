@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.chunk;
 
-import java.util.Set;
-
 import net.minecraft.util.EnumFacing;
+
+import java.util.Set;
 
 public class SetVisibility {
     private static final int COUNT_FACES = EnumFacing.values().length;

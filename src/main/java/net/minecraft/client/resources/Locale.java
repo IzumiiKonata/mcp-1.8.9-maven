@@ -3,6 +3,9 @@ package net.minecraft.client.resources;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
+import net.minecraft.util.ResourceLocation;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +13,6 @@ import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
 
 public class Locale {
     /**

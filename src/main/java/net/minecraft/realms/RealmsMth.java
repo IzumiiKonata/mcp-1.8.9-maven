@@ -1,9 +1,9 @@
 package net.minecraft.realms;
 
-import java.util.Random;
-
 import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Random;
 
 public class RealmsMth {
     public static float sin(float p_sin_0_) {

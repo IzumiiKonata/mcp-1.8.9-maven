@@ -1,11 +1,10 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
+
+import java.util.List;
 
 public class GuiOptionsRowList extends GuiListExtended {
     private final List<GuiOptionsRowList.Row> field_148184_k = Lists.newArrayList();
