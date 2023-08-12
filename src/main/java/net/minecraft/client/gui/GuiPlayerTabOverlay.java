@@ -68,7 +68,7 @@ public class GuiPlayerTabOverlay extends Gui {
      */
     public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
         NetHandlerPlayClient nethandlerplayclient = this.mc.thePlayer.sendQueue;
-        List<NetworkPlayerInfo> list = field_175252_a.<NetworkPlayerInfo>sortedCopy(nethandlerplayclient.getPlayerInfoMap());
+        List<NetworkPlayerInfo> list = field_175252_a.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
         int i = 0;
         int j = 0;
 
@@ -153,7 +153,7 @@ public class GuiPlayerTabOverlay extends Gui {
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 
             if (k4 < list.size()) {
-                NetworkPlayerInfo networkplayerinfo1 = (NetworkPlayerInfo) list.get(k4);
+                NetworkPlayerInfo networkplayerinfo1 = list.get(k4);
                 String s1 = this.getPlayerName(networkplayerinfo1);
                 GameProfile gameprofile = networkplayerinfo1.getGameProfile();
 
@@ -227,7 +227,7 @@ public class GuiPlayerTabOverlay extends Gui {
         }
 
         this.zLevel += 100.0F;
-        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0 + i * 10, 176 + j * 8, 10, 8);
+        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, i * 10, 176 + j * 8, 10, 8);
         this.zLevel -= 100.0F;
     }
 
@@ -240,10 +240,10 @@ public class GuiPlayerTabOverlay extends Gui {
             if (this.lastTimeOpened == p_175247_6_.func_178855_p()) {
                 if (i < p_175247_6_.func_178835_l()) {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b((long) (this.guiIngame.getUpdateCounter() + 20));
+                    p_175247_6_.func_178844_b(this.guiIngame.getUpdateCounter() + 20);
                 } else if (i > p_175247_6_.func_178835_l()) {
                     p_175247_6_.func_178846_a(Minecraft.getSystemTime());
-                    p_175247_6_.func_178844_b((long) (this.guiIngame.getUpdateCounter() + 10));
+                    p_175247_6_.func_178844_b(this.guiIngame.getUpdateCounter() + 10);
                 }
             }
 
@@ -291,7 +291,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 } else {
                     float f1 = MathHelper.clamp_float((float) i / 20.0F, 0.0F, 1.0F);
                     int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
-                    String s = "" + (float) i / 2.0F;
+                    String s = String.valueOf((float) i / 2.0F);
 
                     if (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s + "hp") >= p_175247_4_) {
                         s = s + "hp";
@@ -301,7 +301,7 @@ public class GuiPlayerTabOverlay extends Gui {
                 }
             }
         } else {
-            String s1 = EnumChatFormatting.YELLOW + "" + i;
+            String s1 = EnumChatFormatting.YELLOW + String.valueOf(i);
             this.mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
         }
     }

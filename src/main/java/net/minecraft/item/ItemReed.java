@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class ItemReed extends Item {
-    private Block block;
+    private final Block block;
 
     public ItemReed(Block block) {
         this.block = block;
@@ -24,7 +24,7 @@ public class ItemReed extends Item {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
-        if (block == Blocks.snow_layer && ((Integer) iblockstate.getValue(BlockSnow.LAYERS)).intValue() < 1) {
+        if (block == Blocks.snow_layer && iblockstate.getValue(BlockSnow.LAYERS).intValue() < 1) {
             side = EnumFacing.UP;
         } else if (!block.isReplaceable(worldIn, pos)) {
             pos = pos.offset(side);
@@ -35,7 +35,7 @@ public class ItemReed extends Item {
         } else if (stack.stackSize == 0) {
             return false;
         } else {
-            if (worldIn.canBlockBePlaced(this.block, pos, false, side, (Entity) null, stack)) {
+            if (worldIn.canBlockBePlaced(this.block, pos, false, side, null, stack)) {
                 IBlockState iblockstate1 = this.block.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
 
                 if (worldIn.setBlockState(pos, iblockstate1, 3)) {
@@ -46,7 +46,7 @@ public class ItemReed extends Item {
                         iblockstate1.getBlock().onBlockPlacedBy(worldIn, pos, iblockstate1, playerIn, stack);
                     }
 
-                    worldIn.playSoundEffect((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F), (double) ((float) pos.getZ() + 0.5F), this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getFrequency() * 0.8F);
+                    worldIn.playSoundEffect((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getFrequency() * 0.8F);
                     --stack.stackSize;
                     return true;
                 }

@@ -7,8 +7,8 @@ public class ModelBlaze extends ModelBase {
     /**
      * The sticks that fly around the Blaze.
      */
-    private ModelRenderer[] blazeSticks = new ModelRenderer[12];
-    private ModelRenderer blazeHead;
+    private final ModelRenderer[] blazeSticks = new ModelRenderer[12];
+    private final ModelRenderer blazeHead;
 
     public ModelBlaze() {
         for (int i = 0; i < this.blazeSticks.length; ++i) {

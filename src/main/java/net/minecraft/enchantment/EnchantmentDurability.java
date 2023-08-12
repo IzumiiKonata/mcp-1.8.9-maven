@@ -37,7 +37,7 @@ public class EnchantmentDurability extends Enchantment {
      * Determines if this enchantment can be applied to a specific ItemStack.
      */
     public boolean canApply(ItemStack stack) {
-        return stack.isItemStackDamageable() ? true : super.canApply(stack);
+        return stack.isItemStackDamageable() || super.canApply(stack);
     }
 
     /**
@@ -46,6 +46,6 @@ public class EnchantmentDurability extends Enchantment {
      * matter the enchantment level, otherwise there is a 1-(par/1) chance for damage to be negated.
      */
     public static boolean negateDamage(ItemStack p_92097_0_, int p_92097_1_, Random p_92097_2_) {
-        return p_92097_0_.getItem() instanceof ItemArmor && p_92097_2_.nextFloat() < 0.6F ? false : p_92097_2_.nextInt(p_92097_1_ + 1) > 0;
+        return (!(p_92097_0_.getItem() instanceof ItemArmor) || !(p_92097_2_.nextFloat() < 0.6F)) && p_92097_2_.nextInt(p_92097_1_ + 1) > 0;
     }
 }

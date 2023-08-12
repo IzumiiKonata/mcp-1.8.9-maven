@@ -22,7 +22,7 @@ import net.optifine.entity.model.CustomEntityModelParser;
 import net.optifine.util.Json;
 
 public class PlayerItemParser {
-    private static JsonParser jsonParser = new JsonParser();
+    private static final JsonParser jsonParser = new JsonParser();
     public static final String ITEM_TYPE = "type";
     public static final String ITEM_TEXTURE_SIZE = "textureSize";
     public static final String ITEM_USE_PLAYER_TEXTURE = "usePlayerTexture";
@@ -87,8 +87,8 @@ public class PlayerItemParser {
                     }
 
                     for (Entry<String, JsonElement> entry : jsonobject1.entrySet()) {
-                        if (!jsonobject.has((String) entry.getKey())) {
-                            jsonobject.add((String) entry.getKey(), (JsonElement) entry.getValue());
+                        if (!jsonobject.has(entry.getKey())) {
+                            jsonobject.add(entry.getKey(), entry.getValue());
                         }
                     }
                 }
@@ -110,7 +110,7 @@ public class PlayerItemParser {
                 }
             }
 
-            PlayerItemRenderer[] aplayeritemrenderer = (PlayerItemRenderer[]) ((PlayerItemRenderer[]) list.toArray(new PlayerItemRenderer[list.size()]));
+            PlayerItemRenderer[] aplayeritemrenderer = (PlayerItemRenderer[]) list.toArray(new PlayerItemRenderer[list.size()]);
             return new PlayerItemModel(dimension, flag, aplayeritemrenderer);
         }
     }
@@ -168,7 +168,7 @@ public class PlayerItemParser {
             ModelBase modelbase = new ModelPlayerItem();
             modelbase.textureWidth = textureDim.width;
             modelbase.textureHeight = textureDim.height;
-            ModelRenderer modelrenderer = parseModelRenderer(elem, modelbase, (int[]) null, (String) null);
+            ModelRenderer modelrenderer = parseModelRenderer(elem, modelbase, null, null);
             PlayerItemRenderer playeritemrenderer = new PlayerItemRenderer(i, modelrenderer);
             return playeritemrenderer;
         }
@@ -379,11 +379,12 @@ public class PlayerItemParser {
         for (int i = 0; i < aint.length; ++i) {
             if (aint[i] != null) {
                 flag = true;
+                break;
             }
         }
 
         if (!flag) {
-            return (int[][]) null;
+            return null;
         } else {
             return aint;
         }

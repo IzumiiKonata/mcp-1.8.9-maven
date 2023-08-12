@@ -4,7 +4,7 @@ import net.optifine.expr.ExpressionType;
 import net.optifine.expr.IExpressionBool;
 
 public class ExpressionShaderOptionSwitch implements IExpressionBool {
-    private ShaderOptionSwitch shaderOption;
+    private final ShaderOptionSwitch shaderOption;
 
     public ExpressionShaderOptionSwitch(ShaderOptionSwitch shaderOption) {
         this.shaderOption = shaderOption;
@@ -19,6 +19,6 @@ public class ExpressionShaderOptionSwitch implements IExpressionBool {
     }
 
     public String toString() {
-        return "" + this.shaderOption;
+        return String.valueOf(this.shaderOption);
     }
 }

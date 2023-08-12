@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
 
 public class EntityAIHurtByTarget extends EntityAITarget {
-    private boolean entityCallsForHelp;
+    private final boolean entityCallsForHelp;
 
     /**
      * Store the previous revengeTimer value

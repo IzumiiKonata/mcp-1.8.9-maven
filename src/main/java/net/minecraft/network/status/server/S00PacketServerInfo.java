@@ -28,14 +28,14 @@ public class S00PacketServerInfo implements Packet<INetHandlerStatusClient> {
      * Reads the raw packet data from the data stream.
      */
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.response = (ServerStatusResponse) GSON.fromJson(buf.readStringFromBuffer(32767), ServerStatusResponse.class);
+        this.response = GSON.fromJson(buf.readStringFromBuffer(32767), ServerStatusResponse.class);
     }
 
     /**
      * Writes the raw packet data to the data stream.
      */
     public void writePacketData(PacketBuffer buf) throws IOException {
-        buf.writeString(GSON.toJson((Object) this.response));
+        buf.writeString(GSON.toJson(this.response));
     }
 
     /**

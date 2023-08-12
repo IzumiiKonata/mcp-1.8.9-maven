@@ -1,8 +1,8 @@
 package net.optifine.config;
 
 public class RangeInt {
-    private int min;
-    private int max;
+    private final int min;
+    private final int max;
 
     public RangeInt(int min, int max) {
         this.min = Math.min(min, max);
@@ -10,7 +10,7 @@ public class RangeInt {
     }
 
     public boolean isInRange(int val) {
-        return val < this.min ? false : val <= this.max;
+        return val >= this.min && val <= this.max;
     }
 
     public int getMin() {

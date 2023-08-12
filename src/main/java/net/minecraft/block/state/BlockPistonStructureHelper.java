@@ -17,8 +17,8 @@ public class BlockPistonStructureHelper {
     private final BlockPos pistonPos;
     private final BlockPos blockToMove;
     private final EnumFacing moveDirection;
-    private final List<BlockPos> toMove = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> toDestroy = Lists.<BlockPos>newArrayList();
+    private final List<BlockPos> toMove = Lists.newArrayList();
+    private final List<BlockPos> toDestroy = Lists.newArrayList();
 
     public BlockPistonStructureHelper(World worldIn, BlockPos posIn, EnumFacing pistonFacing, boolean extending) {
         this.world = worldIn;
@@ -49,7 +49,7 @@ public class BlockPistonStructureHelper {
             return false;
         } else {
             for (int i = 0; i < this.toMove.size(); ++i) {
-                BlockPos blockpos = (BlockPos) this.toMove.get(i);
+                BlockPos blockpos = this.toMove.get(i);
 
                 if (this.world.getBlockState(blockpos).getBlock() == Blocks.slime_block && !this.func_177250_b(blockpos)) {
                     return false;
@@ -109,7 +109,7 @@ public class BlockPistonStructureHelper {
                         this.func_177255_a(i1, k);
 
                         for (int l = 0; l <= k + i1; ++l) {
-                            BlockPos blockpos2 = (BlockPos) this.toMove.get(l);
+                            BlockPos blockpos2 = this.toMove.get(l);
 
                             if (this.world.getBlockState(blockpos2).getBlock() == Blocks.slime_block && !this.func_177250_b(blockpos2)) {
                                 return false;
@@ -147,9 +147,9 @@ public class BlockPistonStructureHelper {
     }
 
     private void func_177255_a(int p_177255_1_, int p_177255_2_) {
-        List<BlockPos> list = Lists.<BlockPos>newArrayList();
-        List<BlockPos> list1 = Lists.<BlockPos>newArrayList();
-        List<BlockPos> list2 = Lists.<BlockPos>newArrayList();
+        List<BlockPos> list = Lists.newArrayList();
+        List<BlockPos> list1 = Lists.newArrayList();
+        List<BlockPos> list2 = Lists.newArrayList();
         list.addAll(this.toMove.subList(0, p_177255_2_));
         list1.addAll(this.toMove.subList(this.toMove.size() - p_177255_1_, this.toMove.size()));
         list2.addAll(this.toMove.subList(p_177255_2_, this.toMove.size() - p_177255_1_));

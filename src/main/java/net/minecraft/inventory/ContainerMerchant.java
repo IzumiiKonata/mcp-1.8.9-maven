@@ -10,8 +10,8 @@ public class ContainerMerchant extends Container {
     /**
      * Instance of Merchant.
      */
-    private IMerchant theMerchant;
-    private InventoryMerchant merchantInventory;
+    private final IMerchant theMerchant;
+    private final InventoryMerchant merchantInventory;
 
     /**
      * Instance of World.
@@ -76,7 +76,7 @@ public class ContainerMerchant extends Container {
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
@@ -101,7 +101,7 @@ public class ContainerMerchant extends Container {
             }
 
             if (itemstack1.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }
@@ -121,7 +121,7 @@ public class ContainerMerchant extends Container {
      */
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
-        this.theMerchant.setCustomer((EntityPlayer) null);
+        this.theMerchant.setCustomer(null);
         super.onContainerClosed(playerIn);
 
         if (!this.theWorld.isRemote) {

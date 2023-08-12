@@ -287,7 +287,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {
@@ -344,21 +344,15 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     public int getField(int id) {
-        switch (id) {
-            case 0:
-                return this.brewTime;
-
-            default:
-                return 0;
+        if (id == 0) {
+            return this.brewTime;
         }
+        return 0;
     }
 
     public void setField(int id, int value) {
-        switch (id) {
-            case 0:
-                this.brewTime = value;
-
-            default:
+        if (id == 0) {
+            this.brewTime = value;
         }
     }
 

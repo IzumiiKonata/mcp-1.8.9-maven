@@ -5,7 +5,7 @@ import net.optifine.util.LinkedList;
 public class VboRange {
     private int position = -1;
     private int size = 0;
-    private LinkedList.Node<VboRange> node = new LinkedList.Node(this);
+    private final LinkedList.Node<VboRange> node = new LinkedList.Node(this);
 
     public int getPosition() {
         return this.position;
@@ -33,15 +33,15 @@ public class VboRange {
 
     public VboRange getPrev() {
         LinkedList.Node<VboRange> node = this.node.getPrev();
-        return node == null ? null : (VboRange) node.getItem();
+        return node == null ? null : node.getItem();
     }
 
     public VboRange getNext() {
         LinkedList.Node<VboRange> node = this.node.getNext();
-        return node == null ? null : (VboRange) node.getItem();
+        return node == null ? null : node.getItem();
     }
 
     public String toString() {
-        return "" + this.position + "/" + this.size + "/" + (this.position + this.size);
+        return this.position + "/" + this.size + "/" + (this.position + this.size);
     }
 }

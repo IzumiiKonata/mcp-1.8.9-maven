@@ -44,7 +44,7 @@ public class BlockSponge extends Block {
      * returns the metadata of the dropped item based on the old metadata of the block.
      */
     public int damageDropped(IBlockState state) {
-        return ((Boolean) state.getValue(WET)).booleanValue() ? 1 : 0;
+        return state.getValue(WET).booleanValue() ? 1 : 0;
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
@@ -60,22 +60,22 @@ public class BlockSponge extends Block {
     }
 
     protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
-        if (!((Boolean) state.getValue(WET)).booleanValue() && this.absorb(worldIn, pos)) {
+        if (!state.getValue(WET).booleanValue() && this.absorb(worldIn, pos)) {
             worldIn.setBlockState(pos, state.withProperty(WET, Boolean.valueOf(true)), 2);
             worldIn.playAuxSFX(2001, pos, Block.getIdFromBlock(Blocks.water));
         }
     }
 
     private boolean absorb(World worldIn, BlockPos pos) {
-        Queue<Tuple<BlockPos, Integer>> queue = Lists.<Tuple<BlockPos, Integer>>newLinkedList();
-        ArrayList<BlockPos> arraylist = Lists.<BlockPos>newArrayList();
+        Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
+        ArrayList<BlockPos> arraylist = Lists.newArrayList();
         queue.add(new Tuple(pos, Integer.valueOf(0)));
         int i = 0;
 
-        while (!((Queue) queue).isEmpty()) {
-            Tuple<BlockPos, Integer> tuple = (Tuple) queue.poll();
-            BlockPos blockpos = (BlockPos) tuple.getFirst();
-            int j = ((Integer) tuple.getSecond()).intValue();
+        while (!queue.isEmpty()) {
+            Tuple<BlockPos, Integer> tuple = queue.poll();
+            BlockPos blockpos = tuple.getFirst();
+            int j = tuple.getSecond().intValue();
 
             for (EnumFacing enumfacing : EnumFacing.values()) {
                 BlockPos blockpos1 = blockpos.offset(enumfacing);
@@ -122,21 +122,21 @@ public class BlockSponge extends Block {
      * Convert the BlockState into the correct metadata value
      */
     public int getMetaFromState(IBlockState state) {
-        return ((Boolean) state.getValue(WET)).booleanValue() ? 1 : 0;
+        return state.getValue(WET).booleanValue() ? 1 : 0;
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{WET});
+        return new BlockState(this, WET);
     }
 
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (((Boolean) state.getValue(WET)).booleanValue()) {
+        if (state.getValue(WET).booleanValue()) {
             EnumFacing enumfacing = EnumFacing.random(rand);
 
             if (enumfacing != EnumFacing.UP && !World.doesBlockHaveSolidTopSurface(worldIn, pos.offset(enumfacing))) {
-                double d0 = (double) pos.getX();
-                double d1 = (double) pos.getY();
-                double d2 = (double) pos.getZ();
+                double d0 = pos.getX();
+                double d1 = pos.getY();
+                double d2 = pos.getZ();
 
                 if (enumfacing == EnumFacing.DOWN) {
                     d1 = d1 - 0.05D;
@@ -164,7 +164,7 @@ public class BlockSponge extends Block {
                     }
                 }
 
-                worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+                worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             }
         }
     }

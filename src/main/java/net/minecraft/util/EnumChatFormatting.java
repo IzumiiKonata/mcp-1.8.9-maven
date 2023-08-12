@@ -32,13 +32,13 @@ public enum EnumChatFormatting {
     ITALIC("ITALIC", 'o', true),
     RESET("RESET", 'r', -1);
 
-    private static final Map<String, EnumChatFormatting> nameMapping = Maps.<String, EnumChatFormatting>newHashMap();
+    private static final Map<String, EnumChatFormatting> nameMapping = Maps.newHashMap();
 
     /**
      * Matches formatting codes that indicate that the client should treat the following text as bold, recolored,
      * obfuscated, etc.
      */
-    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + String.valueOf('\u00a7') + "[0-9A-FK-OR]");
+    private static final Pattern formattingCodePattern = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
 
     /**
      * The name of this color/formatting
@@ -66,15 +66,15 @@ public enum EnumChatFormatting {
         return p_175745_0_.toLowerCase().replaceAll("[^a-z]", "");
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
+    EnumChatFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
         this(formattingName, formattingCodeIn, false, colorIndex);
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
+    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
         this(formattingName, formattingCodeIn, fancyStylingIn, -1);
     }
 
-    private EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
+    EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
         this.name = formattingName;
         this.formattingCode = formattingCodeIn;
         this.fancyStyling = fancyStylingIn;
@@ -125,7 +125,7 @@ public enum EnumChatFormatting {
      * Gets a value by its friendly name; null if the given name does not map to a defined value.
      */
     public static EnumChatFormatting getValueByName(String friendlyName) {
-        return friendlyName == null ? null : (EnumChatFormatting) nameMapping.get(func_175745_c(friendlyName));
+        return friendlyName == null ? null : nameMapping.get(func_175745_c(friendlyName));
     }
 
     public static EnumChatFormatting func_175744_a(int p_175744_0_) {
@@ -143,7 +143,7 @@ public enum EnumChatFormatting {
     }
 
     public static Collection<String> getValidValues(boolean p_96296_0_, boolean p_96296_1_) {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
 
         for (EnumChatFormatting enumchatformatting : values()) {
             if ((!enumchatformatting.isColor() || p_96296_0_) && (!enumchatformatting.isFancyStyling() || p_96296_1_)) {

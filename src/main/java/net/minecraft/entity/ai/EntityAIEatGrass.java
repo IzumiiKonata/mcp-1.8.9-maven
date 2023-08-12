@@ -17,12 +17,12 @@ public class EntityAIEatGrass extends EntityAIBase {
     /**
      * The entity owner of this AITask
      */
-    private EntityLiving grassEaterEntity;
+    private final EntityLiving grassEaterEntity;
 
     /**
      * The world the grass eater entity is eating from
      */
-    private World entityWorld;
+    private final World entityWorld;
 
     /**
      * Number of ticks since the entity started to eat grass
@@ -43,7 +43,7 @@ public class EntityAIEatGrass extends EntityAIBase {
             return false;
         } else {
             BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-            return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.grass;
+            return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) || this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.grass;
         }
     }
 

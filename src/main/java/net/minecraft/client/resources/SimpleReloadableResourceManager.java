@@ -21,9 +21,9 @@ import org.apache.logging.log4j.Logger;
 public class SimpleReloadableResourceManager implements IReloadableResourceManager {
     private static final Logger logger = LogManager.getLogger();
     private static final Joiner joinerResourcePacks = Joiner.on(", ");
-    private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.<String, FallbackResourceManager>newHashMap();
-    private final List<IResourceManagerReloadListener> reloadListeners = Lists.<IResourceManagerReloadListener>newArrayList();
-    private final Set<String> setResourceDomains = Sets.<String>newLinkedHashSet();
+    private final Map<String, FallbackResourceManager> domainResourceManagers = Maps.newHashMap();
+    private final List<IResourceManagerReloadListener> reloadListeners = Lists.newArrayList();
+    private final Set<String> setResourceDomains = Sets.newLinkedHashSet();
     private final IMetadataSerializer rmMetadataSerializer;
 
     public SimpleReloadableResourceManager(IMetadataSerializer rmMetadataSerializerIn) {
@@ -33,7 +33,7 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
     public void reloadResourcePack(IResourcePack resourcePack) {
         for (String s : resourcePack.getResourceDomains()) {
             this.setResourceDomains.add(s);
-            FallbackResourceManager fallbackresourcemanager = (FallbackResourceManager) this.domainResourceManagers.get(s);
+            FallbackResourceManager fallbackresourcemanager = this.domainResourceManagers.get(s);
 
             if (fallbackresourcemanager == null) {
                 fallbackresourcemanager = new FallbackResourceManager(this.rmMetadataSerializer);
@@ -49,7 +49,7 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
     }
 
     public IResource getResource(ResourceLocation location) throws IOException {
-        IResourceManager iresourcemanager = (IResourceManager) this.domainResourceManagers.get(location.getResourceDomain());
+        IResourceManager iresourcemanager = this.domainResourceManagers.get(location.getResourceDomain());
 
         if (iresourcemanager != null) {
             return iresourcemanager.getResource(location);
@@ -59,7 +59,7 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
     }
 
     public List<IResource> getAllResources(ResourceLocation location) throws IOException {
-        IResourceManager iresourcemanager = (IResourceManager) this.domainResourceManagers.get(location.getResourceDomain());
+        IResourceManager iresourcemanager = this.domainResourceManagers.get(location.getResourceDomain());
 
         if (iresourcemanager != null) {
             return iresourcemanager.getAllResources(location);

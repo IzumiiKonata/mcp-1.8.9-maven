@@ -14,7 +14,7 @@ public class GuiFurnace extends GuiContainer {
      * The player inventory bound to this GUI.
      */
     private final InventoryPlayer playerInventory;
-    private IInventory tileFurnace;
+    private final IInventory tileFurnace;
 
     public GuiFurnace(InventoryPlayer playerInv, IInventory furnaceInv) {
         super(new ContainerFurnace(playerInv, furnaceInv));

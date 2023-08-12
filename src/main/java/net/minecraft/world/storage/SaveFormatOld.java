@@ -38,7 +38,7 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     public List<SaveFormatComparator> getSaveList() throws AnvilConverterException {
-        List<SaveFormatComparator> list = Lists.<SaveFormatComparator>newArrayList();
+        List<SaveFormatComparator> list = Lists.newArrayList();
 
         for (int i = 0; i < 5; ++i) {
             String s = "World" + (i + 1);
@@ -72,7 +72,7 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound nbttagcompound3 = nbttagcompound2.getCompoundTag("Data");
                     return new WorldInfo(nbttagcompound3);
                 } catch (Exception exception1) {
-                    logger.error((String) ("Exception reading " + file2), (Throwable) exception1);
+                    logger.error("Exception reading " + file2, exception1);
                 }
             }
 
@@ -84,7 +84,7 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
                     return new WorldInfo(nbttagcompound1);
                 } catch (Exception exception) {
-                    logger.error((String) ("Exception reading " + file2), (Throwable) exception);
+                    logger.error("Exception reading " + file2, exception);
                 }
             }
 
@@ -126,7 +126,7 @@ public class SaveFormatOld implements ISaveFormat {
                 file1.delete();
                 return true;
             } catch (Throwable throwable) {
-                logger.warn("Couldn\'t make new level", throwable);
+                logger.warn("Couldn't make new level", throwable);
                 return false;
             }
         }
@@ -158,7 +158,6 @@ public class SaveFormatOld implements ISaveFormat {
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException var5) {
-                        ;
                     }
                 }
             }
@@ -177,12 +176,12 @@ public class SaveFormatOld implements ISaveFormat {
             logger.debug("Deleting " + file1);
 
             if (file1.isDirectory() && !deleteFiles(file1.listFiles())) {
-                logger.warn("Couldn\'t delete directory " + file1);
+                logger.warn("Couldn't delete directory " + file1);
                 return false;
             }
 
             if (!file1.delete()) {
-                logger.warn("Couldn\'t delete file " + file1);
+                logger.warn("Couldn't delete file " + file1);
                 return false;
             }
         }

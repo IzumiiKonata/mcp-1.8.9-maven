@@ -71,7 +71,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-        switch ((EnumFacing) worldIn.getBlockState(pos).getValue(FACING)) {
+        switch (worldIn.getBlockState(pos).getValue(FACING)) {
             case UP:
             default:
                 this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
@@ -143,7 +143,7 @@ public class BlockSkull extends BlockContainer {
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
-            if (!((Boolean) state.getValue(NODROP)).booleanValue()) {
+            if (!state.getValue(NODROP).booleanValue()) {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
 
                 if (tileentity instanceof TileEntitySkull) {
@@ -173,7 +173,7 @@ public class BlockSkull extends BlockContainer {
     }
 
     public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
-        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote ? this.getWitherBasePattern().match(worldIn, pos) != null : false;
+        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote && this.getWitherBasePattern().match(worldIn, pos) != null;
     }
 
     public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te) {
@@ -208,7 +208,7 @@ public class BlockSkull extends BlockContainer {
                 worldIn.spawnEntityInWorld(entitywither);
 
                 for (int l = 0; l < 120; ++l) {
-                    worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
                 }
 
                 for (int i1 = 0; i1 < blockpattern.getPalmLength(); ++i1) {
@@ -233,9 +233,9 @@ public class BlockSkull extends BlockContainer {
      */
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing) state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (((Boolean) state.getValue(NODROP)).booleanValue()) {
+        if (state.getValue(NODROP).booleanValue()) {
             i |= 8;
         }
 
@@ -243,12 +243,12 @@ public class BlockSkull extends BlockContainer {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{FACING, NODROP});
+        return new BlockState(this, FACING, NODROP);
     }
 
     protected BlockPattern getWitherBasePattern() {
         if (this.witherBasePattern == null) {
-            this.witherBasePattern = FactoryBlockPattern.start().aisle(new String[]{"   ", "###", "~#~"}).where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+            this.witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
         }
 
         return this.witherBasePattern;
@@ -256,7 +256,7 @@ public class BlockSkull extends BlockContainer {
 
     protected BlockPattern getWitherPattern() {
         if (this.witherPattern == null) {
-            this.witherPattern = FactoryBlockPattern.start().aisle(new String[]{"^^^", "###", "~#~"}).where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
+            this.witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.soul_sand))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockStateHelper.forBlock(Blocks.air))).build();
         }
 
         return this.witherPattern;

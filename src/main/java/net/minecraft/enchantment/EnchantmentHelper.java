@@ -65,7 +65,7 @@ public class EnchantmentHelper {
     }
 
     public static Map<Integer, Integer> getEnchantments(ItemStack stack) {
-        Map<Integer, Integer> map = Maps.<Integer, Integer>newLinkedHashMap();
+        Map<Integer, Integer> map = Maps.newLinkedHashMap();
         NBTTagList nbttaglist = stack.getItem() == Items.enchanted_book ? Items.enchanted_book.getEnchantments(stack) : stack.getEnchantmentTagList();
 
         if (nbttaglist != null) {
@@ -93,11 +93,11 @@ public class EnchantmentHelper {
             if (enchantment != null) {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setShort("id", (short) i);
-                nbttagcompound.setShort("lvl", (short) ((Integer) enchMap.get(Integer.valueOf(i))).intValue());
+                nbttagcompound.setShort("lvl", (short) enchMap.get(Integer.valueOf(i)).intValue());
                 nbttaglist.appendTag(nbttagcompound);
 
                 if (stack.getItem() == Items.enchanted_book) {
-                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, ((Integer) enchMap.get(Integer.valueOf(i))).intValue()));
+                    Items.enchanted_book.addEnchantment(stack, new EnchantmentData(enchantment, enchMap.get(Integer.valueOf(i)).intValue()));
                 }
             }
         }
@@ -363,17 +363,17 @@ public class EnchantmentHelper {
             Map<Integer, EnchantmentData> map = mapEnchantmentData(k, itemStackIn);
 
             if (map != null && !map.isEmpty()) {
-                EnchantmentData enchantmentdata = (EnchantmentData) WeightedRandom.getRandomItem(randomIn, map.values());
+                EnchantmentData enchantmentdata = WeightedRandom.getRandomItem(randomIn, map.values());
 
                 if (enchantmentdata != null) {
-                    list = Lists.<EnchantmentData>newArrayList();
+                    list = Lists.newArrayList();
                     list.add(enchantmentdata);
 
                     for (int l = k; randomIn.nextInt(50) <= l; l >>= 1) {
                         Iterator<Integer> iterator = map.keySet().iterator();
 
                         while (iterator.hasNext()) {
-                            Integer integer = (Integer) iterator.next();
+                            Integer integer = iterator.next();
                             boolean flag = true;
 
                             for (EnchantmentData enchantmentdata1 : list) {
@@ -389,7 +389,7 @@ public class EnchantmentHelper {
                         }
 
                         if (!map.isEmpty()) {
-                            EnchantmentData enchantmentdata2 = (EnchantmentData) WeightedRandom.getRandomItem(randomIn, map.values());
+                            EnchantmentData enchantmentdata2 = WeightedRandom.getRandomItem(randomIn, map.values());
                             list.add(enchantmentdata2);
                         }
                     }
@@ -410,7 +410,7 @@ public class EnchantmentHelper {
                 for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i) {
                     if (p_77505_0_ >= enchantment.getMinEnchantability(i) && p_77505_0_ <= enchantment.getMaxEnchantability(i)) {
                         if (map == null) {
-                            map = Maps.<Integer, EnchantmentData>newHashMap();
+                            map = Maps.newHashMap();
                         }
 
                         map.put(Integer.valueOf(enchantment.effectId), new EnchantmentData(enchantment, i));

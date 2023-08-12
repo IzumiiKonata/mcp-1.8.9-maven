@@ -17,10 +17,10 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.TextureUtils;
 
 public class CustomSky {
-    private static CustomSkyLayer[][] worldSkyLayers = (CustomSkyLayer[][]) null;
+    private static CustomSkyLayer[][] worldSkyLayers = null;
 
     public static void reset() {
-        worldSkyLayers = (CustomSkyLayer[][]) null;
+        worldSkyLayers = null;
     }
 
     public static void update() {
@@ -78,21 +78,19 @@ public class CustomSky {
             }
 
             if (list.size() > 0) {
-                CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[]) ((CustomSkyLayer[]) list.toArray(new CustomSkyLayer[list.size()]));
+                CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[]) list.toArray(new CustomSkyLayer[list.size()]);
                 acustomskylayer[j] = acustomskylayer2;
                 i = j;
             }
         }
 
         if (i < 0) {
-            return (CustomSkyLayer[][]) null;
+            return null;
         } else {
             int l = i + 1;
             CustomSkyLayer[][] acustomskylayer1 = new CustomSkyLayer[l][0];
 
-            for (int i1 = 0; i1 < acustomskylayer1.length; ++i1) {
-                acustomskylayer1[i1] = acustomskylayer[i1];
-            }
+            System.arraycopy(acustomskylayer, 0, acustomskylayer1, 0, acustomskylayer1.length);
 
             return acustomskylayer1;
         }
@@ -139,7 +137,7 @@ public class CustomSky {
 
             if (i >= 0 && i < worldSkyLayers.length) {
                 CustomSkyLayer[] acustomskylayer = worldSkyLayers[i];
-                return acustomskylayer == null ? false : acustomskylayer.length > 0;
+                return acustomskylayer != null && acustomskylayer.length > 0;
             } else {
                 return false;
             }

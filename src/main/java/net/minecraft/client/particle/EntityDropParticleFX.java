@@ -12,7 +12,7 @@ public class EntityDropParticleFX extends EntityFX {
     /**
      * the material type for dropped items/blocks
      */
-    private Material materialType;
+    private final Material materialType;
 
     /**
      * The height of the current bob
@@ -71,7 +71,7 @@ public class EntityDropParticleFX extends EntityFX {
             this.particleBlue = 4.0F / (float) (40 - this.bobTimer + 8);
         }
 
-        this.motionY -= (double) this.particleGravity;
+        this.motionY -= this.particleGravity;
 
         if (this.bobTimer-- > 0) {
             this.motionX *= 0.02D;
@@ -94,7 +94,7 @@ public class EntityDropParticleFX extends EntityFX {
         if (this.onGround) {
             if (this.materialType == Material.water) {
                 this.setDead();
-                this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
             } else {
                 this.setParticleTextureIndex(114);
             }
@@ -111,7 +111,7 @@ public class EntityDropParticleFX extends EntityFX {
             double d0 = 0.0D;
 
             if (iblockstate.getBlock() instanceof BlockLiquid) {
-                d0 = (double) BlockLiquid.getLiquidHeightPercent(((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue());
+                d0 = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue());
             }
 
             double d1 = (double) (MathHelper.floor_double(this.posY) + 1) - d0;

@@ -154,7 +154,6 @@ public class InventoryPlayer implements IInventory {
         }
 
         for (this.currentItem -= direction; this.currentItem < 0; this.currentItem += 9) {
-            ;
         }
 
         while (this.currentItem >= 9) {
@@ -553,7 +552,7 @@ public class InventoryPlayer implements IInventory {
      * Get the formatted ChatComponent that will be used for the sender's username in chat
      */
     public IChatComponent getDisplayName() {
-        return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
     }
 
     /**
@@ -568,7 +567,7 @@ public class InventoryPlayer implements IInventory {
             return true;
         } else {
             ItemStack itemstack = this.getStackInSlot(this.currentItem);
-            return itemstack != null ? itemstack.canHarvestBlock(blockIn) : false;
+            return itemstack != null && itemstack.canHarvestBlock(blockIn);
         }
     }
 
@@ -663,7 +662,7 @@ public class InventoryPlayer implements IInventory {
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.player.isDead ? false : player.getDistanceSqToEntity(this.player) <= 64.0D;
+        return !this.player.isDead && player.getDistanceSqToEntity(this.player) <= 64.0D;
     }
 
     /**

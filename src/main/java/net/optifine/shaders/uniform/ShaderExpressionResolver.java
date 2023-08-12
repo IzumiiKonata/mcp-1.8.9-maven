@@ -10,13 +10,13 @@ import net.optifine.expr.IExpressionResolver;
 import net.optifine.shaders.SMCLog;
 
 public class ShaderExpressionResolver implements IExpressionResolver {
-    private Map<String, IExpression> mapExpressions = new HashMap();
+    private final Map<String, IExpression> mapExpressions = new HashMap();
 
     public ShaderExpressionResolver(Map<String, IExpression> map) {
         this.registerExpressions();
 
         for (String s : map.keySet()) {
-            IExpression iexpression = (IExpression) map.get(s);
+            IExpression iexpression = map.get(s);
             this.registerExpression(s, iexpression);
         }
     }
@@ -78,7 +78,7 @@ public class ShaderExpressionResolver implements IExpressionResolver {
     }
 
     public IExpression getExpression(String name) {
-        return (IExpression) this.mapExpressions.get(name);
+        return this.mapExpressions.get(name);
     }
 
     public boolean hasExpression(String name) {

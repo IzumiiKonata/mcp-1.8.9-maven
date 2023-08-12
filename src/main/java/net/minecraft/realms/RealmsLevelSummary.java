@@ -3,7 +3,7 @@ package net.minecraft.realms;
 import net.minecraft.world.storage.SaveFormatComparator;
 
 public class RealmsLevelSummary implements Comparable<RealmsLevelSummary> {
-    private SaveFormatComparator levelSummary;
+    private final SaveFormatComparator levelSummary;
 
     public RealmsLevelSummary(SaveFormatComparator p_i1109_1_) {
         this.levelSummary = p_i1109_1_;

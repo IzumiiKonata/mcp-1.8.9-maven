@@ -53,7 +53,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         this.setMinecartPowered(this.fuel > 0);
 
         if (this.isMinecartPowered() && this.rand.nextInt(4) == 0) {
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -77,7 +77,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 
         if (d0 > 1.0E-4D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D) {
-            d0 = (double) MathHelper.sqrt_double(d0);
+            d0 = MathHelper.sqrt_double(d0);
             this.pushX /= d0;
             this.pushZ /= d0;
 
@@ -96,7 +96,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;
 
         if (d0 > 1.0E-4D) {
-            d0 = (double) MathHelper.sqrt_double(d0);
+            d0 = MathHelper.sqrt_double(d0);
             this.pushX /= d0;
             this.pushZ /= d0;
             double d1 = 1.0D;
@@ -122,7 +122,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 
         if (itemstack != null && itemstack.getItem() == Items.coal) {
             if (!playerIn.capabilities.isCreativeMode && --itemstack.stackSize == 0) {
-                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack) null);
+                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
             }
 
             this.fuel += 3600;

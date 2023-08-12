@@ -11,7 +11,7 @@ import net.optifine.http.HttpUtils;
 
 public class PlayerConfigurations {
     private static Map mapConfigurations = null;
-    private static boolean reloadPlayerItems = Boolean.getBoolean("player.models.reload");
+    private static final boolean reloadPlayerItems = Boolean.getBoolean("player.models.reload");
     private static long timeReloadPlayerItemsMs = System.currentTimeMillis();
 
     public static void renderPlayerItems(ModelBiped modelBiped, AbstractClientPlayer player, float scale, float partialTicks) {
@@ -27,7 +27,7 @@ public class PlayerConfigurations {
             AbstractClientPlayer abstractclientplayer = Minecraft.getMinecraft().thePlayer;
 
             if (abstractclientplayer != null) {
-                setPlayerConfiguration(abstractclientplayer.getNameClear(), (PlayerConfiguration) null);
+                setPlayerConfiguration(abstractclientplayer.getNameClear(), null);
                 timeReloadPlayerItemsMs = System.currentTimeMillis();
             }
         }

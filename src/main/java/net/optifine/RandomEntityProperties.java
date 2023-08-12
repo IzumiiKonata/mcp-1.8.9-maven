@@ -69,7 +69,7 @@ public class RandomEntityProperties {
             }
         }
 
-        RandomEntityRule[] arandomentityrule = (RandomEntityRule[]) ((RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]));
+        RandomEntityRule[] arandomentityrule = (RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]);
         return arandomentityrule;
     }
 
@@ -104,6 +104,6 @@ public class RandomEntityProperties {
     }
 
     public boolean isDefault() {
-        return this.rules != null ? false : this.resourceLocations == null;
+        return this.rules == null && this.resourceLocations == null;
     }
 }

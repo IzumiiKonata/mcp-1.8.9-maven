@@ -9,12 +9,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class WorldGenClay extends WorldGenerator {
-    private Block field_150546_a = Blocks.clay;
+    private final Block field_150546_a = Blocks.clay;
 
     /**
      * The number of blocks to generate.
      */
-    private int numberOfBlocks;
+    private final int numberOfBlocks;
 
     public WorldGenClay(int p_i2011_1_) {
         this.numberOfBlocks = p_i2011_1_;

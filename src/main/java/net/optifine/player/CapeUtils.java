@@ -45,7 +45,7 @@ public class CapeUtils {
             }
 
             CapeImageBuffer capeimagebuffer = new CapeImageBuffer(player, resourcelocation);
-            ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData((File) null, s1, (ResourceLocation) null, capeimagebuffer);
+            ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData(null, s1, null, capeimagebuffer);
             threaddownloadimagedata1.pipeline = true;
             texturemanager.loadTexture(resourcelocation, threaddownloadimagedata1);
         }
@@ -62,7 +62,7 @@ public class CapeUtils {
 
         BufferedImage bufferedimage = new BufferedImage(i, j, 2);
         Graphics graphics = bufferedimage.getGraphics();
-        graphics.drawImage(img, 0, 0, (ImageObserver) null);
+        graphics.drawImage(img, 0, 0, null);
         graphics.dispose();
         return bufferedimage;
     }
@@ -83,7 +83,7 @@ public class CapeUtils {
             texturemanager.deleteTexture(resourcelocation);
         }
 
-        player.setLocationOfCape((ResourceLocation) null);
+        player.setLocationOfCape(null);
         player.setElytraOfCape(false);
         downloadCape(player);
     }

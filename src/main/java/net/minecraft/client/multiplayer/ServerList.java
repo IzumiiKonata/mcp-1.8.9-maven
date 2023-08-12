@@ -19,7 +19,7 @@ public class ServerList {
      * The Minecraft instance.
      */
     private final Minecraft mc;
-    private final List<ServerData> servers = Lists.<ServerData>newArrayList();
+    private final List<ServerData> servers = Lists.newArrayList();
 
     public ServerList(Minecraft mcIn) {
         this.mc = mcIn;
@@ -45,7 +45,7 @@ public class ServerList {
                 this.servers.add(ServerData.getServerDataFromNBTCompound(nbttaglist.getCompoundTagAt(i)));
             }
         } catch (Exception exception) {
-            logger.error((String) "Couldn\'t load server list", (Throwable) exception);
+            logger.error("Couldn't load server list", exception);
         }
     }
 
@@ -65,7 +65,7 @@ public class ServerList {
             nbttagcompound.setTag("servers", nbttaglist);
             CompressedStreamTools.safeWrite(nbttagcompound, new File(this.mc.mcDataDir, "servers.dat"));
         } catch (Exception exception) {
-            logger.error((String) "Couldn\'t save server list", (Throwable) exception);
+            logger.error("Couldn't save server list", exception);
         }
     }
 
@@ -73,7 +73,7 @@ public class ServerList {
      * Gets the ServerData instance stored for the given index in the list.
      */
     public ServerData getServerData(int index) {
-        return (ServerData) this.servers.get(index);
+        return this.servers.get(index);
     }
 
     /**

@@ -34,11 +34,10 @@ public class BlockReed extends Block {
                 int i;
 
                 for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i) {
-                    ;
                 }
 
                 if (i < 3) {
-                    int j = ((Integer) state.getValue(AGE)).intValue();
+                    int j = state.getValue(AGE).intValue();
 
                     if (j == 15) {
                         worldIn.setBlockState(pos.up(), this.getDefaultState());
@@ -135,10 +134,10 @@ public class BlockReed extends Block {
      * Convert the BlockState into the correct metadata value
      */
     public int getMetaFromState(IBlockState state) {
-        return ((Integer) state.getValue(AGE)).intValue();
+        return state.getValue(AGE).intValue();
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AGE});
+        return new BlockState(this, AGE);
     }
 }

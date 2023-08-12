@@ -268,7 +268,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
             return false;
         } else {
             ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks[0]);
-            return itemstack == null ? false : (this.furnaceItemStacks[2] == null ? true : (!this.furnaceItemStacks[2].isItemEqual(itemstack) ? false : (this.furnaceItemStacks[2].stackSize < this.getInventoryStackLimit() && this.furnaceItemStacks[2].stackSize < this.furnaceItemStacks[2].getMaxStackSize() ? true : this.furnaceItemStacks[2].stackSize < itemstack.getMaxStackSize())));
+            return itemstack != null && (this.furnaceItemStacks[2] == null || (this.furnaceItemStacks[2].isItemEqual(itemstack) && (this.furnaceItemStacks[2].stackSize < this.getInventoryStackLimit() && this.furnaceItemStacks[2].stackSize < this.furnaceItemStacks[2].getMaxStackSize() || this.furnaceItemStacks[2].stackSize < itemstack.getMaxStackSize())));
         }
     }
 
@@ -335,7 +335,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player) {
@@ -348,7 +348,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
      */
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return index == 2 ? false : (index != 1 ? true : isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack));
+        return index != 2 && (index != 1 || isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack));
     }
 
     public int[] getSlotsForFace(EnumFacing side) {
@@ -371,9 +371,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         if (direction == EnumFacing.DOWN && index == 1) {
             Item item = stack.getItem();
 
-            if (item != Items.water_bucket && item != Items.bucket) {
-                return false;
-            }
+            return item == Items.water_bucket || item == Items.bucket;
         }
 
         return true;

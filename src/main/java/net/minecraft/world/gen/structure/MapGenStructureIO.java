@@ -11,10 +11,10 @@ import org.apache.logging.log4j.Logger;
 
 public class MapGenStructureIO {
     private static final Logger logger = LogManager.getLogger();
-    private static Map<String, Class<? extends StructureStart>> startNameToClassMap = Maps.<String, Class<? extends StructureStart>>newHashMap();
-    private static Map<Class<? extends StructureStart>, String> startClassToNameMap = Maps.<Class<? extends StructureStart>, String>newHashMap();
-    private static Map<String, Class<? extends StructureComponent>> componentNameToClassMap = Maps.<String, Class<? extends StructureComponent>>newHashMap();
-    private static Map<Class<? extends StructureComponent>, String> componentClassToNameMap = Maps.<Class<? extends StructureComponent>, String>newHashMap();
+    private static final Map<String, Class<? extends StructureStart>> startNameToClassMap = Maps.newHashMap();
+    private static final Map<Class<? extends StructureStart>, String> startClassToNameMap = Maps.newHashMap();
+    private static final Map<String, Class<? extends StructureComponent>> componentNameToClassMap = Maps.newHashMap();
+    private static final Map<Class<? extends StructureComponent>, String> componentClassToNameMap = Maps.newHashMap();
 
     private static void registerStructure(Class<? extends StructureStart> startClass, String structureName) {
         startNameToClassMap.put(structureName, startClass);
@@ -27,21 +27,21 @@ public class MapGenStructureIO {
     }
 
     public static String getStructureStartName(StructureStart start) {
-        return (String) startClassToNameMap.get(start.getClass());
+        return startClassToNameMap.get(start.getClass());
     }
 
     public static String getStructureComponentName(StructureComponent component) {
-        return (String) componentClassToNameMap.get(component.getClass());
+        return componentClassToNameMap.get(component.getClass());
     }
 
     public static StructureStart getStructureStart(NBTTagCompound tagCompound, World worldIn) {
         StructureStart structurestart = null;
 
         try {
-            Class<? extends StructureStart> oclass = (Class) startNameToClassMap.get(tagCompound.getString("id"));
+            Class<? extends StructureStart> oclass = startNameToClassMap.get(tagCompound.getString("id"));
 
             if (oclass != null) {
-                structurestart = (StructureStart) oclass.newInstance();
+                structurestart = oclass.newInstance();
             }
         } catch (Exception exception) {
             logger.warn("Failed Start with id " + tagCompound.getString("id"));
@@ -61,10 +61,10 @@ public class MapGenStructureIO {
         StructureComponent structurecomponent = null;
 
         try {
-            Class<? extends StructureComponent> oclass = (Class) componentNameToClassMap.get(tagCompound.getString("id"));
+            Class<? extends StructureComponent> oclass = componentNameToClassMap.get(tagCompound.getString("id"));
 
             if (oclass != null) {
-                structurecomponent = (StructureComponent) oclass.newInstance();
+                structurecomponent = oclass.newInstance();
             }
         } catch (Exception exception) {
             logger.warn("Failed Piece with id " + tagCompound.getString("id"));

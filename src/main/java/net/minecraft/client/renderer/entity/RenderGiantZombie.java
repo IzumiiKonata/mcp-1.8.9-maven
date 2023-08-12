@@ -14,7 +14,7 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
     /**
      * Scale of the model to use
      */
-    private float scale;
+    private final float scale;
 
     public RenderGiantZombie(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn, float scaleIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn * scaleIn);

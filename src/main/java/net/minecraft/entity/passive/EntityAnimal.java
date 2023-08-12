@@ -48,7 +48,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
                 double d0 = this.rand.nextGaussian() * 0.02D;
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 double d2 = this.rand.nextGaussian() * 0.02D;
-                this.worldObj.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
         }
     }
@@ -122,7 +122,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
      * the animal type)
      */
     public boolean isBreedingItem(ItemStack stack) {
-        return stack == null ? false : stack.getItem() == Items.wheat;
+        return stack != null && stack.getItem() == Items.wheat;
     }
 
     /**
@@ -156,7 +156,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
             --stack.stackSize;
 
             if (stack.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
         }
     }
@@ -186,7 +186,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
      * Returns true if the mob is currently able to mate with the specified mob.
      */
     public boolean canMateWith(EntityAnimal otherAnimal) {
-        return otherAnimal == this ? false : (otherAnimal.getClass() != this.getClass() ? false : this.isInLove() && otherAnimal.isInLove());
+        return otherAnimal != this && (otherAnimal.getClass() == this.getClass() && this.isInLove() && otherAnimal.isInLove());
     }
 
     public void handleStatusUpdate(byte id) {
@@ -195,7 +195,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
                 double d0 = this.rand.nextGaussian() * 0.02D;
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 double d2 = this.rand.nextGaussian() * 0.02D;
-                this.worldObj.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
             }
         } else {
             super.handleStatusUpdate(id);

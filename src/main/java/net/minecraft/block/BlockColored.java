@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class BlockColored extends Block {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
 
     public BlockColored(Material materialIn) {
         super(materialIn);
@@ -27,7 +27,7 @@ public class BlockColored extends Block {
      * returns the metadata of the dropped item based on the old metadata of the block.
      */
     public int damageDropped(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     /**
@@ -43,7 +43,7 @@ public class BlockColored extends Block {
      * Get the MapColor for this Block and the given BlockState
      */
     public MapColor getMapColor(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMapColor();
+        return state.getValue(COLOR).getMapColor();
     }
 
     /**
@@ -57,10 +57,10 @@ public class BlockColored extends Block {
      * Convert the BlockState into the correct metadata value
      */
     public int getMetaFromState(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{COLOR});
+        return new BlockState(this, COLOR);
     }
 }

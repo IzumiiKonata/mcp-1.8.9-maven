@@ -18,7 +18,7 @@ public class RandomPositionGenerator {
      * finds a random target within par1(x,z) and par2 (y) blocks
      */
     public static Vec3 findRandomTarget(EntityCreature entitycreatureIn, int xz, int y) {
-        return findRandomTargetBlock(entitycreatureIn, xz, y, (Vec3) null);
+        return findRandomTargetBlock(entitycreatureIn, xz, y, null);
     }
 
     /**
@@ -51,8 +51,8 @@ public class RandomPositionGenerator {
         boolean flag1;
 
         if (entitycreatureIn.hasHome()) {
-            double d0 = entitycreatureIn.getHomePosition().distanceSq((double) MathHelper.floor_double(entitycreatureIn.posX), (double) MathHelper.floor_double(entitycreatureIn.posY), (double) MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
-            double d1 = (double) (entitycreatureIn.getMaximumHomeDistance() + (float) xz);
+            double d0 = entitycreatureIn.getHomePosition().distanceSq(MathHelper.floor_double(entitycreatureIn.posX), MathHelper.floor_double(entitycreatureIn.posY), MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
+            double d1 = entitycreatureIn.getMaximumHomeDistance() + (float) xz;
             flag1 = d0 < d1 * d1;
         } else {
             flag1 = false;
@@ -100,7 +100,7 @@ public class RandomPositionGenerator {
         }
 
         if (flag) {
-            return new Vec3((double) i, (double) j, (double) k);
+            return new Vec3(i, j, k);
         } else {
             return null;
         }

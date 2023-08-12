@@ -19,9 +19,9 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
      * The Attribute this is an instance of
      */
     private final IAttribute genericAttribute;
-    private final Map<Integer, Set<AttributeModifier>> mapByOperation = Maps.<Integer, Set<AttributeModifier>>newHashMap();
-    private final Map<String, Set<AttributeModifier>> mapByName = Maps.<String, Set<AttributeModifier>>newHashMap();
-    private final Map<UUID, AttributeModifier> mapByUUID = Maps.<UUID, AttributeModifier>newHashMap();
+    private final Map<Integer, Set<AttributeModifier>> mapByOperation = Maps.newHashMap();
+    private final Map<String, Set<AttributeModifier>> mapByName = Maps.newHashMap();
+    private final Map<UUID, AttributeModifier> mapByUUID = Maps.newHashMap();
     private double baseValue;
     private boolean needsUpdate = true;
     private double cachedValue;
@@ -32,7 +32,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         this.baseValue = genericAttributeIn.getDefaultValue();
 
         for (int i = 0; i < 3; ++i) {
-            this.mapByOperation.put(Integer.valueOf(i), Sets.<AttributeModifier>newHashSet());
+            this.mapByOperation.put(Integer.valueOf(i), Sets.newHashSet());
         }
     }
 
@@ -55,11 +55,11 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
     }
 
     public Collection<AttributeModifier> getModifiersByOperation(int operation) {
-        return (Collection) this.mapByOperation.get(Integer.valueOf(operation));
+        return this.mapByOperation.get(Integer.valueOf(operation));
     }
 
     public Collection<AttributeModifier> func_111122_c() {
-        Set<AttributeModifier> set = Sets.<AttributeModifier>newHashSet();
+        Set<AttributeModifier> set = Sets.newHashSet();
 
         for (int i = 0; i < 3; ++i) {
             set.addAll(this.getModifiersByOperation(i));
@@ -72,7 +72,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
      * Returns attribute modifier, if any, by the given UUID
      */
     public AttributeModifier getModifier(UUID uuid) {
-        return (AttributeModifier) this.mapByUUID.get(uuid);
+        return this.mapByUUID.get(uuid);
     }
 
     public boolean hasModifier(AttributeModifier modifier) {
@@ -83,14 +83,14 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
         if (this.getModifier(modifier.getID()) != null) {
             throw new IllegalArgumentException("Modifier is already applied on this attribute!");
         } else {
-            Set<AttributeModifier> set = (Set) this.mapByName.get(modifier.getName());
+            Set<AttributeModifier> set = this.mapByName.get(modifier.getName());
 
             if (set == null) {
-                set = Sets.<AttributeModifier>newHashSet();
+                set = Sets.newHashSet();
                 this.mapByName.put(modifier.getName(), set);
             }
 
-            ((Set) this.mapByOperation.get(Integer.valueOf(modifier.getOperation()))).add(modifier);
+            this.mapByOperation.get(Integer.valueOf(modifier.getOperation())).add(modifier);
             set.add(modifier);
             this.mapByUUID.put(modifier.getID(), modifier);
             this.flagForUpdate();
@@ -104,11 +104,11 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 
     public void removeModifier(AttributeModifier modifier) {
         for (int i = 0; i < 3; ++i) {
-            Set<AttributeModifier> set = (Set) this.mapByOperation.get(Integer.valueOf(i));
+            Set<AttributeModifier> set = this.mapByOperation.get(Integer.valueOf(i));
             set.remove(modifier);
         }
 
-        Set<AttributeModifier> set1 = (Set) this.mapByName.get(modifier.getName());
+        Set<AttributeModifier> set1 = this.mapByName.get(modifier.getName());
 
         if (set1 != null) {
             set1.remove(modifier);

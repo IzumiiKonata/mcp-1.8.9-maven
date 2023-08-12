@@ -88,7 +88,7 @@ public class EnchantmentProtection extends Enchantment {
     public boolean canApplyTogether(Enchantment ench) {
         if (ench instanceof EnchantmentProtection) {
             EnchantmentProtection enchantmentprotection = (EnchantmentProtection) ench;
-            return enchantmentprotection.protectionType == this.protectionType ? false : this.protectionType == 2 || enchantmentprotection.protectionType == 2;
+            return enchantmentprotection.protectionType != this.protectionType && (this.protectionType == 2 || enchantmentprotection.protectionType == 2);
         } else {
             return super.canApplyTogether(ench);
         }
@@ -111,7 +111,7 @@ public class EnchantmentProtection extends Enchantment {
         int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantment.blastProtection.effectId, p_92092_0_.getInventory());
 
         if (i > 0) {
-            p_92092_1_ -= (double) MathHelper.floor_double(p_92092_1_ * (double) ((float) i * 0.15F));
+            p_92092_1_ -= MathHelper.floor_double(p_92092_1_ * (double) ((float) i * 0.15F));
         }
 
         return p_92092_1_;

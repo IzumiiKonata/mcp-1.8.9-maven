@@ -25,13 +25,13 @@ public class StatBase {
     private final IStatType type;
     private final IScoreObjectiveCriteria objectiveCriteria;
     private Class<? extends IJsonSerializable> field_150956_d;
-    private static NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
+    private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
     public static IStatType simpleStatType = new IStatType() {
         public String format(int number) {
-            return StatBase.numberFormat.format((long) number);
+            return StatBase.numberFormat.format(number);
         }
     };
-    private static DecimalFormat decimalFormat = new DecimalFormat("########0.00");
+    private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
     public static IStatType timeStatType = new IStatType() {
         public String format(int number) {
             double d0 = (double) number / 20.0D;
@@ -81,7 +81,7 @@ public class StatBase {
      */
     public StatBase registerStat() {
         if (StatList.oneShotStats.containsKey(this.statId)) {
-            throw new RuntimeException("Duplicate stat id: \"" + ((StatBase) StatList.oneShotStats.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+            throw new RuntimeException("Duplicate stat id: \"" + StatList.oneShotStats.get(this.statId).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
         } else {
             StatList.allStats.add(this);
             StatList.oneShotStats.put(this.statId, this);

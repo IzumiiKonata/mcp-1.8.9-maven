@@ -61,13 +61,13 @@ public class CommandBanIp extends CommandBase {
                 EntityPlayerMP entityplayermp = MinecraftServer.getServer().getConfigurationManager().getPlayerByUsername(args[0]);
 
                 if (entityplayermp == null) {
-                    throw new PlayerNotFoundException("commands.banip.invalid", new Object[0]);
+                    throw new PlayerNotFoundException("commands.banip.invalid");
                 }
 
                 this.func_147210_a(sender, entityplayermp.getPlayerIP(), ichatcomponent == null ? null : ichatcomponent.getUnformattedText());
             }
         } else {
-            throw new WrongUsageException("commands.banip.usage", new Object[0]);
+            throw new WrongUsageException("commands.banip.usage");
         }
     }
 
@@ -76,7 +76,7 @@ public class CommandBanIp extends CommandBase {
     }
 
     protected void func_147210_a(ICommandSender sender, String address, String reason) {
-        IPBanEntry ipbanentry = new IPBanEntry(address, (Date) null, sender.getName(), (Date) null, reason);
+        IPBanEntry ipbanentry = new IPBanEntry(address, null, sender.getName(), null, reason);
         MinecraftServer.getServer().getConfigurationManager().getBannedIPs().addEntry(ipbanentry);
         List<EntityPlayerMP> list = MinecraftServer.getServer().getConfigurationManager().getPlayersMatchingAddress(address);
         String[] astring = new String[list.size()];
@@ -88,9 +88,9 @@ public class CommandBanIp extends CommandBase {
         }
 
         if (list.isEmpty()) {
-            notifyOperators(sender, this, "commands.banip.success", new Object[]{address});
+            notifyOperators(sender, this, "commands.banip.success", address);
         } else {
-            notifyOperators(sender, this, "commands.banip.success.players", new Object[]{address, joinNiceString(astring)});
+            notifyOperators(sender, this, "commands.banip.success.players", address, joinNiceString(astring));
         }
     }
 }

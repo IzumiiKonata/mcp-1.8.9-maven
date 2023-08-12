@@ -17,7 +17,7 @@ public class TokenParser {
             int i = pushbackreader.read();
 
             if (i < 0) {
-                Token[] atoken = (Token[]) ((Token[]) list.toArray(new Token[list.size()]));
+                Token[] atoken = list.toArray(new Token[list.size()]);
                 return atoken;
             }
 
@@ -27,7 +27,7 @@ public class TokenParser {
                 TokenType tokentype = TokenType.getTypeByFirstChar(c0);
 
                 if (tokentype == null) {
-                    throw new ParseException("Invalid character: \'" + c0 + "\', in: " + str);
+                    throw new ParseException("Invalid character: '" + c0 + "', in: " + str);
                 }
 
                 Token token = readToken(c0, tokentype, pushbackreader);

@@ -10,12 +10,12 @@ public class WorldChunkManagerHell extends WorldChunkManager {
     /**
      * The biome generator object.
      */
-    private BiomeGenBase biomeGenerator;
+    private final BiomeGenBase biomeGenerator;
 
     /**
      * The rainfall in the world
      */
-    private float rainfall;
+    private final float rainfall;
 
     public WorldChunkManagerHell(BiomeGenBase p_i45374_1_, float p_i45374_2_) {
         this.biomeGenerator = p_i45374_1_;

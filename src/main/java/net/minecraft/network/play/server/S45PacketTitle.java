@@ -22,7 +22,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
     }
 
     public S45PacketTitle(int fadeInTime, int displayTime, int fadeOutTime) {
-        this(S45PacketTitle.Type.TIMES, (IChatComponent) null, fadeInTime, displayTime, fadeOutTime);
+        this(S45PacketTitle.Type.TIMES, null, fadeInTime, displayTime, fadeOutTime);
     }
 
     public S45PacketTitle(S45PacketTitle.Type type, IChatComponent message, int fadeInTime, int displayTime, int fadeOutTime) {
@@ -37,7 +37,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
      * Reads the raw packet data from the data stream.
      */
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.type = (S45PacketTitle.Type) buf.readEnumValue(S45PacketTitle.Type.class);
+        this.type = buf.readEnumValue(Type.class);
 
         if (this.type == S45PacketTitle.Type.TITLE || this.type == S45PacketTitle.Type.SUBTITLE) {
             this.message = buf.readChatComponent();
@@ -94,7 +94,7 @@ public class S45PacketTitle implements Packet<INetHandlerPlayClient> {
         return this.fadeOutTime;
     }
 
-    public static enum Type {
+    public enum Type {
         TITLE,
         SUBTITLE,
         TIMES,

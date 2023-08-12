@@ -21,7 +21,7 @@ import net.minecraft.world.gen.MapGenBase;
 
 public abstract class MapGenStructure extends MapGenBase {
     private MapGenStructureData structureData;
-    protected Map<Long, StructureStart> structureMap = Maps.<Long, StructureStart>newHashMap();
+    protected Map<Long, StructureStart> structureMap = Maps.newHashMap();
 
     public abstract String getStructureName();
 
@@ -48,7 +48,7 @@ public abstract class MapGenStructure extends MapGenBase {
                         return MapGenStructure.this.canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False";
                     }
                 });
-                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", new Object[]{Integer.valueOf(chunkX), Integer.valueOf(chunkZ)}));
+                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", Integer.valueOf(chunkX), Integer.valueOf(chunkZ)));
                 crashreportcategory.addCrashSectionCallable("Chunk pos hash", new Callable<String>() {
                     public String call() throws Exception {
                         return String.valueOf(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ));
@@ -99,7 +99,7 @@ public abstract class MapGenStructure extends MapGenBase {
                         continue label24;
                     }
 
-                    StructureComponent structurecomponent = (StructureComponent) iterator.next();
+                    StructureComponent structurecomponent = iterator.next();
 
                     if (structurecomponent.getBoundingBox().isVecInside(pos)) {
                         break;
@@ -134,13 +134,13 @@ public abstract class MapGenStructure extends MapGenBase {
         long k = (long) (pos.getX() >> 4) * i;
         long l = (long) (pos.getZ() >> 4) * j;
         this.rand.setSeed(k ^ l ^ worldIn.getSeed());
-        this.recursiveGenerate(worldIn, pos.getX() >> 4, pos.getZ() >> 4, 0, 0, (ChunkPrimer) null);
+        this.recursiveGenerate(worldIn, pos.getX() >> 4, pos.getZ() >> 4, 0, 0, null);
         double d0 = Double.MAX_VALUE;
         BlockPos blockpos = null;
 
         for (StructureStart structurestart : this.structureMap.values()) {
             if (structurestart.isSizeableStructure()) {
-                StructureComponent structurecomponent = (StructureComponent) structurestart.getComponents().get(0);
+                StructureComponent structurecomponent = structurestart.getComponents().get(0);
                 BlockPos blockpos1 = structurecomponent.getBoundingBoxCenter();
                 double d1 = blockpos1.distanceSq(pos);
 

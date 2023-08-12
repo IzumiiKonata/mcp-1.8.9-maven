@@ -21,8 +21,8 @@ public class LanServerDetector {
     private static final Logger logger = LogManager.getLogger();
 
     public static class LanServer {
-        private String lanServerMotd;
-        private String lanServerIpPort;
+        private final String lanServerMotd;
+        private final String lanServerIpPort;
         private long timeLastSeen;
 
         public LanServer(String motd, String address) {
@@ -45,7 +45,7 @@ public class LanServerDetector {
     }
 
     public static class LanServerList {
-        private List<LanServerDetector.LanServer> listOfLanServers = Lists.<LanServerDetector.LanServer>newArrayList();
+        private final List<LanServerDetector.LanServer> listOfLanServers = Lists.newArrayList();
         boolean wasUpdated;
 
         public synchronized boolean getWasUpdated() {
@@ -57,7 +57,7 @@ public class LanServerDetector {
         }
 
         public synchronized List<LanServerDetector.LanServer> getLanServers() {
-            return Collections.<LanServerDetector.LanServer>unmodifiableList(this.listOfLanServers);
+            return Collections.unmodifiableList(this.listOfLanServers);
         }
 
         public synchronized void func_77551_a(String p_77551_1_, InetAddress p_77551_2_) {
@@ -110,7 +110,7 @@ public class LanServerDetector {
                 } catch (SocketTimeoutException var5) {
                     continue;
                 } catch (IOException ioexception) {
-                    LanServerDetector.logger.error((String) "Couldn\'t ping server", (Throwable) ioexception);
+                    LanServerDetector.logger.error("Couldn't ping server", ioexception);
                     break;
                 }
 
@@ -122,7 +122,6 @@ public class LanServerDetector {
             try {
                 this.socket.leaveGroup(this.broadcastAddress);
             } catch (IOException var4) {
-                ;
             }
 
             this.socket.close();

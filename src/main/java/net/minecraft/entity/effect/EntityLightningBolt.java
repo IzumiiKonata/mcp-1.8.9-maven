@@ -86,7 +86,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
                 List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(this.posX - d0, this.posY - d0, this.posZ - d0, this.posX + d0, this.posY + 6.0D + d0, this.posZ + d0));
 
                 for (int i = 0; i < list.size(); ++i) {
-                    Entity entity = (Entity) list.get(i);
+                    Entity entity = list.get(i);
                     entity.onStruckByLightning(this);
                 }
             }

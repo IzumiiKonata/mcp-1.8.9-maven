@@ -17,7 +17,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class BlockWoodSlab extends BlockSlab {
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.<BlockPlanks.EnumType>create("variant", BlockPlanks.EnumType.class);
+    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class);
 
     public BlockWoodSlab() {
         super(Material.wood);
@@ -35,7 +35,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
      * Get the MapColor for this Block and the given BlockState
      */
     public MapColor getMapColor(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMapColor();
+        return state.getValue(VARIANT).getMapColor();
     }
 
     /**
@@ -93,7 +93,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
      */
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        i = i | state.getValue(VARIANT).getMetadata();
 
         if (!this.isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
             i |= 8;
@@ -103,7 +103,7 @@ public abstract class BlockWoodSlab extends BlockSlab {
     }
 
     protected BlockState createBlockState() {
-        return this.isDouble() ? new BlockState(this, new IProperty[]{VARIANT}) : new BlockState(this, new IProperty[]{HALF, VARIANT});
+        return this.isDouble() ? new BlockState(this, VARIANT) : new BlockState(this, HALF, VARIANT);
     }
 
     /**
@@ -111,6 +111,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
      * returns the metadata of the dropped item based on the old metadata of the block.
      */
     public int damageDropped(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 }

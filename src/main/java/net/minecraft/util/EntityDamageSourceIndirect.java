@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 public class EntityDamageSourceIndirect extends EntityDamageSource {
-    private Entity indirectEntity;
+    private final Entity indirectEntity;
 
     public EntityDamageSourceIndirect(String damageTypeIn, Entity source, Entity indirectEntityIn) {
         super(damageTypeIn, source);
@@ -30,6 +30,6 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
         ItemStack itemstack = this.indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase) this.indirectEntity).getHeldItem() : null;
         String s = "death.attack." + this.damageType;
         String s1 = s + ".item";
-        return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName(), ichatcomponent, itemstack.getChatComponent()}) : new ChatComponentTranslation(s, new Object[]{entityLivingBaseIn.getDisplayName(), ichatcomponent});
+        return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, entityLivingBaseIn.getDisplayName(), ichatcomponent, itemstack.getChatComponent()) : new ChatComponentTranslation(s, entityLivingBaseIn.getDisplayName(), ichatcomponent);
     }
 }

@@ -16,7 +16,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
     protected final Map<K, V> registryObjects = this.createUnderlyingMap();
 
     protected Map<K, V> createUnderlyingMap() {
-        return Maps.<K, V>newHashMap();
+        return Maps.newHashMap();
     }
 
     public V getObject(K name) {
@@ -31,14 +31,14 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
         Validate.notNull(value);
 
         if (this.registryObjects.containsKey(key)) {
-            logger.debug("Adding duplicate key \'" + key + "\' to registry");
+            logger.debug("Adding duplicate key '" + key + "' to registry");
         }
 
         this.registryObjects.put(key, value);
     }
 
     public Set<K> getKeys() {
-        return Collections.<K>unmodifiableSet(this.registryObjects.keySet());
+        return Collections.unmodifiableSet(this.registryObjects.keySet());
     }
 
     /**

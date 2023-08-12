@@ -39,7 +39,7 @@ public class EntitySpider extends EntityMob {
         this.tasks.addTask(5, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntitySpider.AISpiderTarget(this, EntityPlayer.class));
         this.targetTasks.addTask(3, new EntitySpider.AISpiderTarget(this, EntityIronGolem.class));
     }
@@ -48,7 +48,7 @@ public class EntitySpider extends EntityMob {
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
     public double getMountedYOffset() {
-        return (double) (this.height * 0.5F);
+        return this.height * 0.5F;
     }
 
     /**
@@ -145,7 +145,7 @@ public class EntitySpider extends EntityMob {
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotionID() != Potion.poison.id && super.isPotionApplicable(potioneffectIn);
     }
 
     /**
@@ -182,7 +182,7 @@ public class EntitySpider extends EntityMob {
         if (this.worldObj.rand.nextInt(100) == 0) {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData) null);
+            entityskeleton.onInitialSpawn(difficulty, null);
             this.worldObj.spawnEntityInWorld(entityskeleton);
             entityskeleton.mountEntity(this);
         }
@@ -219,7 +219,7 @@ public class EntitySpider extends EntityMob {
             float f = this.attacker.getBrightness(1.0F);
 
             if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
-                this.attacker.setAttackTarget((EntityLivingBase) null);
+                this.attacker.setAttackTarget(null);
                 return false;
             } else {
                 return super.continueExecuting();
@@ -227,7 +227,7 @@ public class EntitySpider extends EntityMob {
         }
 
         protected double func_179512_a(EntityLivingBase attackTarget) {
-            return (double) (4.0F + attackTarget.width);
+            return 4.0F + attackTarget.width;
         }
     }
 
@@ -238,7 +238,7 @@ public class EntitySpider extends EntityMob {
 
         public boolean shouldExecute() {
             float f = this.taskOwner.getBrightness(1.0F);
-            return f >= 0.5F ? false : super.shouldExecute();
+            return !(f >= 0.5F) && super.shouldExecute();
         }
     }
 

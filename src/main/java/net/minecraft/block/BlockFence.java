@@ -149,7 +149,7 @@ public class BlockFence extends Block {
 
     public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos).getBlock();
-        return block == Blocks.barrier ? false : ((!(block instanceof BlockFence) || block.blockMaterial != this.blockMaterial) && !(block instanceof BlockFenceGate) ? (block.blockMaterial.isOpaque() && block.isFullCube() ? block.blockMaterial != Material.gourd : false) : true);
+        return block != Blocks.barrier && ((block instanceof BlockFence && block.blockMaterial == this.blockMaterial) || block instanceof BlockFenceGate || (block.blockMaterial.isOpaque() && block.isFullCube() && block.blockMaterial != Material.gourd));
     }
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
@@ -157,7 +157,7 @@ public class BlockFence extends Block {
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return worldIn.isRemote ? true : ItemLead.attachToFence(playerIn, worldIn, pos);
+        return worldIn.isRemote || ItemLead.attachToFence(playerIn, worldIn, pos);
     }
 
     /**
@@ -176,6 +176,6 @@ public class BlockFence extends Block {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{NORTH, EAST, WEST, SOUTH});
+        return new BlockState(this, NORTH, EAST, WEST, SOUTH);
     }
 }

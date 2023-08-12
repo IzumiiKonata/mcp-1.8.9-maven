@@ -41,7 +41,7 @@ public class Session {
             UUID uuid = UUIDTypeAdapter.fromString(this.getPlayerID());
             return new GameProfile(uuid, this.getUsername());
         } catch (IllegalArgumentException var2) {
-            return new GameProfile((UUID) null, this.getUsername());
+            return new GameProfile(null, this.getUsername());
         }
     }
 
@@ -52,19 +52,19 @@ public class Session {
         return this.sessionType;
     }
 
-    public static enum Type {
+    public enum Type {
         LEGACY("legacy"),
         MOJANG("mojang");
 
-        private static final Map<String, Session.Type> SESSION_TYPES = Maps.<String, Session.Type>newHashMap();
+        private static final Map<String, Session.Type> SESSION_TYPES = Maps.newHashMap();
         private final String sessionType;
 
-        private Type(String sessionTypeIn) {
+        Type(String sessionTypeIn) {
             this.sessionType = sessionTypeIn;
         }
 
         public static Session.Type setSessionType(String sessionTypeIn) {
-            return (Session.Type) SESSION_TYPES.get(sessionTypeIn.toLowerCase());
+            return SESSION_TYPES.get(sessionTypeIn.toLowerCase());
         }
 
         static {

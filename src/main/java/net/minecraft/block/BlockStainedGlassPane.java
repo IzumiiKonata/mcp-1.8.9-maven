@@ -17,7 +17,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
 public class BlockStainedGlassPane extends BlockPane {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
 
     public BlockStainedGlassPane() {
         super(Material.glass, false);
@@ -30,7 +30,7 @@ public class BlockStainedGlassPane extends BlockPane {
      * returns the metadata of the dropped item based on the old metadata of the block.
      */
     public int damageDropped(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     /**
@@ -46,7 +46,7 @@ public class BlockStainedGlassPane extends BlockPane {
      * Get the MapColor for this Block and the given BlockState
      */
     public MapColor getMapColor(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMapColor();
+        return state.getValue(COLOR).getMapColor();
     }
 
     public EnumWorldBlockLayer getBlockLayer() {
@@ -64,11 +64,11 @@ public class BlockStainedGlassPane extends BlockPane {
      * Convert the BlockState into the correct metadata value
      */
     public int getMetaFromState(IBlockState state) {
-        return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{NORTH, EAST, WEST, SOUTH, COLOR});
+        return new BlockState(this, NORTH, EAST, WEST, SOUTH, COLOR);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {

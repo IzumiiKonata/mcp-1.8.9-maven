@@ -1,8 +1,8 @@
 package net.optifine.reflect;
 
 public class ReflectorFields {
-    private ReflectorClass reflectorClass;
-    private Class fieldType;
+    private final ReflectorClass reflectorClass;
+    private final Class fieldType;
     private int fieldCount;
     private ReflectorField[] reflectorFields;
 

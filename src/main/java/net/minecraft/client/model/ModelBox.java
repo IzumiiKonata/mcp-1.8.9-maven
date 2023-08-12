@@ -6,12 +6,12 @@ public class ModelBox {
     /**
      * The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
      */
-    private PositionTextureVertex[] vertexPositions;
+    private final PositionTextureVertex[] vertexPositions;
 
     /**
      * An array of 6 TexturedQuads, one for each face of a cube
      */
-    private TexturedQuad[] quadList;
+    private final TexturedQuad[] quadList;
 
     /**
      * X vertex coordinate of lower box corner

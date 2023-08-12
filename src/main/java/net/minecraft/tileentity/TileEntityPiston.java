@@ -28,7 +28,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
      * the progress in (de)extending
      */
     private float lastProgress;
-    private List<Entity> field_174933_k = Lists.<Entity>newArrayList();
+    private final List<Entity> field_174933_k = Lists.newArrayList();
 
     public TileEntityPiston() {
     }
@@ -97,7 +97,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
         AxisAlignedBB axisalignedbb = Blocks.piston_extension.getBoundingBox(this.worldObj, this.pos, this.pistonState, p_145863_1_, this.pistonFacing);
 
         if (axisalignedbb != null) {
-            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity) null, axisalignedbb);
+            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
             if (!list.isEmpty()) {
                 this.field_174933_k.addAll(list);
@@ -106,18 +106,18 @@ public class TileEntityPiston extends TileEntity implements ITickable {
                     if (this.pistonState.getBlock() == Blocks.slime_block && this.extending) {
                         switch (this.pistonFacing.getAxis()) {
                             case X:
-                                entity.motionX = (double) this.pistonFacing.getFrontOffsetX();
+                                entity.motionX = this.pistonFacing.getFrontOffsetX();
                                 break;
 
                             case Y:
-                                entity.motionY = (double) this.pistonFacing.getFrontOffsetY();
+                                entity.motionY = this.pistonFacing.getFrontOffsetY();
                                 break;
 
                             case Z:
-                                entity.motionZ = (double) this.pistonFacing.getFrontOffsetZ();
+                                entity.motionZ = this.pistonFacing.getFrontOffsetZ();
                         }
                     } else {
-                        entity.moveEntity((double) (p_145863_2_ * (float) this.pistonFacing.getFrontOffsetX()), (double) (p_145863_2_ * (float) this.pistonFacing.getFrontOffsetY()), (double) (p_145863_2_ * (float) this.pistonFacing.getFrontOffsetZ()));
+                        entity.moveEntity(p_145863_2_ * (float) this.pistonFacing.getFrontOffsetX(), p_145863_2_ * (float) this.pistonFacing.getFrontOffsetY(), p_145863_2_ * (float) this.pistonFacing.getFrontOffsetZ());
                     }
                 }
 

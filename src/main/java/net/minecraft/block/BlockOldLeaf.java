@@ -21,7 +21,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockOldLeaf extends BlockLeaves {
-    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.<BlockPlanks.EnumType>create("variant", BlockPlanks.EnumType.class, new Predicate<BlockPlanks.EnumType>() {
+    public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, new Predicate<BlockPlanks.EnumType>() {
         public boolean apply(BlockPlanks.EnumType p_apply_1_) {
             return p_apply_1_.getMetadata() < 4;
         }
@@ -35,7 +35,7 @@ public class BlockOldLeaf extends BlockLeaves {
         if (state.getBlock() != this) {
             return super.getRenderColor(state);
         } else {
-            BlockPlanks.EnumType blockplanks$enumtype = (BlockPlanks.EnumType) state.getValue(VARIANT);
+            BlockPlanks.EnumType blockplanks$enumtype = state.getValue(VARIANT);
             return blockplanks$enumtype == BlockPlanks.EnumType.SPRUCE ? ColorizerFoliage.getFoliageColorPine() : (blockplanks$enumtype == BlockPlanks.EnumType.BIRCH ? ColorizerFoliage.getFoliageColorBirch() : super.getRenderColor(state));
         }
     }
@@ -44,7 +44,7 @@ public class BlockOldLeaf extends BlockLeaves {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         if (iblockstate.getBlock() == this) {
-            BlockPlanks.EnumType blockplanks$enumtype = (BlockPlanks.EnumType) iblockstate.getValue(VARIANT);
+            BlockPlanks.EnumType blockplanks$enumtype = iblockstate.getValue(VARIANT);
 
             if (blockplanks$enumtype == BlockPlanks.EnumType.SPRUCE) {
                 return ColorizerFoliage.getFoliageColorPine();
@@ -79,7 +79,7 @@ public class BlockOldLeaf extends BlockLeaves {
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata());
+        return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
     }
 
     /**
@@ -94,13 +94,13 @@ public class BlockOldLeaf extends BlockLeaves {
      */
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        i = i | state.getValue(VARIANT).getMetadata();
 
-        if (!((Boolean) state.getValue(DECAYABLE)).booleanValue()) {
+        if (!state.getValue(DECAYABLE).booleanValue()) {
             i |= 4;
         }
 
-        if (((Boolean) state.getValue(CHECK_DECAY)).booleanValue()) {
+        if (state.getValue(CHECK_DECAY).booleanValue()) {
             i |= 8;
         }
 
@@ -112,7 +112,7 @@ public class BlockOldLeaf extends BlockLeaves {
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{VARIANT, CHECK_DECAY, DECAYABLE});
+        return new BlockState(this, VARIANT, CHECK_DECAY, DECAYABLE);
     }
 
     /**
@@ -120,13 +120,13 @@ public class BlockOldLeaf extends BlockLeaves {
      * returns the metadata of the dropped item based on the old metadata of the block.
      */
     public int damageDropped(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
             player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
-            spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1, ((BlockPlanks.EnumType) state.getValue(VARIANT)).getMetadata()));
+            spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata()));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te);
         }

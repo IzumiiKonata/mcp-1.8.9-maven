@@ -14,16 +14,16 @@ import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
 
 public class EntityAIMoveThroughVillage extends EntityAIBase {
-    private EntityCreature theEntity;
-    private double movementSpeed;
+    private final EntityCreature theEntity;
+    private final double movementSpeed;
 
     /**
      * The PathNavigate of our entity.
      */
     private PathEntity entityPathNavigate;
     private VillageDoorInfo doorInfo;
-    private boolean isNocturnal;
-    private List<VillageDoorInfo> doorList = Lists.<VillageDoorInfo>newArrayList();
+    private final boolean isNocturnal;
+    private final List<VillageDoorInfo> doorList = Lists.newArrayList();
 
     public EntityAIMoveThroughVillage(EntityCreature theEntityIn, double movementSpeedIn, boolean isNocturnalIn) {
         this.theEntity = theEntityIn;
@@ -64,7 +64,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
                     if (this.entityPathNavigate != null) {
                         return true;
                     } else {
-                        Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 10, 7, new Vec3((double) this.doorInfo.getDoorBlockPos().getX(), (double) this.doorInfo.getDoorBlockPos().getY(), (double) this.doorInfo.getDoorBlockPos().getZ()));
+                        Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 10, 7, new Vec3(this.doorInfo.getDoorBlockPos().getX(), this.doorInfo.getDoorBlockPos().getY(), this.doorInfo.getDoorBlockPos().getZ()));
 
                         if (vec3 == null) {
                             return false;

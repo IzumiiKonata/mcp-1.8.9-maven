@@ -3,9 +3,9 @@ package net.optifine;
 import net.minecraft.world.World;
 
 public class LightMapPack {
-    private LightMap lightMap;
-    private LightMap lightMapRain;
-    private LightMap lightMapThunder;
+    private final LightMap lightMap;
+    private final LightMap lightMapRain;
+    private final LightMap lightMapThunder;
     private int[] colorBuffer1 = new int[0];
     private int[] colorBuffer2 = new int[0];
 
@@ -72,7 +72,7 @@ public class LightMapPack {
                         ++j;
                     }
 
-                    return j == 2 ? this.blend(aint[0], afloat[0], aint[1], afloat[1]) : (j == 3 ? this.blend(aint[0], afloat[0], aint[1], afloat[1], aint[2], afloat[2]) : true);
+                    return j == 2 ? this.blend(aint[0], afloat[0], aint[1], afloat[1]) : (j != 3 || this.blend(aint[0], afloat[0], aint[1], afloat[1], aint[2], afloat[2]));
                 }
             } else {
                 return this.lightMap.updateLightmap(world, torchFlickerX, lmColors, nightvision);

@@ -57,10 +57,10 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
                         ServerListEntryNormal.this.owner.getOldServerPinger().ping(ServerListEntryNormal.this.server);
                     } catch (UnknownHostException var2) {
                         ServerListEntryNormal.this.server.pingToServer = -1L;
-                        ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can\'t resolve hostname";
+                        ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't resolve hostname";
                     } catch (Exception var3) {
                         ServerListEntryNormal.this.server.pingToServer = -1L;
-                        ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can\'t connect to server.";
+                        ServerListEntryNormal.this.server.serverMOTD = EnumChatFormatting.DARK_RED + "Can't connect to server.";
                     }
                 }
             });
@@ -73,7 +73,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
         List<String> list = this.mc.fontRendererObj.listFormattedStringToWidth(this.server.serverMOTD, listWidth - 32 - 2);
 
         for (int i = 0; i < Math.min(list.size(), 2); ++i) {
-            this.mc.fontRendererObj.drawString((String) list.get(i), x + 32 + 3, y + 12 + this.mc.fontRendererObj.FONT_HEIGHT * i, 8421504);
+            this.mc.fontRendererObj.drawString(list.get(i), x + 32 + 3, y + 12 + this.mc.fontRendererObj.FONT_HEIGHT * i, 8421504);
         }
 
         String s2 = flag2 ? EnumChatFormatting.DARK_RED + this.server.gameVersion : this.server.populationInfo;
@@ -111,7 +111,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             }
         } else {
             k = 1;
-            l = (int) (Minecraft.getSystemTime() / 100L + (long) (slotIndex * 2) & 7L);
+            l = (int) (Minecraft.getSystemTime() / 100L + (long) (slotIndex * 2L) & 7L);
 
             if (l > 4) {
                 l = 8 - l;
@@ -194,19 +194,19 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
             this.mc.getTextureManager().deleteTexture(this.serverIcon);
             this.field_148305_h = null;
         } else {
-            ByteBuf bytebuf = Unpooled.copiedBuffer((CharSequence) this.server.getBase64EncodedIconData(), Charsets.UTF_8);
+            ByteBuf bytebuf = Unpooled.copiedBuffer(this.server.getBase64EncodedIconData(), Charsets.UTF_8);
             ByteBuf bytebuf1 = Base64.decode(bytebuf);
             BufferedImage bufferedimage;
             label101:
             {
                 try {
                     bufferedimage = TextureUtil.readBufferedImage(new ByteBufInputStream(bytebuf1));
-                    Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide", new Object[0]);
-                    Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high", new Object[0]);
+                    Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
+                    Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
                     break label101;
                 } catch (Throwable throwable) {
                     logger.error("Invalid icon for server " + this.server.serverName + " (" + this.server.serverIP + ")", throwable);
-                    this.server.setBase64EncodedIconData((String) null);
+                    this.server.setBase64EncodedIconData(null);
                 } finally {
                     bytebuf.release();
                     bytebuf1.release();

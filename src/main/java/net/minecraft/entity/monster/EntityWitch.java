@@ -51,7 +51,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
         this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(3, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
 
@@ -111,7 +111,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
                 if (this.witchAttackTimer-- <= 0) {
                     this.setAggressive(false);
                     ItemStack itemstack = this.getHeldItem();
-                    this.setCurrentItemOrArmor(0, (ItemStack) null);
+                    this.setCurrentItemOrArmor(0, null);
 
                     if (itemstack != null && itemstack.getItem() == Items.potionitem) {
                         List<PotionEffect> list = Items.potionitem.getEffects(itemstack);
@@ -161,7 +161,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
     public void handleStatusUpdate(byte id) {
         if (id == 15) {
             for (int i = 0; i < this.rand.nextInt(35) + 10; ++i) {
-                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH, this.posX + this.rand.nextGaussian() * 0.12999999523162842D, this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D, this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D, new int[0]);
+                this.worldObj.spawnParticle(EnumParticleTypes.SPELL_WITCH, this.posX + this.rand.nextGaussian() * 0.12999999523162842D, this.getEntityBoundingBox().maxY + 0.5D + this.rand.nextGaussian() * 0.12999999523162842D, this.posZ + this.rand.nextGaussian() * 0.12999999523162842D, 0.0D, 0.0D, 0.0D);
             }
         } else {
             super.handleStatusUpdate(id);

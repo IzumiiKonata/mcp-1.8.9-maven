@@ -27,11 +27,11 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 
 public class ChunkProviderFlat implements IChunkProvider {
-    private World worldObj;
-    private Random random;
+    private final World worldObj;
+    private final Random random;
     private final IBlockState[] cachedBlockIDs = new IBlockState[256];
     private final FlatGeneratorInfo flatWorldGenInfo;
-    private final List<MapGenStructure> structureGenerators = Lists.<MapGenStructure>newArrayList();
+    private final List<MapGenStructure> structureGenerators = Lists.newArrayList();
     private final boolean hasDecoration;
     private final boolean hasDungeons;
     private WorldGenLakes waterLakeGenerator;
@@ -46,7 +46,7 @@ public class ChunkProviderFlat implements IChunkProvider {
             Map<String, Map<String, String>> map = this.flatWorldGenInfo.getWorldFeatures();
 
             if (map.containsKey("village")) {
-                Map<String, String> map1 = (Map) map.get("village");
+                Map<String, String> map1 = map.get("village");
 
                 if (!map1.containsKey("size")) {
                     map1.put("size", "1");
@@ -56,19 +56,19 @@ public class ChunkProviderFlat implements IChunkProvider {
             }
 
             if (map.containsKey("biome_1")) {
-                this.structureGenerators.add(new MapGenScatteredFeature((Map) map.get("biome_1")));
+                this.structureGenerators.add(new MapGenScatteredFeature(map.get("biome_1")));
             }
 
             if (map.containsKey("mineshaft")) {
-                this.structureGenerators.add(new MapGenMineshaft((Map) map.get("mineshaft")));
+                this.structureGenerators.add(new MapGenMineshaft(map.get("mineshaft")));
             }
 
             if (map.containsKey("stronghold")) {
-                this.structureGenerators.add(new MapGenStronghold((Map) map.get("stronghold")));
+                this.structureGenerators.add(new MapGenStronghold(map.get("stronghold")));
             }
 
             if (map.containsKey("oceanmonument")) {
-                this.structureGenerators.add(new StructureOceanMonument((Map) map.get("oceanmonument")));
+                this.structureGenerators.add(new StructureOceanMonument(map.get("oceanmonument")));
             }
         }
 
@@ -104,7 +104,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         }
 
         worldIn.setSeaLevel(j);
-        this.hasDecoration = flag ? false : this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
+        this.hasDecoration = !flag && this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
     }
 
     /**
@@ -131,7 +131,7 @@ public class ChunkProviderFlat implements IChunkProvider {
         }
 
         Chunk chunk = new Chunk(this.worldObj, chunkprimer, x, z);
-        BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData((BiomeGenBase[]) null, x * 16, z * 16, 16, 16);
+        BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int l = 0; l < abyte.length; ++l) {
@@ -258,7 +258,7 @@ public class ChunkProviderFlat implements IChunkProvider {
 
     public void recreateStructures(Chunk chunkIn, int x, int z) {
         for (MapGenStructure mapgenstructure : this.structureGenerators) {
-            mapgenstructure.generate(this, this.worldObj, x, z, (ChunkPrimer) null);
+            mapgenstructure.generate(this, this.worldObj, x, z, null);
         }
     }
 

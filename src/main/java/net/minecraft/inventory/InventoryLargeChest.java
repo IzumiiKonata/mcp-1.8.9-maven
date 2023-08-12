@@ -13,17 +13,17 @@ public class InventoryLargeChest implements ILockableContainer {
     /**
      * Name of the chest.
      */
-    private String name;
+    private final String name;
 
     /**
      * Inventory object corresponding to double chest upper part
      */
-    private ILockableContainer upperChest;
+    private final ILockableContainer upperChest;
 
     /**
      * Inventory object corresponding to double chest lower part
      */
-    private ILockableContainer lowerChest;
+    private final ILockableContainer lowerChest;
 
     public InventoryLargeChest(String nameIn, ILockableContainer upperChestIn, ILockableContainer lowerChestIn) {
         this.name = nameIn;
@@ -78,7 +78,7 @@ public class InventoryLargeChest implements ILockableContainer {
      * Get the formatted ChatComponent that will be used for the sender's username in chat
      */
     public IChatComponent getDisplayName() {
-        return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
     }
 
     /**

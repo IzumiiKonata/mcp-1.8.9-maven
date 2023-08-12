@@ -24,14 +24,14 @@ public class ChunkProviderClient implements IChunkProvider {
      * The completely empty chunk used by ChunkProviderClient when chunkMapping doesn't contain the requested
      * coordinates.
      */
-    private Chunk blankChunk;
-    private LongHashMap<Chunk> chunkMapping = new LongHashMap();
-    private List<Chunk> chunkListing = Lists.<Chunk>newArrayList();
+    private final Chunk blankChunk;
+    private final LongHashMap<Chunk> chunkMapping = new LongHashMap();
+    private final List<Chunk> chunkListing = Lists.newArrayList();
 
     /**
      * Reference to the World object.
      */
-    private World worldObj;
+    private final World worldObj;
 
     public ChunkProviderClient(World worldIn) {
         this.blankChunk = new EmptyChunk(worldIn, 0, 0);
@@ -79,7 +79,7 @@ public class ChunkProviderClient implements IChunkProvider {
      * specified chunk from the map seed and chunk seed
      */
     public Chunk provideChunk(int x, int z) {
-        Chunk chunk = (Chunk) this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
+        Chunk chunk = this.chunkMapping.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return chunk == null ? this.blankChunk : chunk;
     }
 
@@ -109,7 +109,7 @@ public class ChunkProviderClient implements IChunkProvider {
         }
 
         if (System.currentTimeMillis() - i > 100L) {
-            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[]{Long.valueOf(System.currentTimeMillis() - i)});
+            logger.info("Warning: Clientside chunk ticking took {} ms", Long.valueOf(System.currentTimeMillis() - i));
         }
 
         return false;

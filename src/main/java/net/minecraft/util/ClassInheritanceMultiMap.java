@@ -17,10 +17,10 @@ import net.optifine.util.IteratorCache;
 
 public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     private static final Set<Class<?>> field_181158_a = Collections.<Class<?>>newSetFromMap(new ConcurrentHashMap());
-    private final Map<Class<?>, List<T>> map = Maps.<Class<?>, List<T>>newHashMap();
-    private final Set<Class<?>> knownKeys = Sets.<Class<?>>newIdentityHashSet();
+    private final Map<Class<?>, List<T>> map = Maps.newHashMap();
+    private final Set<Class<?>> knownKeys = Sets.newIdentityHashSet();
     private final Class<T> baseClass;
-    private final List<T> values = Lists.<T>newArrayList();
+    private final List<T> values = Lists.newArrayList();
     public boolean empty;
 
     public ClassInheritanceMultiMap(Class<T> baseClassIn) {
@@ -58,7 +58,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 
             return clazz;
         } else {
-            throw new IllegalArgumentException("Don\'t know how to search for " + clazz);
+            throw new IllegalArgumentException("Don't know how to search for " + clazz);
         }
     }
 
@@ -74,7 +74,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     }
 
     private void addForClass(T value, Class<?> parentClass) {
-        List<T> list = (List) this.map.get(parentClass);
+        List<T> list = this.map.get(parentClass);
 
         if (list == null) {
             this.map.put(parentClass, Lists.newArrayList(value));
@@ -91,7 +91,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 
         for (Class<?> oclass : this.knownKeys) {
             if (oclass.isAssignableFrom(t.getClass())) {
-                List<T> list = (List) this.map.get(oclass);
+                List<T> list = this.map.get(oclass);
 
                 if (list != null && list.remove(t)) {
                     flag = true;
@@ -110,10 +110,10 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
     public <S> Iterable<S> getByClass(final Class<S> clazz) {
         return new Iterable<S>() {
             public Iterator<S> iterator() {
-                List<T> list = (List) ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
+                List<T> list = ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
 
                 if (list == null) {
-                    return Iterators.<S>emptyIterator();
+                    return Iterators.emptyIterator();
                 } else {
                     Iterator<T> iterator = list.iterator();
                     return Iterators.filter(iterator, clazz);

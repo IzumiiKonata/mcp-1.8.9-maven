@@ -52,7 +52,7 @@ public class CommandBanPlayer extends CommandBase {
             GameProfile gameprofile = minecraftserver.getPlayerProfileCache().getGameProfileForUsername(args[0]);
 
             if (gameprofile == null) {
-                throw new CommandException("commands.ban.failed", new Object[]{args[0]});
+                throw new CommandException("commands.ban.failed", args[0]);
             } else {
                 String s = null;
 
@@ -60,7 +60,7 @@ public class CommandBanPlayer extends CommandBase {
                     s = getChatComponentFromNthArg(sender, args, 1).getUnformattedText();
                 }
 
-                UserListBansEntry userlistbansentry = new UserListBansEntry(gameprofile, (Date) null, sender.getName(), (Date) null, s);
+                UserListBansEntry userlistbansentry = new UserListBansEntry(gameprofile, null, sender.getName(), null, s);
                 minecraftserver.getConfigurationManager().getBannedPlayers().addEntry(userlistbansentry);
                 EntityPlayerMP entityplayermp = minecraftserver.getConfigurationManager().getPlayerByUsername(args[0]);
 
@@ -68,10 +68,10 @@ public class CommandBanPlayer extends CommandBase {
                     entityplayermp.playerNetServerHandler.kickPlayerFromServer("You are banned from this server.");
                 }
 
-                notifyOperators(sender, this, "commands.ban.success", new Object[]{args[0]});
+                notifyOperators(sender, this, "commands.ban.success", args[0]);
             }
         } else {
-            throw new WrongUsageException("commands.ban.usage", new Object[0]);
+            throw new WrongUsageException("commands.ban.usage");
         }
     }
 

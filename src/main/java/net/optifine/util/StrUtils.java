@@ -11,7 +11,7 @@ public class StrUtils {
                 return mask.indexOf(wildCharSingle) < 0 ? mask.equals(str) : equalsMaskSingle(str, mask, wildCharSingle);
             } else {
                 List list = new ArrayList();
-                String s = "" + wildChar;
+                String s = String.valueOf(wildChar);
 
                 if (mask.startsWith(s)) {
                     list.add("");
@@ -39,7 +39,7 @@ public class StrUtils {
                     } else {
                         int i = 0;
 
-                        for (int j = 0; j < ((List) list).size(); ++j) {
+                        for (int j = 0; j < list.size(); ++j) {
                             String s3 = (String) list.get(j);
 
                             if (s3.length() > 0) {
@@ -111,7 +111,7 @@ public class StrUtils {
             if (str.length() < mask.length()) {
                 return false;
             } else {
-                String s = str.substring(str.length() - mask.length(), str.length());
+                String s = str.substring(str.length() - mask.length());
                 return equalsMaskSingle(s, mask, wildCharSingle);
             }
         } else {
@@ -150,7 +150,7 @@ public class StrUtils {
                 return mask.equals(str);
             } else {
                 List list = new ArrayList();
-                String s = "" + wildChar;
+                String s = String.valueOf(wildChar);
 
                 if (mask.startsWith(s)) {
                     list.add("");
@@ -178,7 +178,7 @@ public class StrUtils {
                     } else {
                         int i = 0;
 
-                        for (int j = 0; j < ((List) list).size(); ++j) {
+                        for (int j = 0; j < list.size(); ++j) {
                             String s3 = (String) list.get(j);
 
                             if (s3.length() > 0) {
@@ -218,8 +218,8 @@ public class StrUtils {
                     }
                 }
 
-                list.add(str.substring(i, str.length()));
-                return (String[]) ((String[]) list.toArray(new String[list.size()]));
+                list.add(str.substring(i));
+                return (String[]) list.toArray(new String[list.size()]);
             }
         } else {
             return new String[0];
@@ -249,7 +249,7 @@ public class StrUtils {
     }
 
     public static boolean isEmpty(String string) {
-        return string == null ? true : string.trim().length() <= 0;
+        return string == null || string.trim().length() <= 0;
     }
 
     public static String stringInc(String str) {
@@ -259,8 +259,8 @@ public class StrUtils {
             return "";
         } else {
             ++i;
-            String s = "" + i;
-            return s.length() > str.length() ? "" : fillLeft("" + i, str.length(), '0');
+            String s = String.valueOf(i);
+            return s.length() > str.length() ? "" : fillLeft(String.valueOf(i), str.length(), '0');
         }
     }
 
@@ -305,7 +305,7 @@ public class StrUtils {
                 stringbuffer.append(fillChar);
             }
 
-            return stringbuffer.toString() + s;
+            return stringbuffer + s;
         }
     }
 
@@ -328,7 +328,7 @@ public class StrUtils {
     }
 
     public static boolean equals(Object a, Object b) {
-        return a == b ? true : (a != null && a.equals(b) ? true : b != null && b.equals(a));
+        return a == b || (a != null && a.equals(b) || b != null && b.equals(a));
     }
 
     public static boolean startsWith(String str, String[] prefixes) {
@@ -474,7 +474,7 @@ public class StrUtils {
                     }
                 }
 
-                String[] astring = (String[]) list.toArray(new String[list.size()]);
+                String[] astring = list.toArray(new String[list.size()]);
                 return astring;
             }
         } else {

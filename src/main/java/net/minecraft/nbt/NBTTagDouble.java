@@ -39,7 +39,7 @@ public class NBTTagDouble extends NBTBase.NBTPrimitive {
     }
 
     public String toString() {
-        return "" + this.data + "d";
+        return this.data + "d";
     }
 
     /**

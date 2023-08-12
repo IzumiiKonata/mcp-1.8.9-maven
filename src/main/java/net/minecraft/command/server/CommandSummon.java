@@ -46,7 +46,7 @@ public class CommandSummon extends CommandBase {
      */
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1) {
-            throw new WrongUsageException("commands.summon.usage", new Object[0]);
+            throw new WrongUsageException("commands.summon.usage");
         } else {
             String s = args[0];
             BlockPos blockpos = sender.getPosition();
@@ -65,10 +65,10 @@ public class CommandSummon extends CommandBase {
             World world = sender.getEntityWorld();
 
             if (!world.isBlockLoaded(blockpos)) {
-                throw new CommandException("commands.summon.outOfWorld", new Object[0]);
+                throw new CommandException("commands.summon.outOfWorld");
             } else if ("LightningBolt".equals(s)) {
                 world.addWeatherEffect(new EntityLightningBolt(world, d0, d1, d2));
-                notifyOperators(sender, this, "commands.summon.success", new Object[0]);
+                notifyOperators(sender, this, "commands.summon.success");
             } else {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 boolean flag = false;
@@ -80,7 +80,7 @@ public class CommandSummon extends CommandBase {
                         nbttagcompound = JsonToNBT.getTagFromJson(ichatcomponent.getUnformattedText());
                         flag = true;
                     } catch (NBTException nbtexception) {
-                        throw new CommandException("commands.summon.tagError", new Object[]{nbtexception.getMessage()});
+                        throw new CommandException("commands.summon.tagError", nbtexception.getMessage());
                     }
                 }
 
@@ -90,16 +90,16 @@ public class CommandSummon extends CommandBase {
                 try {
                     entity2 = EntityList.createEntityFromNBT(nbttagcompound, world);
                 } catch (RuntimeException var19) {
-                    throw new CommandException("commands.summon.failed", new Object[0]);
+                    throw new CommandException("commands.summon.failed");
                 }
 
                 if (entity2 == null) {
-                    throw new CommandException("commands.summon.failed", new Object[0]);
+                    throw new CommandException("commands.summon.failed");
                 } else {
                     entity2.setLocationAndAngles(d0, d1, d2, entity2.rotationYaw, entity2.rotationPitch);
 
                     if (!flag && entity2 instanceof EntityLiving) {
-                        ((EntityLiving) entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), (IEntityLivingData) null);
+                        ((EntityLiving) entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), null);
                     }
 
                     world.spawnEntityInWorld(entity2);
@@ -117,7 +117,7 @@ public class CommandSummon extends CommandBase {
                         entity = entity1;
                     }
 
-                    notifyOperators(sender, this, "commands.summon.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.summon.success");
                 }
             }
         }

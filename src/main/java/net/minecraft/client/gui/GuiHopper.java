@@ -17,12 +17,12 @@ public class GuiHopper extends GuiContainer {
     /**
      * The player inventory currently bound to this GUI instance
      */
-    private IInventory playerInventory;
+    private final IInventory playerInventory;
 
     /**
      * The hopper inventory bound to this GUI instance
      */
-    private IInventory hopperInventory;
+    private final IInventory hopperInventory;
 
     public GuiHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().thePlayer));

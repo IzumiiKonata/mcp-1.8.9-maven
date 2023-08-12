@@ -23,7 +23,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
      * Handles drawing a list's header row.
      */
     protected void drawListHeader(int p_148129_1_, int p_148129_2_, Tessellator p_148129_3_) {
-        String s = EnumChatFormatting.UNDERLINE + "" + EnumChatFormatting.BOLD + this.getListHeader();
+        String s = EnumChatFormatting.UNDERLINE + String.valueOf(EnumChatFormatting.BOLD) + this.getListHeader();
         this.mc.fontRendererObj.drawString(s, p_148129_1_ + this.width / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2, Math.min(this.top + 3, p_148129_2_), 16777215);
     }
 
@@ -41,7 +41,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
      * Gets the IGuiListEntry object for the given index
      */
     public ResourcePackListEntry getListEntry(int index) {
-        return (ResourcePackListEntry) this.getList().get(index);
+        return this.getList().get(index);
     }
 
     /**

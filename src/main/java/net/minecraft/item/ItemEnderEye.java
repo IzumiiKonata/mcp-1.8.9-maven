@@ -24,7 +24,7 @@ public class ItemEnderEye extends Item {
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
-        if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && iblockstate.getBlock() == Blocks.end_portal_frame && !((Boolean) iblockstate.getValue(BlockEndPortalFrame.EYE)).booleanValue()) {
+        if (playerIn.canPlayerEdit(pos.offset(side), side, stack) && iblockstate.getBlock() == Blocks.end_portal_frame && !iblockstate.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
             if (worldIn.isRemote) {
                 return true;
             } else {
@@ -33,16 +33,16 @@ public class ItemEnderEye extends Item {
                 --stack.stackSize;
 
                 for (int i = 0; i < 16; ++i) {
-                    double d0 = (double) ((float) pos.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
-                    double d1 = (double) ((float) pos.getY() + 0.8125F);
-                    double d2 = (double) ((float) pos.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
+                    double d0 = (float) pos.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F;
+                    double d1 = (float) pos.getY() + 0.8125F;
+                    double d2 = (float) pos.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F;
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
                 }
 
-                EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(BlockEndPortalFrame.FACING);
+                EnumFacing enumfacing = iblockstate.getValue(BlockEndPortalFrame.FACING);
                 int l = 0;
                 int j = 0;
                 boolean flag1 = false;
@@ -54,7 +54,7 @@ public class ItemEnderEye extends Item {
                     IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
 
                     if (iblockstate1.getBlock() == Blocks.end_portal_frame) {
-                        if (!((Boolean) iblockstate1.getValue(BlockEndPortalFrame.EYE)).booleanValue()) {
+                        if (!iblockstate1.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
                             flag = false;
                             break;
                         }
@@ -75,7 +75,7 @@ public class ItemEnderEye extends Item {
                         BlockPos blockpos2 = blockpos.offset(enumfacing1, i1);
                         IBlockState iblockstate3 = worldIn.getBlockState(blockpos2);
 
-                        if (iblockstate3.getBlock() != Blocks.end_portal_frame || !((Boolean) iblockstate3.getValue(BlockEndPortalFrame.EYE)).booleanValue()) {
+                        if (iblockstate3.getBlock() != Blocks.end_portal_frame || !iblockstate3.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
                             flag = false;
                             break;
                         }
@@ -88,7 +88,7 @@ public class ItemEnderEye extends Item {
                             BlockPos blockpos3 = blockpos.offset(enumfacing, l1);
                             IBlockState iblockstate2 = worldIn.getBlockState(blockpos3);
 
-                            if (iblockstate2.getBlock() != Blocks.end_portal_frame || !((Boolean) iblockstate2.getValue(BlockEndPortalFrame.EYE)).booleanValue()) {
+                            if (iblockstate2.getBlock() != Blocks.end_portal_frame || !iblockstate2.getValue(BlockEndPortalFrame.EYE).booleanValue()) {
                                 flag = false;
                                 break;
                             }
@@ -131,7 +131,7 @@ public class ItemEnderEye extends Item {
                     entityendereye.moveTowards(blockpos);
                     worldIn.spawnEntityInWorld(entityendereye);
                     worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-                    worldIn.playAuxSFXAtEntity((EntityPlayer) null, 1002, new BlockPos(playerIn), 0);
+                    worldIn.playAuxSFXAtEntity(null, 1002, new BlockPos(playerIn), 0);
 
                     if (!playerIn.capabilities.isCreativeMode) {
                         --itemStackIn.stackSize;

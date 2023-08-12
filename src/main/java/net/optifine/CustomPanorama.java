@@ -58,7 +58,7 @@ public class CustomPanorama {
             }
         }
 
-        String[] astring = (String[]) ((String[]) list.toArray(new String[list.size()]));
+        String[] astring = list.toArray(new String[list.size()]);
         return astring;
     }
 
@@ -87,7 +87,6 @@ public class CustomPanorama {
                     inputstream.close();
                 }
             } catch (IOException var7) {
-                ;
             }
         }
 

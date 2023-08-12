@@ -18,12 +18,12 @@ public class AxisAlignedBB {
     }
 
     public AxisAlignedBB(BlockPos pos1, BlockPos pos2) {
-        this.minX = (double) pos1.getX();
-        this.minY = (double) pos1.getY();
-        this.minZ = (double) pos1.getZ();
-        this.maxX = (double) pos2.getX();
-        this.maxY = (double) pos2.getY();
-        this.maxZ = (double) pos2.getZ();
+        this.minX = pos1.getX();
+        this.minY = pos1.getY();
+        this.minZ = pos1.getZ();
+        this.maxX = pos2.getX();
+        this.maxY = pos2.getY();
+        this.maxZ = pos2.getZ();
     }
 
     /**
@@ -187,14 +187,14 @@ public class AxisAlignedBB {
      * Returns whether the given bounding box intersects with this one. Args: axisAlignedBB
      */
     public boolean intersectsWith(AxisAlignedBB other) {
-        return other.maxX > this.minX && other.minX < this.maxX ? (other.maxY > this.minY && other.minY < this.maxY ? other.maxZ > this.minZ && other.minZ < this.maxZ : false) : false;
+        return other.maxX > this.minX && other.minX < this.maxX && (other.maxY > this.minY && other.minY < this.maxY && other.maxZ > this.minZ && other.minZ < this.maxZ);
     }
 
     /**
      * Returns if the supplied Vec3D is completely inside the bounding box
      */
     public boolean isVecInside(Vec3 vec) {
-        return vec.xCoord > this.minX && vec.xCoord < this.maxX ? (vec.yCoord > this.minY && vec.yCoord < this.maxY ? vec.zCoord > this.minZ && vec.zCoord < this.maxZ : false) : false;
+        return vec.xCoord > this.minX && vec.xCoord < this.maxX && (vec.yCoord > this.minY && vec.yCoord < this.maxY && vec.zCoord > this.minZ && vec.zCoord < this.maxZ);
     }
 
     /**
@@ -305,21 +305,21 @@ public class AxisAlignedBB {
      * Checks if the specified vector is within the YZ dimensions of the bounding box. Args: Vec3D
      */
     private boolean isVecInYZ(Vec3 vec) {
-        return vec == null ? false : vec.yCoord >= this.minY && vec.yCoord <= this.maxY && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+        return vec != null && vec.yCoord >= this.minY && vec.yCoord <= this.maxY && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
     }
 
     /**
      * Checks if the specified vector is within the XZ dimensions of the bounding box. Args: Vec3D
      */
     private boolean isVecInXZ(Vec3 vec) {
-        return vec == null ? false : vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+        return vec != null && vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
     }
 
     /**
      * Checks if the specified vector is within the XY dimensions of the bounding box. Args: Vec3D
      */
     private boolean isVecInXY(Vec3 vec) {
-        return vec == null ? false : vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.yCoord >= this.minY && vec.yCoord <= this.maxY;
+        return vec != null && vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.yCoord >= this.minY && vec.yCoord <= this.maxY;
     }
 
     public String toString() {

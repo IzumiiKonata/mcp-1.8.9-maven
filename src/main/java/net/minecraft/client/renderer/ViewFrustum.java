@@ -21,7 +21,7 @@ public class ViewFrustum {
     protected int countChunksX;
     protected int countChunksZ;
     public RenderChunk[] renderChunks;
-    private Map<ChunkCoordIntPair, VboRegion[]> mapVboRegions = new HashMap();
+    private final Map<ChunkCoordIntPair, VboRegion[]> mapVboRegions = new HashMap();
 
     public ViewFrustum(World worldIn, int renderDistanceChunks, RenderGlobal p_i46246_3_, IRenderChunkFactory renderChunkFactory) {
         this.renderGlobal = p_i46246_3_;
@@ -183,7 +183,7 @@ public class ViewFrustum {
         int j = blockpos.getZ() >> 8 << 8;
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(i, j);
         EnumWorldBlockLayer[] aenumworldblocklayer = RenderChunk.ENUM_WORLD_BLOCK_LAYERS;
-        VboRegion[] avboregion = (VboRegion[]) this.mapVboRegions.get(chunkcoordintpair);
+        VboRegion[] avboregion = this.mapVboRegions.get(chunkcoordintpair);
 
         if (avboregion == null) {
             avboregion = new VboRegion[aenumworldblocklayer.length];
@@ -206,7 +206,7 @@ public class ViewFrustum {
 
     public void deleteVboRegions() {
         for (ChunkCoordIntPair chunkcoordintpair : this.mapVboRegions.keySet()) {
-            VboRegion[] avboregion = (VboRegion[]) this.mapVboRegions.get(chunkcoordintpair);
+            VboRegion[] avboregion = this.mapVboRegions.get(chunkcoordintpair);
 
             for (int i = 0; i < avboregion.length; ++i) {
                 VboRegion vboregion = avboregion[i];

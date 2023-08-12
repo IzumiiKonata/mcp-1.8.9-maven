@@ -10,7 +10,7 @@ public class ExtendedBlockStorage {
     /**
      * Contains the bottom-most Y block represented by this ExtendedBlockStorage. Typically a multiple of 16.
      */
-    private int yBase;
+    private final int yBase;
 
     /**
      * A total count of the number of non-air blocks in this block storage's Chunk.
@@ -45,7 +45,7 @@ public class ExtendedBlockStorage {
     }
 
     public IBlockState get(int x, int y, int z) {
-        IBlockState iblockstate = (IBlockState) Block.BLOCK_STATE_IDS.getByValue(this.data[y << 8 | z << 4 | x]);
+        IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(this.data[y << 8 | z << 4 | x]);
         return iblockstate != null ? iblockstate : Blocks.air.getDefaultState();
     }
 

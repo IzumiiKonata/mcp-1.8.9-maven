@@ -10,7 +10,7 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.SaveFormatComparator;
 
 public class RealmsAnvilLevelStorageSource {
-    private ISaveFormat levelStorageSource;
+    private final ISaveFormat levelStorageSource;
 
     public RealmsAnvilLevelStorageSource(ISaveFormat levelStorageSourceIn) {
         this.levelStorageSource = levelStorageSourceIn;
@@ -53,7 +53,7 @@ public class RealmsAnvilLevelStorageSource {
     }
 
     public List<RealmsLevelSummary> getLevelList() throws AnvilConverterException {
-        List<RealmsLevelSummary> list = Lists.<RealmsLevelSummary>newArrayList();
+        List<RealmsLevelSummary> list = Lists.newArrayList();
 
         for (SaveFormatComparator saveformatcomparator : this.levelStorageSource.getSaveList()) {
             list.add(new RealmsLevelSummary(saveformatcomparator));

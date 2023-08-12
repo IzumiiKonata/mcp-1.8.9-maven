@@ -56,21 +56,21 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
         try {
             zipfile = this.getResourcePackZipFile();
         } catch (IOException var8) {
-            return Collections.<String>emptySet();
+            return Collections.emptySet();
         }
 
         Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
-        Set<String> set = Sets.<String>newHashSet();
+        Set<String> set = Sets.newHashSet();
 
         while (enumeration.hasMoreElements()) {
-            ZipEntry zipentry = (ZipEntry) enumeration.nextElement();
+            ZipEntry zipentry = enumeration.nextElement();
             String s = zipentry.getName();
 
             if (s.startsWith("assets/")) {
                 List<String> list = Lists.newArrayList(entryNameSplitter.split(s));
 
                 if (list.size() > 1) {
-                    String s1 = (String) list.get(1);
+                    String s1 = list.get(1);
 
                     if (!s1.equals(s1.toLowerCase())) {
                         this.logNameNotLowercase(s1);

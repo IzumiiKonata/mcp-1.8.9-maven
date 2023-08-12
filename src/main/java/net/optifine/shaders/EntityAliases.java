@@ -55,7 +55,7 @@ public class EntityAliases {
 
                 loadModEntityAliases(list);
 
-                if (((List) list).size() > 0) {
+                if (list.size() > 0) {
                     entityAliases = toArray(list);
                 }
             }
@@ -73,7 +73,6 @@ public class EntityAliases {
                 InputStream inputstream = Config.getResourceStream(resourcelocation);
                 loadEntityAliases(inputstream, resourcelocation.toString(), listEntityAliases);
             } catch (IOException var6) {
-                ;
             }
         }
     }
@@ -133,7 +132,7 @@ public class EntityAliases {
         int[] aint = new int[list.size()];
 
         for (int i = 0; i < aint.length; ++i) {
-            aint[i] = ((Integer) list.get(i)).intValue();
+            aint[i] = list.get(i).intValue();
         }
 
         return aint;

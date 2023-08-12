@@ -20,7 +20,7 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
      * Reads the raw packet data from the data stream.
      */
     public void readPacketData(PacketBuffer buf) throws IOException {
-        this.status = (C16PacketClientStatus.EnumState) buf.readEnumValue(C16PacketClientStatus.EnumState.class);
+        this.status = buf.readEnumValue(EnumState.class);
     }
 
     /**
@@ -41,9 +41,9 @@ public class C16PacketClientStatus implements Packet<INetHandlerPlayServer> {
         return this.status;
     }
 
-    public static enum EnumState {
+    public enum EnumState {
         PERFORM_RESPAWN,
         REQUEST_STATS,
-        OPEN_INVENTORY_ACHIEVEMENT;
+        OPEN_INVENTORY_ACHIEVEMENT
     }
 }

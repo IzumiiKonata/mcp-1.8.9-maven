@@ -18,7 +18,7 @@ import net.minecraft.world.storage.MapData;
 public class MapItemRenderer {
     private static final ResourceLocation mapIcons = new ResourceLocation("textures/map/map_icons.png");
     private final TextureManager textureManager;
-    private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.<String, MapItemRenderer.Instance>newHashMap();
+    private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.newHashMap();
 
     public MapItemRenderer(TextureManager textureManagerIn) {
         this.textureManager = textureManagerIn;
@@ -39,7 +39,7 @@ public class MapItemRenderer {
      * Returns {@link net.minecraft.client.gui.MapItemRenderer.Instance MapItemRenderer.Instance} with given map data
      */
     private MapItemRenderer.Instance getMapRendererInstance(MapData mapdataIn) {
-        MapItemRenderer.Instance mapitemrenderer$instance = (MapItemRenderer.Instance) this.loadedMaps.get(mapdataIn.mapName);
+        MapItemRenderer.Instance mapitemrenderer$instance = this.loadedMaps.get(mapdataIn.mapName);
 
         if (mapitemrenderer$instance == null) {
             mapitemrenderer$instance = new MapItemRenderer.Instance(mapdataIn);
@@ -102,10 +102,10 @@ public class MapItemRenderer {
             GlStateManager.tryBlendFuncSeparate(1, 771, 0, 1);
             GlStateManager.disableAlpha();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos((double) ((float) (i + 0) + f), (double) ((float) (j + 128) - f), -0.009999999776482582D).tex(0.0D, 1.0D).endVertex();
-            worldrenderer.pos((double) ((float) (i + 128) - f), (double) ((float) (j + 128) - f), -0.009999999776482582D).tex(1.0D, 1.0D).endVertex();
-            worldrenderer.pos((double) ((float) (i + 128) - f), (double) ((float) (j + 0) + f), -0.009999999776482582D).tex(1.0D, 0.0D).endVertex();
-            worldrenderer.pos((double) ((float) (i + 0) + f), (double) ((float) (j + 0) + f), -0.009999999776482582D).tex(0.0D, 0.0D).endVertex();
+            worldrenderer.pos((float) (i) + f, (float) (j + 128) - f, -0.009999999776482582D).tex(0.0D, 1.0D).endVertex();
+            worldrenderer.pos((float) (i + 128) - f, (float) (j + 128) - f, -0.009999999776482582D).tex(1.0D, 1.0D).endVertex();
+            worldrenderer.pos((float) (i + 128) - f, (float) (j) + f, -0.009999999776482582D).tex(1.0D, 0.0D).endVertex();
+            worldrenderer.pos((float) (i) + f, (float) (j) + f, -0.009999999776482582D).tex(0.0D, 0.0D).endVertex();
             tessellator.draw();
             GlStateManager.enableAlpha();
             GlStateManager.disableBlend();
@@ -120,16 +120,16 @@ public class MapItemRenderer {
                     GlStateManager.scale(4.0F, 4.0F, 3.0F);
                     GlStateManager.translate(-0.125F, 0.125F, 0.0F);
                     byte b0 = vec4b.func_176110_a();
-                    float f1 = (float) (b0 % 4 + 0) / 4.0F;
-                    float f2 = (float) (b0 / 4 + 0) / 4.0F;
+                    float f1 = (float) (b0 % 4) / 4.0F;
+                    float f2 = (float) (b0 / 4) / 4.0F;
                     float f3 = (float) (b0 % 4 + 1) / 4.0F;
                     float f4 = (float) (b0 / 4 + 1) / 4.0F;
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
                     float f5 = -0.001F;
-                    worldrenderer.pos(-1.0D, 1.0D, (double) ((float) k * -0.001F)).tex((double) f1, (double) f2).endVertex();
-                    worldrenderer.pos(1.0D, 1.0D, (double) ((float) k * -0.001F)).tex((double) f3, (double) f2).endVertex();
-                    worldrenderer.pos(1.0D, -1.0D, (double) ((float) k * -0.001F)).tex((double) f3, (double) f4).endVertex();
-                    worldrenderer.pos(-1.0D, -1.0D, (double) ((float) k * -0.001F)).tex((double) f1, (double) f4).endVertex();
+                    worldrenderer.pos(-1.0D, 1.0D, (float) k * -0.001F).tex(f1, f2).endVertex();
+                    worldrenderer.pos(1.0D, 1.0D, (float) k * -0.001F).tex(f3, f2).endVertex();
+                    worldrenderer.pos(1.0D, -1.0D, (float) k * -0.001F).tex(f3, f4).endVertex();
+                    worldrenderer.pos(-1.0D, -1.0D, (float) k * -0.001F).tex(f1, f4).endVertex();
                     tessellator.draw();
                     GlStateManager.popMatrix();
                     ++k;

@@ -12,8 +12,8 @@ import net.minecraft.util.MathHelper;
 
 public class Stitcher {
     private final int mipmapLevelStitcher;
-    private final Set<Stitcher.Holder> setStitchHolders = Sets.<Stitcher.Holder>newHashSetWithExpectedSize(256);
-    private final List<Stitcher.Slot> stitchSlots = Lists.<Stitcher.Slot>newArrayListWithCapacity(256);
+    private final Set<Stitcher.Holder> setStitchHolders = Sets.newHashSetWithExpectedSize(256);
+    private final List<Stitcher.Slot> stitchSlots = Lists.newArrayListWithCapacity(256);
     private int currentWidth;
     private int currentHeight;
     private final int maxWidth;
@@ -52,12 +52,12 @@ public class Stitcher {
     }
 
     public void doStitch() {
-        Stitcher.Holder[] astitcher$holder = (Stitcher.Holder[]) ((Stitcher.Holder[]) this.setStitchHolders.toArray(new Stitcher.Holder[this.setStitchHolders.size()]));
-        Arrays.sort((Object[]) astitcher$holder);
+        Stitcher.Holder[] astitcher$holder = this.setStitchHolders.toArray(new Holder[this.setStitchHolders.size()]);
+        Arrays.sort(astitcher$holder);
 
         for (Stitcher.Holder stitcher$holder : astitcher$holder) {
             if (!this.allocateSlot(stitcher$holder)) {
-                String s = String.format("Unable to fit: %s, size: %dx%d, atlas: %dx%d, atlasMax: %dx%d - Maybe try a lower resolution resourcepack?", new Object[]{stitcher$holder.getAtlasSprite().getIconName(), Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()), Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()), Integer.valueOf(this.currentWidth), Integer.valueOf(this.currentHeight), Integer.valueOf(this.maxWidth), Integer.valueOf(this.maxHeight)});
+                String s = String.format("Unable to fit: %s, size: %dx%d, atlas: %dx%d, atlasMax: %dx%d - Maybe try a lower resolution resourcepack?", stitcher$holder.getAtlasSprite().getIconName(), Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()), Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()), Integer.valueOf(this.currentWidth), Integer.valueOf(this.currentHeight), Integer.valueOf(this.maxWidth), Integer.valueOf(this.maxHeight));
                 throw new StitcherException(stitcher$holder, s);
             }
         }
@@ -69,13 +69,13 @@ public class Stitcher {
     }
 
     public List<TextureAtlasSprite> getStichSlots() {
-        List<Stitcher.Slot> list = Lists.<Stitcher.Slot>newArrayList();
+        List<Stitcher.Slot> list = Lists.newArrayList();
 
         for (Stitcher.Slot stitcher$slot : this.stitchSlots) {
             stitcher$slot.getAllStitchSlots(list);
         }
 
-        List<TextureAtlasSprite> list1 = Lists.<TextureAtlasSprite>newArrayList();
+        List<TextureAtlasSprite> list1 = Lists.newArrayList();
 
         for (Stitcher.Slot stitcher$slot1 : list) {
             Stitcher.Holder stitcher$holder = stitcher$slot1.getStitchHolder();
@@ -96,13 +96,13 @@ public class Stitcher {
      */
     private boolean allocateSlot(Stitcher.Holder p_94310_1_) {
         for (int i = 0; i < this.stitchSlots.size(); ++i) {
-            if (((Stitcher.Slot) this.stitchSlots.get(i)).addSlot(p_94310_1_)) {
+            if (this.stitchSlots.get(i).addSlot(p_94310_1_)) {
                 return true;
             }
 
             p_94310_1_.rotate();
 
-            if (((Stitcher.Slot) this.stitchSlots.get(i)).addSlot(p_94310_1_)) {
+            if (this.stitchSlots.get(i).addSlot(p_94310_1_)) {
                 return true;
             }
 
@@ -287,7 +287,7 @@ public class Stitcher {
                         return true;
                     } else {
                         if (this.subSlots == null) {
-                            this.subSlots = Lists.<Stitcher.Slot>newArrayListWithCapacity(1);
+                            this.subSlots = Lists.newArrayListWithCapacity(1);
                             this.subSlots.add(new Stitcher.Slot(this.originX, this.originY, i, j));
                             int k = this.width - i;
                             int l = this.height - j;

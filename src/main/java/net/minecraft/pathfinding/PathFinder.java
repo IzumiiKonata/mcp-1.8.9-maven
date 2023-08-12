@@ -9,13 +9,13 @@ public class PathFinder {
     /**
      * The path being generated
      */
-    private Path path = new Path();
+    private final Path path = new Path();
 
     /**
      * Selection of path points to add to the path
      */
-    private PathPoint[] pathOptions = new PathPoint[32];
-    private NodeProcessor nodeProcessor;
+    private final PathPoint[] pathOptions = new PathPoint[32];
+    private final NodeProcessor nodeProcessor;
 
     public PathFinder(NodeProcessor nodeProcessorIn) {
         this.nodeProcessor = nodeProcessorIn;
@@ -32,7 +32,7 @@ public class PathFinder {
      * Creates a path from an entity to a specified location within a minimum distance
      */
     public PathEntity createEntityPathTo(IBlockAccess blockaccess, Entity entityIn, BlockPos targetPos, float dist) {
-        return this.createEntityPathTo(blockaccess, entityIn, (double) ((float) targetPos.getX() + 0.5F), (double) ((float) targetPos.getY() + 0.5F), (double) ((float) targetPos.getZ() + 0.5F), dist);
+        return this.createEntityPathTo(blockaccess, entityIn, (float) targetPos.getX() + 0.5F, (float) targetPos.getY() + 0.5F, (float) targetPos.getZ() + 0.5F, dist);
     }
 
     /**

@@ -13,13 +13,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ItemTool extends Item {
-    private Set<Block> effectiveBlocks;
+    private final Set<Block> effectiveBlocks;
     protected float efficiencyOnProperMaterial = 4.0F;
 
     /**
      * Damage versus entities.
      */
-    private float damageVsEntity;
+    private final float damageVsEntity;
 
     /**
      * The material this tool is made from.
@@ -89,12 +89,12 @@ public class ItemTool extends Item {
      * Return whether this item is repairable in an anvil.
      */
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return this.toolMaterial.getRepairItem() == repair.getItem() ? true : super.getIsRepairable(toRepair, repair);
+        return this.toolMaterial.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
     }
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers() {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", (double) this.damageVsEntity, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(itemModifierUUID, "Tool modifier", this.damageVsEntity, 0));
         return multimap;
     }
 }

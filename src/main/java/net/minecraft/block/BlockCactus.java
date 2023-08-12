@@ -34,11 +34,10 @@ public class BlockCactus extends Block {
             int i;
 
             for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i) {
-                ;
             }
 
             if (i < 3) {
-                int j = ((Integer) state.getValue(AGE)).intValue();
+                int j = state.getValue(AGE).intValue();
 
                 if (j == 15) {
                     worldIn.setBlockState(blockpos, this.getDefaultState());
@@ -54,12 +53,12 @@ public class BlockCactus extends Block {
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
         float f = 0.0625F;
-        return new AxisAlignedBB((double) ((float) pos.getX() + f), (double) pos.getY(), (double) ((float) pos.getZ() + f), (double) ((float) (pos.getX() + 1) - f), (double) ((float) (pos.getY() + 1) - f), (double) ((float) (pos.getZ() + 1) - f));
+        return new AxisAlignedBB((float) pos.getX() + f, pos.getY(), (float) pos.getZ() + f, (float) (pos.getX() + 1) - f, (float) (pos.getY() + 1) - f, (float) (pos.getZ() + 1) - f);
     }
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
         float f = 0.0625F;
-        return new AxisAlignedBB((double) ((float) pos.getX() + f), (double) pos.getY(), (double) ((float) pos.getZ() + f), (double) ((float) (pos.getX() + 1) - f), (double) (pos.getY() + 1), (double) ((float) (pos.getZ() + 1) - f));
+        return new AxisAlignedBB((float) pos.getX() + f, pos.getY(), (float) pos.getZ() + f, (float) (pos.getX() + 1) - f, pos.getY() + 1, (float) (pos.getZ() + 1) - f);
     }
 
     public boolean isFullCube() {
@@ -74,7 +73,7 @@ public class BlockCactus extends Block {
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
+        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
     /**
@@ -119,10 +118,10 @@ public class BlockCactus extends Block {
      * Convert the BlockState into the correct metadata value
      */
     public int getMetaFromState(IBlockState state) {
-        return ((Integer) state.getValue(AGE)).intValue();
+        return state.getValue(AGE).intValue();
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AGE});
+        return new BlockState(this, AGE);
     }
 }

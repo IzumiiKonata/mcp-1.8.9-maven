@@ -5,11 +5,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 
 public class EntityAIMoveTowardsRestriction extends EntityAIBase {
-    private EntityCreature theEntity;
+    private final EntityCreature theEntity;
     private double movePosX;
     private double movePosY;
     private double movePosZ;
-    private double movementSpeed;
+    private final double movementSpeed;
 
     public EntityAIMoveTowardsRestriction(EntityCreature creatureIn, double speedIn) {
         this.theEntity = creatureIn;
@@ -25,7 +25,7 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase {
             return false;
         } else {
             BlockPos blockpos = this.theEntity.getHomePosition();
-            Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 16, 7, new Vec3((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ()));
+            Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 16, 7, new Vec3(blockpos.getX(), blockpos.getY(), blockpos.getZ()));
 
             if (vec3 == null) {
                 return false;

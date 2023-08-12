@@ -46,16 +46,16 @@ public class WorldClient extends World {
     /**
      * The packets that need to be sent to the server.
      */
-    private NetHandlerPlayClient sendQueue;
+    private final NetHandlerPlayClient sendQueue;
 
     /**
      * The ChunkProviderClient instance
      */
     private ChunkProviderClient clientChunkProvider;
-    private final Set<Entity> entityList = Sets.<Entity>newHashSet();
-    private final Set<Entity> entitySpawnQueue = Sets.<Entity>newHashSet();
+    private final Set<Entity> entityList = Sets.newHashSet();
+    private final Set<Entity> entitySpawnQueue = Sets.newHashSet();
     private final Minecraft mc = Minecraft.getMinecraft();
-    private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.<ChunkCoordIntPair>newHashSet();
+    private final Set<ChunkCoordIntPair> previousActiveChunkSet = Sets.newHashSet();
     private boolean playerUpdate = false;
 
     public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
@@ -68,7 +68,7 @@ public class WorldClient extends World {
         this.mapStorage = new SaveDataMemoryStorage();
         this.calculateInitialSkylight();
         this.calculateInitialWeather();
-        Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, new Object[]{this});
+        Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, this);
 
         if (this.mc.playerController != null && this.mc.playerController.getClass() == PlayerControllerMP.class) {
             this.mc.playerController = new PlayerControllerOF(this.mc, netHandler);
@@ -90,7 +90,7 @@ public class WorldClient extends World {
         this.theProfiler.startSection("reEntryProcessing");
 
         for (int i = 0; i < 10 && !this.entitySpawnQueue.isEmpty(); ++i) {
-            Entity entity = (Entity) this.entitySpawnQueue.iterator().next();
+            Entity entity = this.entitySpawnQueue.iterator().next();
             this.entitySpawnQueue.remove(entity);
 
             if (!this.loadedEntityList.contains(entity)) {
@@ -194,9 +194,7 @@ public class WorldClient extends World {
     protected void onEntityAdded(Entity entityIn) {
         super.onEntityAdded(entityIn);
 
-        if (this.entitySpawnQueue.contains(entityIn)) {
-            this.entitySpawnQueue.remove(entityIn);
-        }
+        this.entitySpawnQueue.remove(entityIn);
     }
 
     protected void onEntityRemoved(Entity entityIn) {
@@ -240,11 +238,11 @@ public class WorldClient extends World {
      * Returns the Entity with the given ID, or null if it doesn't exist in this World.
      */
     public Entity getEntityByID(int id) {
-        return (Entity) (id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id));
+        return id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id);
     }
 
     public Entity removeEntityFromWorld(int entityID) {
-        Entity entity = (Entity) this.entitiesById.removeObject(entityID);
+        Entity entity = this.entitiesById.removeObject(entityID);
 
         if (entity != null) {
             this.entityList.remove(entity);
@@ -295,7 +293,7 @@ public class WorldClient extends World {
             iblockstate.getBlock().randomDisplayTick(this, blockpos$mutableblockpos, iblockstate, random);
 
             if (flag && iblockstate.getBlock() == Blocks.barrier) {
-                this.spawnParticle(EnumParticleTypes.BARRIER, (double) ((float) k + 0.5F), (double) ((float) l + 0.5F), (double) ((float) i1 + 0.5F), 0.0D, 0.0D, 0.0D, new int[0]);
+                this.spawnParticle(EnumParticleTypes.BARRIER, (float) k + 0.5F, (float) l + 0.5F, (float) i1 + 0.5F, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -307,7 +305,7 @@ public class WorldClient extends World {
         this.loadedEntityList.removeAll(this.unloadedEntityList);
 
         for (int i = 0; i < this.unloadedEntityList.size(); ++i) {
-            Entity entity = (Entity) this.unloadedEntityList.get(i);
+            Entity entity = this.unloadedEntityList.get(i);
             int j = entity.chunkCoordX;
             int k = entity.chunkCoordZ;
 
@@ -317,13 +315,13 @@ public class WorldClient extends World {
         }
 
         for (int l = 0; l < this.unloadedEntityList.size(); ++l) {
-            this.onEntityRemoved((Entity) this.unloadedEntityList.get(l));
+            this.onEntityRemoved(this.unloadedEntityList.get(l));
         }
 
         this.unloadedEntityList.clear();
 
         for (int i1 = 0; i1 < this.loadedEntityList.size(); ++i1) {
-            Entity entity1 = (Entity) this.loadedEntityList.get(i1);
+            Entity entity1 = this.loadedEntityList.get(i1);
 
             if (entity1.ridingEntity != null) {
                 if (!entity1.ridingEntity.isDead && entity1.ridingEntity.riddenByEntity == entity1) {
@@ -355,12 +353,12 @@ public class WorldClient extends World {
         CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
         crashreportcategory.addCrashSectionCallable("Forced entities", new Callable<String>() {
             public String call() {
-                return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList.toString();
+                return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList;
             }
         });
         crashreportcategory.addCrashSectionCallable("Retry entities", new Callable<String>() {
             public String call() {
-                return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue.toString();
+                return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue;
             }
         });
         crashreportcategory.addCrashSectionCallable("Server brand", new Callable<String>() {

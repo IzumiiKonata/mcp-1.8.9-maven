@@ -15,17 +15,17 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
     /**
      * The Item/Block ID to generate in the Chest.
      */
-    private ItemStack theItemId;
+    private final ItemStack theItemId;
 
     /**
      * The minimum stack size of generated item.
      */
-    private int minStackSize;
+    private final int minStackSize;
 
     /**
      * The maximum stack size of generated item.
      */
-    private int maxStackSize;
+    private final int maxStackSize;
 
     public WeightedRandomChestContent(Item p_i45311_1_, int p_i45311_2_, int minimumChance, int maximumChance, int itemWeightIn) {
         super(itemWeightIn);
@@ -43,7 +43,7 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
 
     public static void generateChestContents(Random random, List<WeightedRandomChestContent> listIn, IInventory inv, int max) {
         for (int i = 0; i < max; ++i) {
-            WeightedRandomChestContent weightedrandomchestcontent = (WeightedRandomChestContent) WeightedRandom.getRandomItem(random, listIn);
+            WeightedRandomChestContent weightedrandomchestcontent = WeightedRandom.getRandomItem(random, listIn);
             int j = weightedrandomchestcontent.minStackSize + random.nextInt(weightedrandomchestcontent.maxStackSize - weightedrandomchestcontent.minStackSize + 1);
 
             if (weightedrandomchestcontent.theItemId.getMaxStackSize() >= j) {
@@ -62,7 +62,7 @@ public class WeightedRandomChestContent extends WeightedRandom.Item {
 
     public static void generateDispenserContents(Random random, List<WeightedRandomChestContent> listIn, TileEntityDispenser dispenser, int max) {
         for (int i = 0; i < max; ++i) {
-            WeightedRandomChestContent weightedrandomchestcontent = (WeightedRandomChestContent) WeightedRandom.getRandomItem(random, listIn);
+            WeightedRandomChestContent weightedrandomchestcontent = WeightedRandom.getRandomItem(random, listIn);
             int j = weightedrandomchestcontent.minStackSize + random.nextInt(weightedrandomchestcontent.maxStackSize - weightedrandomchestcontent.minStackSize + 1);
 
             if (weightedrandomchestcontent.theItemId.getMaxStackSize() >= j) {

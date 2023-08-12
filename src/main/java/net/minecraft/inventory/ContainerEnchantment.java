@@ -24,9 +24,9 @@ public class ContainerEnchantment extends Container {
     /**
      * current world (for bookshelf counting)
      */
-    private World worldPointer;
-    private BlockPos position;
-    private Random rand;
+    private final World worldPointer;
+    private final BlockPos position;
+    private final Random rand;
     public int xpSeed;
 
     /**
@@ -100,7 +100,7 @@ public class ContainerEnchantment extends Container {
         super.detectAndSendChanges();
 
         for (int i = 0; i < this.crafters.size(); ++i) {
-            ICrafting icrafting = (ICrafting) this.crafters.get(i);
+            ICrafting icrafting = this.crafters.get(i);
             icrafting.sendProgressBarUpdate(this, 0, this.enchantLevels[0]);
             icrafting.sendProgressBarUpdate(this, 1, this.enchantLevels[1]);
             icrafting.sendProgressBarUpdate(this, 2, this.enchantLevels[2]);
@@ -166,7 +166,7 @@ public class ContainerEnchantment extends Container {
                         }
                     }
 
-                    this.rand.setSeed((long) this.xpSeed);
+                    this.rand.setSeed(this.xpSeed);
 
                     for (int i1 = 0; i1 < 3; ++i1) {
                         this.enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(this.rand, i1, l, itemstack);
@@ -182,7 +182,7 @@ public class ContainerEnchantment extends Container {
                             List<EnchantmentData> list = this.func_178148_a(itemstack, j1, this.enchantLevels[j1]);
 
                             if (list != null && !list.isEmpty()) {
-                                EnchantmentData enchantmentdata = (EnchantmentData) list.get(this.rand.nextInt(list.size()));
+                                EnchantmentData enchantmentdata = list.get(this.rand.nextInt(list.size()));
                                 this.enchantmentIds[j1] = enchantmentdata.enchantmentobj.effectId | enchantmentdata.enchantmentLevel << 8;
                             }
                         }
@@ -222,7 +222,7 @@ public class ContainerEnchantment extends Container {
                     }
 
                     for (int j = 0; j < list.size(); ++j) {
-                        EnchantmentData enchantmentdata = (EnchantmentData) list.get(j);
+                        EnchantmentData enchantmentdata = list.get(j);
 
                         if (flag) {
                             Items.enchanted_book.addEnchantment(itemstack, enchantmentdata);
@@ -235,7 +235,7 @@ public class ContainerEnchantment extends Container {
                         itemstack1.stackSize -= i;
 
                         if (itemstack1.stackSize <= 0) {
-                            this.tableInventory.setInventorySlotContents(1, (ItemStack) null);
+                            this.tableInventory.setInventorySlotContents(1, null);
                         }
                     }
 
@@ -253,7 +253,7 @@ public class ContainerEnchantment extends Container {
     }
 
     private List<EnchantmentData> func_178148_a(ItemStack stack, int p_178148_2_, int p_178148_3_) {
-        this.rand.setSeed((long) (this.xpSeed + p_178148_2_));
+        this.rand.setSeed(this.xpSeed + p_178148_2_);
         List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(this.rand, stack, p_178148_3_);
 
         if (stack.getItem() == Items.book && list != null && list.size() > 1) {
@@ -286,7 +286,7 @@ public class ContainerEnchantment extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.worldPointer.getBlockState(this.position).getBlock() != Blocks.enchanting_table ? false : playerIn.getDistanceSq((double) this.position.getX() + 0.5D, (double) this.position.getY() + 0.5D, (double) this.position.getZ() + 0.5D) <= 64.0D;
+        return this.worldPointer.getBlockState(this.position).getBlock() == Blocks.enchanting_table && playerIn.getDistanceSq((double) this.position.getX() + 0.5D, (double) this.position.getY() + 0.5D, (double) this.position.getZ() + 0.5D) <= 64.0D;
     }
 
     /**
@@ -294,7 +294,7 @@ public class ContainerEnchantment extends Container {
      */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
@@ -313,21 +313,21 @@ public class ContainerEnchantment extends Container {
                     return null;
                 }
             } else {
-                if (((Slot) this.inventorySlots.get(0)).getHasStack() || !((Slot) this.inventorySlots.get(0)).isItemValid(itemstack1)) {
+                if (this.inventorySlots.get(0).getHasStack() || !this.inventorySlots.get(0).isItemValid(itemstack1)) {
                     return null;
                 }
 
                 if (itemstack1.hasTagCompound() && itemstack1.stackSize == 1) {
-                    ((Slot) this.inventorySlots.get(0)).putStack(itemstack1.copy());
+                    this.inventorySlots.get(0).putStack(itemstack1.copy());
                     itemstack1.stackSize = 0;
                 } else if (itemstack1.stackSize >= 1) {
-                    ((Slot) this.inventorySlots.get(0)).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+                    this.inventorySlots.get(0).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
                     --itemstack1.stackSize;
                 }
             }
 
             if (itemstack1.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }

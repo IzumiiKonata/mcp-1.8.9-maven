@@ -17,8 +17,8 @@ public class HttpPipelineConnection {
     private String host;
     private int port;
     private Proxy proxy;
-    private List<HttpPipelineRequest> listRequests;
-    private List<HttpPipelineRequest> listRequestsSend;
+    private final List<HttpPipelineRequest> listRequests;
+    private final List<HttpPipelineRequest> listRequestsSend;
     private Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;
@@ -135,9 +135,9 @@ public class HttpPipelineConnection {
         this.onActivity();
 
         if (remove) {
-            return (HttpPipelineRequest) list.remove(0);
+            return list.remove(0);
         } else {
-            return (HttpPipelineRequest) list.get(0);
+            return list.get(0);
         }
     }
 
@@ -224,7 +224,7 @@ public class HttpPipelineConnection {
     private void checkResponseHeader(HttpResponse resp) {
         String s = resp.getHeader("Connection");
 
-        if (s != null && !s.toLowerCase().equals("keep-alive")) {
+        if (s != null && !s.equalsIgnoreCase("keep-alive")) {
             this.terminate(new EOFException("Connection not keep-alive"));
         }
 
@@ -242,7 +242,7 @@ public class HttpPipelineConnection {
                         int j = Config.parseInt(astring1[1], -1);
 
                         if (j > 0) {
-                            this.keepaliveTimeoutMs = (long) (j * 1000);
+                            this.keepaliveTimeoutMs = j * 1000L;
                         }
                     }
 
@@ -296,7 +296,6 @@ public class HttpPipelineConnection {
                     this.socket.close();
                 }
             } catch (IOException var3) {
-                ;
             }
 
             this.socket = null;
@@ -308,20 +307,20 @@ public class HttpPipelineConnection {
     private void terminateRequests(Exception e) {
         if (this.listRequests.size() > 0) {
             if (!this.responseReceived) {
-                HttpPipelineRequest httppipelinerequest = (HttpPipelineRequest) this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest = this.listRequests.remove(0);
                 httppipelinerequest.getHttpListener().failed(httppipelinerequest.getHttpRequest(), e);
                 httppipelinerequest.setClosed(true);
             }
 
             while (this.listRequests.size() > 0) {
-                HttpPipelineRequest httppipelinerequest1 = (HttpPipelineRequest) this.listRequests.remove(0);
+                HttpPipelineRequest httppipelinerequest1 = this.listRequests.remove(0);
                 HttpPipeline.addRequest(httppipelinerequest1);
             }
         }
     }
 
     public synchronized boolean isClosed() {
-        return this.terminated ? true : this.countRequests >= this.keepaliveMaxCount;
+        return this.terminated || this.countRequests >= this.keepaliveMaxCount;
     }
 
     public int getCountRequests() {

@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class CombatTracker {
-    private final List<CombatEntry> combatEntries = Lists.<CombatEntry>newArrayList();
+    private final List<CombatEntry> combatEntries = Lists.newArrayList();
 
     /**
      * The entity tracked.
@@ -66,10 +66,10 @@ public class CombatTracker {
 
     public IChatComponent getDeathMessage() {
         if (this.combatEntries.size() == 0) {
-            return new ChatComponentTranslation("death.attack.generic", new Object[]{this.fighter.getDisplayName()});
+            return new ChatComponentTranslation("death.attack.generic", this.fighter.getDisplayName());
         } else {
             CombatEntry combatentry = this.func_94544_f();
-            CombatEntry combatentry1 = (CombatEntry) this.combatEntries.get(this.combatEntries.size() - 1);
+            CombatEntry combatentry1 = this.combatEntries.get(this.combatEntries.size() - 1);
             IChatComponent ichatcomponent1 = combatentry1.getDamageSrcDisplayName();
             Entity entity = combatentry1.getDamageSrc().getEntity();
             IChatComponent ichatcomponent;
@@ -78,28 +78,28 @@ public class CombatTracker {
                 IChatComponent ichatcomponent2 = combatentry.getDamageSrcDisplayName();
 
                 if (combatentry.getDamageSrc() != DamageSource.fall && combatentry.getDamageSrc() != DamageSource.outOfWorld) {
-                    if (ichatcomponent2 != null && (ichatcomponent1 == null || !ichatcomponent2.equals(ichatcomponent1))) {
+                    if (ichatcomponent2 != null && (!ichatcomponent2.equals(ichatcomponent1))) {
                         Entity entity1 = combatentry.getDamageSrc().getEntity();
                         ItemStack itemstack1 = entity1 instanceof EntityLivingBase ? ((EntityLivingBase) entity1).getHeldItem() : null;
 
                         if (itemstack1 != null && itemstack1.hasDisplayName()) {
-                            ichatcomponent = new ChatComponentTranslation("death.fell.assist.item", new Object[]{this.fighter.getDisplayName(), ichatcomponent2, itemstack1.getChatComponent()});
+                            ichatcomponent = new ChatComponentTranslation("death.fell.assist.item", this.fighter.getDisplayName(), ichatcomponent2, itemstack1.getChatComponent());
                         } else {
-                            ichatcomponent = new ChatComponentTranslation("death.fell.assist", new Object[]{this.fighter.getDisplayName(), ichatcomponent2});
+                            ichatcomponent = new ChatComponentTranslation("death.fell.assist", this.fighter.getDisplayName(), ichatcomponent2);
                         }
                     } else if (ichatcomponent1 != null) {
                         ItemStack itemstack = entity instanceof EntityLivingBase ? ((EntityLivingBase) entity).getHeldItem() : null;
 
                         if (itemstack != null && itemstack.hasDisplayName()) {
-                            ichatcomponent = new ChatComponentTranslation("death.fell.finish.item", new Object[]{this.fighter.getDisplayName(), ichatcomponent1, itemstack.getChatComponent()});
+                            ichatcomponent = new ChatComponentTranslation("death.fell.finish.item", this.fighter.getDisplayName(), ichatcomponent1, itemstack.getChatComponent());
                         } else {
-                            ichatcomponent = new ChatComponentTranslation("death.fell.finish", new Object[]{this.fighter.getDisplayName(), ichatcomponent1});
+                            ichatcomponent = new ChatComponentTranslation("death.fell.finish", this.fighter.getDisplayName(), ichatcomponent1);
                         }
                     } else {
-                        ichatcomponent = new ChatComponentTranslation("death.fell.killer", new Object[]{this.fighter.getDisplayName()});
+                        ichatcomponent = new ChatComponentTranslation("death.fell.killer", this.fighter.getDisplayName());
                     }
                 } else {
-                    ichatcomponent = new ChatComponentTranslation("death.fell.accident." + this.func_94548_b(combatentry), new Object[]{this.fighter.getDisplayName()});
+                    ichatcomponent = new ChatComponentTranslation("death.fell.accident." + this.func_94548_b(combatentry), this.fighter.getDisplayName());
                 }
             } else {
                 ichatcomponent = combatentry1.getDamageSrc().getDeathMessage(this.fighter);
@@ -141,8 +141,8 @@ public class CombatTracker {
         float f = 0.0F;
 
         for (int j = 0; j < this.combatEntries.size(); ++j) {
-            CombatEntry combatentry2 = (CombatEntry) this.combatEntries.get(j);
-            CombatEntry combatentry3 = j > 0 ? (CombatEntry) this.combatEntries.get(j - 1) : null;
+            CombatEntry combatentry2 = this.combatEntries.get(j);
+            CombatEntry combatentry3 = j > 0 ? this.combatEntries.get(j - 1) : null;
 
             if ((combatentry2.getDamageSrc() == DamageSource.fall || combatentry2.getDamageSrc() == DamageSource.outOfWorld) && combatentry2.getDamageAmount() > 0.0F && (combatentry == null || combatentry2.getDamageAmount() > f)) {
                 if (j > 0) {

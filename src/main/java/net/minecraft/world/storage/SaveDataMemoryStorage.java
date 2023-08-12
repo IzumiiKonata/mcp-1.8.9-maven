@@ -4,7 +4,7 @@ import net.minecraft.world.WorldSavedData;
 
 public class SaveDataMemoryStorage extends MapStorage {
     public SaveDataMemoryStorage() {
-        super((ISaveHandler) null);
+        super(null);
     }
 
     /**
@@ -12,7 +12,7 @@ public class SaveDataMemoryStorage extends MapStorage {
      * returns null if none such file exists. args: Class to instantiate, String dataid
      */
     public WorldSavedData loadData(Class<? extends WorldSavedData> clazz, String dataIdentifier) {
-        return (WorldSavedData) this.loadedDataMap.get(dataIdentifier);
+        return this.loadedDataMap.get(dataIdentifier);
     }
 
     /**

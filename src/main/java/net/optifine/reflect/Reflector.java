@@ -103,7 +103,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Reflector {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static boolean logForge = logEntry("*** Reflector Forge ***");
+    private static final boolean logForge = logEntry("*** Reflector Forge ***");
     public static ReflectorClass BetterFoliageClient = new ReflectorClass("mods.betterfoliage.client.BetterFoliageClient");
     public static ReflectorClass BlamingTransformer = new ReflectorClass("net.minecraftforge.fml.common.asm.transformers.BlamingTransformer");
     public static ReflectorMethod BlamingTransformer_onCrash = new ReflectorMethod(BlamingTransformer, "onCrash");
@@ -297,7 +297,7 @@ public class Reflector {
     public static ReflectorClass SplashScreen = new ReflectorClass("net.minecraftforge.fml.client.SplashProgress");
     public static ReflectorClass WorldEvent_Load = new ReflectorClass("net.minecraftforge.event.world.WorldEvent$Load");
     public static ReflectorConstructor WorldEvent_Load_Constructor = new ReflectorConstructor(WorldEvent_Load, new Class[]{World.class});
-    private static boolean logVanilla = logEntry("*** Reflector Vanilla ***");
+    private static final boolean logVanilla = logEntry("*** Reflector Vanilla ***");
     public static ReflectorClass ChunkProviderClient = new ReflectorClass(ChunkProviderClient.class);
     public static ReflectorField ChunkProviderClient_chunkMapping = new ReflectorField(ChunkProviderClient, LongHashMap.class);
     public static ReflectorClass EntityVillager = new ReflectorClass(EntityVillager.class);
@@ -413,9 +413,9 @@ public class Reflector {
                 return;
             }
 
-            method.invoke((Object) null, params);
+            method.invoke(null, params);
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
         }
     }
 
@@ -426,11 +426,11 @@ public class Reflector {
             if (method == null) {
                 return false;
             } else {
-                Boolean obool = (Boolean) method.invoke((Object) null, params);
+                Boolean obool = (Boolean) method.invoke(null, params);
                 return obool.booleanValue();
             }
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return false;
         }
     }
@@ -442,11 +442,11 @@ public class Reflector {
             if (method == null) {
                 return 0;
             } else {
-                Integer integer = (Integer) method.invoke((Object) null, params);
+                Integer integer = (Integer) method.invoke(null, params);
                 return integer.intValue();
             }
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0;
         }
     }
@@ -458,11 +458,11 @@ public class Reflector {
             if (method == null) {
                 return 0.0F;
             } else {
-                Float f = (Float) method.invoke((Object) null, params);
+                Float f = (Float) method.invoke(null, params);
                 return f.floatValue();
             }
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0.0F;
         }
     }
@@ -474,11 +474,11 @@ public class Reflector {
             if (method == null) {
                 return 0.0D;
             } else {
-                Double d0 = (Double) method.invoke((Object) null, params);
+                Double d0 = (Double) method.invoke(null, params);
                 return d0.doubleValue();
             }
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return 0.0D;
         }
     }
@@ -490,11 +490,11 @@ public class Reflector {
             if (method == null) {
                 return null;
             } else {
-                String s = (String) method.invoke((Object) null, params);
+                String s = (String) method.invoke(null, params);
                 return s;
             }
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return null;
         }
     }
@@ -506,11 +506,11 @@ public class Reflector {
             if (method == null) {
                 return null;
             } else {
-                Object object = method.invoke((Object) null, params);
+                Object object = method.invoke(null, params);
                 return object;
             }
         } catch (Throwable throwable) {
-            handleException(throwable, (Object) null, refMethod, params);
+            handleException(throwable, null, refMethod, params);
             return null;
         }
     }
@@ -630,7 +630,7 @@ public class Reflector {
     }
 
     public static Object getFieldValue(ReflectorField refField) {
-        return getFieldValue((Object) null, refField);
+        return getFieldValue(null, refField);
     }
 
     public static Object getFieldValue(Object obj, ReflectorField refField) {
@@ -656,7 +656,7 @@ public class Reflector {
             if (field == null) {
                 return def;
             } else {
-                boolean flag = field.getBoolean((Object) null);
+                boolean flag = field.getBoolean(null);
                 return flag;
             }
         } catch (Throwable throwable) {
@@ -740,7 +740,7 @@ public class Reflector {
     }
 
     public static boolean setFieldValue(ReflectorField refField, Object value) {
-        return setFieldValue((Object) null, refField, value);
+        return setFieldValue(null, refField, value);
     }
 
     public static boolean setFieldValue(Object obj, ReflectorField refField, Object value) {
@@ -760,7 +760,7 @@ public class Reflector {
     }
 
     public static boolean setFieldValueInt(ReflectorField refField, int value) {
-        return setFieldValueInt((Object) null, refField, value);
+        return setFieldValueInt(null, refField, value);
     }
 
     public static boolean setFieldValueInt(Object obj, ReflectorField refField, int value) {
@@ -781,7 +781,7 @@ public class Reflector {
 
     public static boolean postForgeBusEvent(ReflectorConstructor constr, Object... params) {
         Object object = newInstance(constr, params);
-        return object == null ? false : postForgeBusEvent(object);
+        return object != null && postForgeBusEvent(object);
     }
 
     public static boolean postForgeBusEvent(Object event) {
@@ -793,7 +793,7 @@ public class Reflector {
             if (object == null) {
                 return false;
             } else {
-                Object object1 = call(object, EventBus_post, new Object[]{event});
+                Object object1 = call(object, EventBus_post, event);
 
                 if (!(object1 instanceof Boolean)) {
                     return false;

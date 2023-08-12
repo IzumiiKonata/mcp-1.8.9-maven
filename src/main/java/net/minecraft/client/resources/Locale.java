@@ -21,7 +21,7 @@ public class Locale {
      */
     private static final Splitter splitter = Splitter.on('=').limit(2);
     private static final Pattern pattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
-    Map<String, String> properties = Maps.<String, String>newHashMap();
+    Map<String, String> properties = Maps.newHashMap();
     private boolean unicode;
 
     /**
@@ -31,13 +31,12 @@ public class Locale {
         this.properties.clear();
 
         for (String s : languageList) {
-            String s1 = String.format("lang/%s.lang", new Object[]{s});
+            String s1 = String.format("lang/%s.lang", s);
 
             for (String s2 : resourceManager.getResourceDomains()) {
                 try {
                     this.loadLocaleData(resourceManager.getAllResources(new ResourceLocation(s2, s1)));
                 } catch (IOException var9) {
-                    ;
                 }
             }
         }
@@ -87,7 +86,7 @@ public class Locale {
     private void loadLocaleData(InputStream inputStreamIn) throws IOException {
         for (String s : IOUtils.readLines(inputStreamIn, Charsets.UTF_8)) {
             if (!s.isEmpty() && s.charAt(0) != 35) {
-                String[] astring = (String[]) Iterables.toArray(splitter.split(s), String.class);
+                String[] astring = Iterables.toArray(splitter.split(s), String.class);
 
                 if (astring != null && astring.length == 2) {
                     String s1 = astring[0];
@@ -102,7 +101,7 @@ public class Locale {
      * Returns the translation, or the key itself if the key could not be translated.
      */
     private String translateKeyPrivate(String translateKey) {
-        String s = (String) this.properties.get(translateKey);
+        String s = this.properties.get(translateKey);
         return s == null ? translateKey : s;
     }
 

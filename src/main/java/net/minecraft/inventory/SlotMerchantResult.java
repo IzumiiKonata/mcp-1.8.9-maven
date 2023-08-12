@@ -15,7 +15,7 @@ public class SlotMerchantResult extends Slot {
     /**
      * The Player whos trying to buy/sell stuff.
      */
-    private EntityPlayer thePlayer;
+    private final EntityPlayer thePlayer;
     private int field_75231_g;
 
     /**

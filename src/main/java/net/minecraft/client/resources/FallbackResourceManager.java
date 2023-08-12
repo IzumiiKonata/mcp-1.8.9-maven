@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 public class FallbackResourceManager implements IResourceManager {
     private static final Logger logger = LogManager.getLogger();
-    protected final List<IResourcePack> resourcePacks = Lists.<IResourcePack>newArrayList();
+    protected final List<IResourcePack> resourcePacks = Lists.newArrayList();
     private final IMetadataSerializer frmMetadataSerializer;
 
     public FallbackResourceManager(IMetadataSerializer frmMetadataSerializerIn) {
@@ -37,7 +37,7 @@ public class FallbackResourceManager implements IResourceManager {
         ResourceLocation resourcelocation = getLocationMcmeta(location);
 
         for (int i = this.resourcePacks.size() - 1; i >= 0; --i) {
-            IResourcePack iresourcepack1 = (IResourcePack) this.resourcePacks.get(i);
+            IResourcePack iresourcepack1 = this.resourcePacks.get(i);
 
             if (iresourcepack == null && iresourcepack1.resourceExists(resourcelocation)) {
                 iresourcepack = iresourcepack1;
@@ -59,11 +59,11 @@ public class FallbackResourceManager implements IResourceManager {
 
     protected InputStream getInputStream(ResourceLocation location, IResourcePack resourcePack) throws IOException {
         InputStream inputstream = resourcePack.getInputStream(location);
-        return (InputStream) (logger.isDebugEnabled() ? new FallbackResourceManager.InputStreamLeakedResourceLogger(inputstream, location, resourcePack.getPackName()) : inputstream);
+        return logger.isDebugEnabled() ? new InputStreamLeakedResourceLogger(inputstream, location, resourcePack.getPackName()) : inputstream;
     }
 
     public List<IResource> getAllResources(ResourceLocation location) throws IOException {
-        List<IResource> list = Lists.<IResource>newArrayList();
+        List<IResource> list = Lists.newArrayList();
         ResourceLocation resourcelocation = getLocationMcmeta(location);
 
         for (IResourcePack iresourcepack : this.resourcePacks) {
@@ -93,7 +93,7 @@ public class FallbackResourceManager implements IResourceManager {
             this.inputStream = p_i46093_1_;
             ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
             (new Exception()).printStackTrace(new PrintStream(bytearrayoutputstream));
-            this.message = "Leaked resource: \'" + location + "\' loaded from pack: \'" + resourcePack + "\'\n" + bytearrayoutputstream.toString();
+            this.message = "Leaked resource: '" + location + "' loaded from pack: '" + resourcePack + "'\n" + bytearrayoutputstream;
         }
 
         public void close() throws IOException {

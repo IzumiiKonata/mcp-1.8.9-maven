@@ -109,9 +109,9 @@ import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 
 public class RenderManager {
-    private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.<Class<? extends Entity>, Render<? extends Entity>>newHashMap();
-    private Map<String, RenderPlayer> skinMap = Maps.<String, RenderPlayer>newHashMap();
-    private RenderPlayer playerRenderer;
+    private Map<Class<? extends Entity>, Render<? extends Entity>> entityRenderMap = Maps.newHashMap();
+    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
+    private final RenderPlayer playerRenderer;
 
     /**
      * Renders fonts
@@ -218,7 +218,7 @@ public class RenderManager {
         PlayerItemsLayer.register(this.skinMap);
 
         if (Reflector.RenderingRegistry_loadEntityRenderers.exists()) {
-            Reflector.call(Reflector.RenderingRegistry_loadEntityRenderers, new Object[]{this, this.entityRenderMap});
+            Reflector.call(Reflector.RenderingRegistry_loadEntityRenderers, this, this.entityRenderMap);
         }
     }
 
@@ -229,10 +229,10 @@ public class RenderManager {
     }
 
     public <T extends Entity> Render<T> getEntityClassRenderObject(Class<? extends Entity> entityClass) {
-        Render<? extends Entity> render = (Render) this.entityRenderMap.get(entityClass);
+        Render<? extends Entity> render = this.entityRenderMap.get(entityClass);
 
         if (render == null && entityClass != Entity.class) {
-            render = this.<Entity>getEntityClassRenderObject((Class<? extends Entity>) entityClass.getSuperclass());
+            render = this.getEntityClassRenderObject((Class<? extends Entity>) entityClass.getSuperclass());
             this.entityRenderMap.put(entityClass, render);
         }
 
@@ -242,10 +242,10 @@ public class RenderManager {
     public <T extends Entity> Render<T> getEntityRenderObject(Entity entityIn) {
         if (entityIn instanceof AbstractClientPlayer) {
             String s = ((AbstractClientPlayer) entityIn).getSkinType();
-            RenderPlayer renderplayer = (RenderPlayer) this.skinMap.get(s);
+            RenderPlayer renderplayer = this.skinMap.get(s);
             return (Render<T>) (renderplayer != null ? renderplayer : this.playerRenderer);
         } else {
-            return this.<T>getEntityClassRenderObject(entityIn.getClass());
+            return this.getEntityClassRenderObject(entityIn.getClass());
         }
     }
 
@@ -260,13 +260,13 @@ public class RenderManager {
             IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
-            if (Reflector.callBoolean(block, Reflector.ForgeBlock_isBed, new Object[]{iblockstate, worldIn, new BlockPos(livingPlayerIn), (EntityLivingBase) livingPlayerIn})) {
+            if (Reflector.callBoolean(block, Reflector.ForgeBlock_isBed, iblockstate, worldIn, new BlockPos(livingPlayerIn), livingPlayerIn)) {
                 EnumFacing enumfacing = (EnumFacing) Reflector.call(block, Reflector.ForgeBlock_getBedDirection, new Object[]{iblockstate, worldIn, new BlockPos(livingPlayerIn)});
                 int i = enumfacing.getHorizontalIndex();
                 this.playerViewY = (float) (i * 90 + 180);
                 this.playerViewX = 0.0F;
             } else if (block == Blocks.bed) {
-                int j = ((EnumFacing) iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                 this.playerViewY = (float) (j * 90 + 180);
                 this.playerViewX = 0.0F;
             }
@@ -309,7 +309,7 @@ public class RenderManager {
     }
 
     public boolean shouldRender(Entity entityIn, ICamera camera, double camX, double camY, double camZ) {
-        Render<Entity> render = this.<Entity>getEntityRenderObject(entityIn);
+        Render<Entity> render = this.getEntityRenderObject(entityIn);
         return render != null && render.shouldRender(entityIn, camera, camX, camY, camZ);
     }
 
@@ -332,7 +332,7 @@ public class RenderManager {
 
         int j = i % 65536;
         int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         return this.doRenderEntity(entity, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ, f, partialTicks, hideDebugBox);
     }
@@ -341,13 +341,13 @@ public class RenderManager {
         double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
         double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
         double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
-        Render<Entity> render = this.<Entity>getEntityRenderObject(entityIn);
+        Render<Entity> render = this.getEntityRenderObject(entityIn);
 
         if (render != null && this.renderEngine != null) {
             int i = entityIn.getBrightnessForRender(partialTicks);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j / 1.0F, (float) k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             render.renderName(entityIn, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ);
         }
@@ -361,7 +361,7 @@ public class RenderManager {
         Render<Entity> render = null;
 
         try {
-            render = this.<Entity>getEntityRenderObject(entity);
+            render = this.getEntityRenderObject(entity);
 
             if (render != null && this.renderEngine != null) {
                 try {
@@ -393,9 +393,7 @@ public class RenderManager {
                         throw new ReportedException(CrashReport.makeCrashReport(throwable, "Rendering entity hitbox in world"));
                     }
                 }
-            } else if (this.renderEngine != null) {
-                return false;
-            }
+            } else return this.renderEngine == null;
 
             return true;
         } catch (Throwable throwable3) {
@@ -486,6 +484,6 @@ public class RenderManager {
     }
 
     public Map<String, RenderPlayer> getSkinMap() {
-        return Collections.<String, RenderPlayer>unmodifiableMap(this.skinMap);
+        return Collections.unmodifiableMap(this.skinMap);
     }
 }

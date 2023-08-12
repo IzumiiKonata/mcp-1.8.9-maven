@@ -108,13 +108,13 @@ public class ItemCameraTransforms {
         }
     }
 
-    public static enum TransformType {
+    public enum TransformType {
         NONE,
         THIRD_PERSON,
         FIRST_PERSON,
         HEAD,
         GUI,
         GROUND,
-        FIXED;
+        FIXED
     }
 }

@@ -35,9 +35,9 @@ import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 
 public class CustomGuis {
-    private static Minecraft mc = Config.getMinecraft();
-    private static PlayerControllerOF playerControllerOF = null;
-    private static CustomGuiProperties[][] guiProperties = (CustomGuiProperties[][]) null;
+    private static final Minecraft mc = Config.getMinecraft();
+    private static final PlayerControllerOF playerControllerOF = null;
+    private static CustomGuiProperties[][] guiProperties = null;
     public static boolean isChristmas = isChristmas();
 
     public static ResourceLocation getTextureLocation(ResourceLocation loc) {
@@ -159,7 +159,7 @@ public class CustomGuis {
     }
 
     public static void update() {
-        guiProperties = (CustomGuiProperties[][]) null;
+        guiProperties = null;
 
         if (Config.isCustomGuis()) {
             List<List<CustomGuiProperties>> list = new ArrayList();
@@ -176,16 +176,16 @@ public class CustomGuis {
 
     private static CustomGuiProperties[][] propertyListToArray(List<List<CustomGuiProperties>> listProps) {
         if (listProps.isEmpty()) {
-            return (CustomGuiProperties[][]) null;
+            return null;
         } else {
             CustomGuiProperties[][] acustomguiproperties = new CustomGuiProperties[CustomGuiProperties.EnumContainer.VALUES.length][];
 
             for (int i = 0; i < acustomguiproperties.length; ++i) {
                 if (listProps.size() > i) {
-                    List<CustomGuiProperties> list = (List) listProps.get(i);
+                    List<CustomGuiProperties> list = listProps.get(i);
 
                     if (list != null) {
-                        CustomGuiProperties[] acustomguiproperties1 = (CustomGuiProperties[]) ((CustomGuiProperties[]) list.toArray(new CustomGuiProperties[list.size()]));
+                        CustomGuiProperties[] acustomguiproperties1 = list.toArray(new CustomGuiProperties[list.size()]);
                         acustomguiproperties[i] = acustomguiproperties1;
                     }
                 }
@@ -196,8 +196,8 @@ public class CustomGuis {
     }
 
     private static void update(IResourcePack rp, List<List<CustomGuiProperties>> listProps) {
-        String[] astring = ResUtils.collectFiles(rp, (String) "optifine/gui/container/", (String) ".properties", (String[]) null);
-        Arrays.sort((Object[]) astring);
+        String[] astring = ResUtils.collectFiles(rp, "optifine/gui/container/", ".properties", null);
+        Arrays.sort(astring);
 
         for (int i = 0; i < astring.length; ++i) {
             String s = astring[i];
@@ -237,7 +237,7 @@ public class CustomGuis {
                 listProps.add(null);
             }
 
-            List<CustomGuiProperties> list = (List) listProps.get(i);
+            List<CustomGuiProperties> list = listProps.get(i);
 
             if (list == null) {
                 list = new ArrayList();

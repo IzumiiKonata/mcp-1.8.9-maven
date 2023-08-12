@@ -88,7 +88,7 @@ public class EnchantmentDamage extends Enchantment {
      * Determines if this enchantment can be applied to a specific ItemStack.
      */
     public boolean canApply(ItemStack stack) {
-        return stack.getItem() instanceof ItemAxe ? true : super.canApply(stack);
+        return stack.getItem() instanceof ItemAxe || super.canApply(stack);
     }
 
     /**
