@@ -48,7 +48,7 @@ public class Chunk {
     /**
      * A map, similar to heightMap, that tracks how far down precipitation can fall.
      */
-    private final int[] precipitationHeightMap;
+    public final int[] precipitationHeightMap;
 
     /**
      * Which columns need their skylightMaps updated.
@@ -94,7 +94,7 @@ public class Chunk {
     /**
      * Whether this Chunk has any Entities and thus requires saving on every tick
      */
-    private boolean hasEntities;
+    public boolean hasEntities;
 
     /**
      * The time according to World.worldTime when this chunk was last saved

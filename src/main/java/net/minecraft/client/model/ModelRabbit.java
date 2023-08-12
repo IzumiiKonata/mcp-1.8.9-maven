@@ -10,62 +10,62 @@ public class ModelRabbit extends ModelBase {
     /**
      * The Rabbit's Left Foot
      */
-    ModelRenderer rabbitLeftFoot;
+    public ModelRenderer rabbitLeftFoot;
 
     /**
      * The Rabbit's Right Foot
      */
-    ModelRenderer rabbitRightFoot;
+    public ModelRenderer rabbitRightFoot;
 
     /**
      * The Rabbit's Left Thigh
      */
-    ModelRenderer rabbitLeftThigh;
+    public ModelRenderer rabbitLeftThigh;
 
     /**
      * The Rabbit's Right Thigh
      */
-    ModelRenderer rabbitRightThigh;
+    public ModelRenderer rabbitRightThigh;
 
     /**
      * The Rabbit's Body
      */
-    ModelRenderer rabbitBody;
+    public ModelRenderer rabbitBody;
 
     /**
      * The Rabbit's Left Arm
      */
-    ModelRenderer rabbitLeftArm;
+    public ModelRenderer rabbitLeftArm;
 
     /**
      * The Rabbit's Right Arm
      */
-    ModelRenderer rabbitRightArm;
+    public ModelRenderer rabbitRightArm;
 
     /**
      * The Rabbit's Head
      */
-    ModelRenderer rabbitHead;
+    public ModelRenderer rabbitHead;
 
     /**
      * The Rabbit's Right Ear
      */
-    ModelRenderer rabbitRightEar;
+    public ModelRenderer rabbitRightEar;
 
     /**
      * The Rabbit's Left Ear
      */
-    ModelRenderer rabbitLeftEar;
+    public ModelRenderer rabbitLeftEar;
 
     /**
      * The Rabbit's Tail
      */
-    ModelRenderer rabbitTail;
+    public ModelRenderer rabbitTail;
 
     /**
      * The Rabbit's Nose
      */
-    ModelRenderer rabbitNose;
+    public ModelRenderer rabbitNose;
     private final float field_178699_n = 0.0F;
 
     public ModelRabbit() {

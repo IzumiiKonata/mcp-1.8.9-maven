@@ -13,7 +13,7 @@ public class RenderBoat extends Render<EntityBoat> {
     /**
      * instance of ModelBoat for rendering
      */
-    protected ModelBase modelBoat = new ModelBoat();
+    public ModelBase modelBoat = new ModelBoat();
 
     public RenderBoat(RenderManager renderManagerIn) {
         super(renderManagerIn);

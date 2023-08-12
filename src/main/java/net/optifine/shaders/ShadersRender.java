@@ -12,7 +12,7 @@ import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.reflect.Reflector;
+
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;

@@ -19,7 +19,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.optifine.*;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.shaders.Shaders;
 import net.optifine.util.KeyUtils;
 import org.apache.commons.io.IOUtils;

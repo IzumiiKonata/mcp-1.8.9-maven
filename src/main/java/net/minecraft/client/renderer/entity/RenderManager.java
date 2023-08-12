@@ -34,7 +34,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.player.PlayerItemsLayer;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.shaders.Shaders;
 
 import java.util.Collections;

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.RenderGuardian;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.src.Config;
-import net.optifine.reflect.Reflector;
+
 
 public class ModelAdapterGuardian extends ModelAdapter {
     public ModelAdapterGuardian() {
@@ -26,28 +26,24 @@ public class ModelAdapterGuardian extends ModelAdapter {
             ModelGuardian modelguardian = (ModelGuardian) model;
 
             if (modelPart.equals("body")) {
-                return (ModelRenderer) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_body);
+                return modelguardian.guardianBody;
             } else if (modelPart.equals("eye")) {
-                return (ModelRenderer) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_eye);
+                return modelguardian.guardianEye;
             } else {
                 String s = "spine";
 
                 if (modelPart.startsWith(s)) {
-                    ModelRenderer[] amodelrenderer1 = (ModelRenderer[]) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_spines);
+                    ModelRenderer[] amodelrenderer1 = modelguardian.guardianSpines;
 
-                    if (amodelrenderer1 == null) {
-                        return null;
-                    } else {
-                        String s3 = modelPart.substring(s.length());
-                        int j = Config.parseInt(s3, -1);
-                        --j;
-                        return j >= 0 && j < amodelrenderer1.length ? amodelrenderer1[j] : null;
-                    }
+                    String s3 = modelPart.substring(s.length());
+                    int j = Config.parseInt(s3, -1);
+                    --j;
+                    return j >= 0 && j < amodelrenderer1.length ? amodelrenderer1[j] : null;
                 } else {
                     String s1 = "tail";
 
                     if (modelPart.startsWith(s1)) {
-                        ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelguardian, Reflector.ModelGuardian_tail);
+                        ModelRenderer[] amodelrenderer = modelguardian.guardianTail;
 
                         if (amodelrenderer == null) {
                             return null;

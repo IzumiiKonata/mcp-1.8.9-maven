@@ -14,7 +14,7 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
     /**
      * The Skeleton's head model.
      */
-    private final ModelSkeletonHead skeletonHeadModel = new ModelSkeletonHead();
+    public ModelSkeletonHead skeletonHeadModel = new ModelSkeletonHead();
 
     public RenderWitherSkull(RenderManager renderManagerIn) {
         super(renderManagerIn);

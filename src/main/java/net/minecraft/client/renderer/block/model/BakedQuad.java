@@ -7,7 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.IVertexProducer;
 import net.optifine.model.QuadBounds;
-import net.optifine.reflect.Reflector;
+
 
 public class BakedQuad implements IVertexProducer {
     /**

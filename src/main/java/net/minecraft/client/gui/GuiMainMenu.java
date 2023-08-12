@@ -20,7 +20,7 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.CustomPanorama;
 import net.optifine.CustomPanoramaProperties;
-import net.optifine.reflect.Reflector;
+
 import org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,7 +51,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     /**
      * The splash message.
      */
-    private String splashText;
+    public String splashText;
 
     /**
      * Timer used to rotate the panorama, increases every tick.

@@ -20,7 +20,7 @@ import net.optifine.GlErrors;
 import net.optifine.VersionCheckThread;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
@@ -808,7 +808,7 @@ public class Config {
     public static DefaultResourcePack getDefaultResourcePack() {
         if (defaultResourcePackLazy == null) {
             Minecraft minecraft = Minecraft.getMinecraft();
-            defaultResourcePackLazy = (DefaultResourcePack) Reflector.getFieldValue(minecraft, Reflector.Minecraft_defaultResourcePack);
+            defaultResourcePackLazy = minecraft.mcDefaultResourcePack;
 
             if (defaultResourcePackLazy == null) {
                 ResourcePackRepository resourcepackrepository = minecraft.getResourcePackRepository();

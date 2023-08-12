@@ -7,9 +7,11 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderRabbit;
 import net.minecraft.entity.passive.EntityRabbit;
-import net.optifine.reflect.Reflector;
 
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ModelAdapterRabbit extends ModelAdapter {
@@ -31,8 +33,24 @@ public class ModelAdapterRabbit extends ModelAdapter {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart).intValue();
-                return (ModelRenderer) Reflector.getFieldValue(modelrabbit, Reflector.ModelRabbit_renderers, i);
+                int i = map.get(modelPart);
+
+                List<ModelRenderer> list = Arrays.asList(
+                        modelrabbit.rabbitLeftFoot,
+                        modelrabbit.rabbitRightFoot,
+                        modelrabbit.rabbitLeftThigh,
+                        modelrabbit.rabbitRightThigh,
+                        modelrabbit.rabbitBody,
+                        modelrabbit.rabbitLeftArm,
+                        modelrabbit.rabbitRightArm,
+                        modelrabbit.rabbitHead,
+                        modelrabbit.rabbitRightEar,
+                        modelrabbit.rabbitLeftEar,
+                        modelrabbit.rabbitTail,
+                        modelrabbit.rabbitNose
+                );
+
+                return list.get(i);
             } else {
                 return null;
             }

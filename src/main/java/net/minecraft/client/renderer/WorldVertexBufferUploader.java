@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.src.Config;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.shaders.SVertexBuilder;
 import org.lwjgl.opengl.GL11;
 

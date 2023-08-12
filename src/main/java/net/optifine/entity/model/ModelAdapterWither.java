@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.src.Config;
-import net.optifine.reflect.Reflector;
+
 
 public class ModelAdapterWither extends ModelAdapter {
     public ModelAdapterWither() {
@@ -27,21 +27,17 @@ public class ModelAdapterWither extends ModelAdapter {
             String s = "body";
 
             if (modelPart.startsWith(s)) {
-                ModelRenderer[] amodelrenderer1 = (ModelRenderer[]) Reflector.getFieldValue(modelwither, Reflector.ModelWither_bodyParts);
+                ModelRenderer[] amodelrenderer1 = modelwither.bodyParts;
 
-                if (amodelrenderer1 == null) {
-                    return null;
-                } else {
-                    String s3 = modelPart.substring(s.length());
-                    int j = Config.parseInt(s3, -1);
-                    --j;
-                    return j >= 0 && j < amodelrenderer1.length ? amodelrenderer1[j] : null;
-                }
+                String s3 = modelPart.substring(s.length());
+                int j = Config.parseInt(s3, -1);
+                --j;
+                return j >= 0 && j < amodelrenderer1.length ? amodelrenderer1[j] : null;
             } else {
                 String s1 = "head";
 
                 if (modelPart.startsWith(s1)) {
-                    ModelRenderer[] amodelrenderer = (ModelRenderer[]) Reflector.getFieldValue(modelwither, Reflector.ModelWither_heads);
+                    ModelRenderer[] amodelrenderer = modelwither.heads;
 
                     if (amodelrenderer == null) {
                         return null;

@@ -55,8 +55,6 @@ import net.optifine.GlErrors;
 import net.optifine.Lagometer;
 import net.optifine.RandomEntities;
 import net.optifine.gui.GuiChatOF;
-import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorResolver;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
@@ -2207,7 +2205,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlErrors.frameStart();
 
         if (!this.initialized) {
-            ReflectorResolver.resolve();
             TextureUtils.registerResourceListener();
 
             if (Config.getBitsOs() == 64 && Config.getBitsJre() == 32) {
@@ -2290,7 +2287,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 return;
             }
 
-            Reflector.setFieldValue(p_updateMainMenu_1_, Reflector.GuiMainMenu_splashText, s);
+            p_updateMainMenu_1_.splashText = s;
         } catch (Throwable var6) {
         }
     }

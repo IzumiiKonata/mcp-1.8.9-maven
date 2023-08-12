@@ -7,9 +7,11 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.optifine.reflect.Reflector;
 
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ModelAdapterOcelot extends ModelAdapter {
@@ -32,7 +34,19 @@ public class ModelAdapterOcelot extends ModelAdapter {
 
             if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart).intValue();
-                return (ModelRenderer) Reflector.getFieldValue(modelocelot, Reflector.ModelOcelot_ModelRenderers, i);
+
+                List<ModelRenderer> list = Arrays.asList(
+                        modelocelot.ocelotBackLeftLeg,
+                        modelocelot.ocelotBackRightLeg,
+                        modelocelot.ocelotFrontLeftLeg,
+                        modelocelot.ocelotFrontRightLeg,
+                        modelocelot.ocelotTail,
+                        modelocelot.ocelotTail2,
+                        modelocelot.ocelotHead,
+                        modelocelot.ocelotBody
+                );
+
+                return list.get(i);
             } else {
                 return null;
             }

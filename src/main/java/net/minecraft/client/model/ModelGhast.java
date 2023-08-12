@@ -7,8 +7,8 @@ import net.minecraft.util.MathHelper;
 import java.util.Random;
 
 public class ModelGhast extends ModelBase {
-    ModelRenderer body;
-    ModelRenderer[] tentacles = new ModelRenderer[9];
+    public ModelRenderer body;
+    public ModelRenderer[] tentacles = new ModelRenderer[9];
 
     public ModelGhast() {
         int i = -16;

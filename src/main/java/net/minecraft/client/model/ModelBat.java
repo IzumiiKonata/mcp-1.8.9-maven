@@ -5,32 +5,32 @@ import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.util.MathHelper;
 
 public class ModelBat extends ModelBase {
-    private final ModelRenderer batHead;
+    public final ModelRenderer batHead;
 
     /**
      * The body box of the bat model.
      */
-    private final ModelRenderer batBody;
+    public final ModelRenderer batBody;
 
     /**
      * The inner right wing box of the bat model.
      */
-    private final ModelRenderer batRightWing;
+    public final ModelRenderer batRightWing;
 
     /**
      * The inner left wing box of the bat model.
      */
-    private final ModelRenderer batLeftWing;
+    public final ModelRenderer batLeftWing;
 
     /**
      * The outer right wing box of the bat model.
      */
-    private final ModelRenderer batOuterRightWing;
+    public final ModelRenderer batOuterRightWing;
 
     /**
      * The outer left wing box of the bat model.
      */
-    private final ModelRenderer batOuterLeftWing;
+    public final ModelRenderer batOuterLeftWing;
 
     public ModelBat() {
         this.textureWidth = 64;

@@ -28,7 +28,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.*;
 import net.optifine.CustomColors;
 import net.optifine.CustomItems;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 

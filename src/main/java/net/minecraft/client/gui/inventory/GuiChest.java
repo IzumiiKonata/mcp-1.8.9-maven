@@ -12,7 +12,7 @@ public class GuiChest extends GuiContainer {
      */
     private static final ResourceLocation CHEST_GUI_TEXTURE = new ResourceLocation("textures/gui/container/generic_54.png");
     private final IInventory upperChestInventory;
-    private final IInventory lowerChestInventory;
+    public final IInventory lowerChestInventory;
 
     /**
      * window height is calculated with these values; the more rows, the heigher

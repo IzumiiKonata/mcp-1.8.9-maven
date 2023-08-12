@@ -20,7 +20,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.SmartAnimations;
 import net.optifine.TextureAnimations;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.util.MemoryMonitor;
 import net.optifine.util.NativeMemory;
 import org.lwjgl.opengl.Display;

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntitySign;
-import net.optifine.reflect.Reflector;
+
 
 public class ModelAdapterSign extends ModelAdapter {
     public ModelAdapterSign() {
@@ -44,13 +44,8 @@ public class ModelAdapterSign extends ModelAdapter {
                 tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
             }
 
-            if (!Reflector.TileEntitySignRenderer_model.exists()) {
-                Config.warn("Field not found: TileEntitySignRenderer.model");
-                return null;
-            } else {
-                Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySignRenderer_model, modelBase);
-                return tileentityspecialrenderer;
-            }
+            ((TileEntitySignRenderer) tileentityspecialrenderer).model = (ModelSign) modelBase;
+            return tileentityspecialrenderer;
         }
     }
 }

@@ -7,9 +7,11 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityHorse;
-import net.optifine.reflect.Reflector;
 
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ModelAdapterHorse extends ModelAdapter {
@@ -35,8 +37,51 @@ public class ModelAdapterHorse extends ModelAdapter {
             Map<String, Integer> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart).intValue();
-                return (ModelRenderer) Reflector.getFieldValue(modelhorse, Reflector.ModelHorse_ModelRenderers, i);
+                int i = map.get(modelPart);
+
+                List<ModelRenderer> list = Arrays.asList(
+                        modelhorse.head,
+                        modelhorse.upperMouth,
+                        modelhorse.lowerMouth,
+                        modelhorse.horseLeftEar,
+                        modelhorse.horseRightEar,
+                        modelhorse.muleLeftEar,
+                        modelhorse.muleRightEar,
+                        modelhorse.neck,
+                        modelhorse.horseFaceRopes,
+                        modelhorse.mane,
+                        modelhorse.body,
+                        modelhorse.tailBase,
+                        modelhorse.tailMiddle,
+                        modelhorse.tailTip,
+                        modelhorse.backLeftLeg,
+                        modelhorse.backLeftShin,
+                        modelhorse.backLeftHoof,
+                        modelhorse.backRightLeg,
+                        modelhorse.backRightShin,
+                        modelhorse.backRightHoof,
+                        modelhorse.frontLeftLeg,
+                        modelhorse.frontLeftShin,
+                        modelhorse.frontLeftHoof,
+                        modelhorse.frontRightLeg,
+                        modelhorse.frontRightShin,
+                        modelhorse.frontRightHoof,
+                        modelhorse.muleLeftChest,
+                        modelhorse.muleRightChest,
+                        modelhorse.horseSaddleBottom,
+                        modelhorse.horseSaddleFront,
+                        modelhorse.horseSaddleBack,
+                        modelhorse.horseLeftSaddleRope,
+                        modelhorse.horseLeftSaddleMetal,
+                        modelhorse.horseRightSaddleRope,
+                        modelhorse.horseRightSaddleMetal,
+                        modelhorse.horseLeftFaceMetal,
+                        modelhorse.horseRightFaceMetal,
+                        modelhorse.horseLeftRein,
+                        modelhorse.horseRightRein
+                );
+
+                return list.get(i);
             } else {
                 return null;
             }

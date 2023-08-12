@@ -24,7 +24,7 @@ public class ChunkProviderClient implements IChunkProvider {
      * coordinates.
      */
     private final Chunk blankChunk;
-    private final LongHashMap<Chunk> chunkMapping = new LongHashMap();
+    public final LongHashMap<Chunk> chunkMapping = new LongHashMap();
     private final List<Chunk> chunkListing = Lists.newArrayList();
 
     /**

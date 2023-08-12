@@ -40,12 +40,12 @@ public class ModelWolf extends ModelBase {
     /**
      * The wolf's tail
      */
-    ModelRenderer wolfTail;
+    public ModelRenderer wolfTail;
 
     /**
      * The wolf's mane
      */
-    ModelRenderer wolfMane;
+    public ModelRenderer wolfMane;
 
     public ModelWolf() {
         float f = 0.0F;

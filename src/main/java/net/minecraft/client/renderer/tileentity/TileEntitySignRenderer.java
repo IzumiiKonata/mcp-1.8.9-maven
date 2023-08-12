@@ -25,7 +25,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
     /**
      * The ModelSign instance for use in this renderer
      */
-    private final ModelSign model = new ModelSign();
+    public ModelSign model = new ModelSign();
     private static double textRenderDistanceSq = 4096.0D;
 
     public void renderTileEntityAt(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage) {

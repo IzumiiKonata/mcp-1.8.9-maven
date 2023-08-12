@@ -7,12 +7,12 @@ public class ModelSilverfish extends ModelBase {
     /**
      * The body parts of the silverfish's model.
      */
-    private final ModelRenderer[] silverfishBodyParts = new ModelRenderer[7];
+    public final ModelRenderer[] silverfishBodyParts = new ModelRenderer[7];
 
     /**
      * The wings (dust-looking sprites) on the silverfish's model.
      */
-    private final ModelRenderer[] silverfishWings;
+    public final ModelRenderer[] silverfishWings;
 
     /**
      * The widths, heights, and lengths for the silverfish model boxes.

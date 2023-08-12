@@ -6,22 +6,22 @@ public class ModelSlime extends ModelBase {
     /**
      * The slime's bodies, both the inside box and the outside box
      */
-    ModelRenderer slimeBodies;
+    public ModelRenderer slimeBodies;
 
     /**
      * The slime's right eye
      */
-    ModelRenderer slimeRightEye;
+    public ModelRenderer slimeRightEye;
 
     /**
      * The slime's left eye
      */
-    ModelRenderer slimeLeftEye;
+    public ModelRenderer slimeLeftEye;
 
     /**
      * The slime's mouth
      */
-    ModelRenderer slimeMouth;
+    public ModelRenderer slimeMouth;
 
     public ModelSlime(int p_i1157_1_) {
         this.slimeBodies = new ModelRenderer(this, 0, p_i1157_1_);

@@ -7,7 +7,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Mipmaps;
-import net.optifine.reflect.Reflector;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

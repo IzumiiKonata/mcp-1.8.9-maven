@@ -7,6 +7,7 @@ import net.minecraft.client.gui.inventory.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.Config;
@@ -17,8 +18,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorField;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
 
@@ -311,12 +310,14 @@ public class CustomGuiProperties {
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen) {
-        return screen instanceof GuiBeacon ? getWorldNameable(screen, Reflector.GuiBeacon_tileBeacon) : (screen instanceof GuiBrewingStand ? getWorldNameable(screen, Reflector.GuiBrewingStand_tileBrewingStand) : (screen instanceof GuiChest ? getWorldNameable(screen, Reflector.GuiChest_lowerChestInventory) : (screen instanceof GuiDispenser ? ((GuiDispenser) screen).dispenserInventory : (screen instanceof GuiEnchantment ? getWorldNameable(screen, Reflector.GuiEnchantment_nameable) : (screen instanceof GuiFurnace ? getWorldNameable(screen, Reflector.GuiFurnace_tileFurnace) : (screen instanceof GuiHopper ? getWorldNameable(screen, Reflector.GuiHopper_hopperInventory) : null))))));
-    }
-
-    private static IWorldNameable getWorldNameable(GuiScreen screen, ReflectorField fieldInventory) {
-        Object object = Reflector.getFieldValue(screen, fieldInventory);
-        return !(object instanceof IWorldNameable) ? null : (IWorldNameable) object;
+        if (screen instanceof GuiBeacon) return ((GuiBeacon) screen).tileBeacon;
+        if (screen instanceof GuiBrewingStand) return ((GuiBrewingStand) screen).tileBrewingStand;
+        if (screen instanceof GuiChest) return ((GuiChest) screen).lowerChestInventory;
+        if (screen instanceof GuiDispenser) return ((GuiDispenser) screen).dispenserInventory;
+        if (screen instanceof GuiEnchantment) return ((GuiEnchantment) screen).field_175380_I;
+        if (screen instanceof GuiFurnace) return ((GuiFurnace) screen).tileFurnace;
+        if (screen instanceof GuiHopper) return ((GuiHopper) screen).hopperInventory;
+        return null;
     }
 
     private boolean matchesBeacon(BlockPos pos, IBlockAccess blockAccess) {
@@ -424,7 +425,7 @@ public class CustomGuiProperties {
 
             if (this.professions != null) {
                 int i = entityvillager.getProfession();
-                int j = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, -1);
+                int j = entityvillager.careerId;
 
                 if (j < 0) {
                     return false;

@@ -61,12 +61,12 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
      * Last player to trade with this villager, used for aggressivity.
      */
     private String lastBuyingPlayer;
-    private int careerId;
+    public int careerId;
 
     /**
      * This is the EntityVillager's career level value
      */
-    private int careerLevel;
+    public int careerLevel;
     private boolean isLookingForHome;
     private boolean areAdditionalTasksSet;
     private final InventoryBasic villagerInventory;

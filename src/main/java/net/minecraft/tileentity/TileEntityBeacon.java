@@ -57,7 +57,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
      * Item given to this beacon as payment.
      */
     private ItemStack payment;
-    private String customName;
+    public String customName;
 
     /**
      * Like the old updateEntity(), except more generic.

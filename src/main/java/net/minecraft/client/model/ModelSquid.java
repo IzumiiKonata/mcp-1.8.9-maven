@@ -6,12 +6,12 @@ public class ModelSquid extends ModelBase {
     /**
      * The squid's body
      */
-    ModelRenderer squidBody;
+    public ModelRenderer squidBody;
 
     /**
      * The squid's tentacles
      */
-    ModelRenderer[] squidTentacles = new ModelRenderer[8];
+    public ModelRenderer[] squidTentacles = new ModelRenderer[8];
 
     public ModelSquid() {
         int i = -16;

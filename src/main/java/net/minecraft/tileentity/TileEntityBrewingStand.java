@@ -47,7 +47,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
      * used to check if the current ingredient has been removed from the brewing stand during brewing
      */
     private Item ingredientID;
-    private String customName;
+    public String customName;
 
     /**
      * Get the name of this object. For players this returns their username

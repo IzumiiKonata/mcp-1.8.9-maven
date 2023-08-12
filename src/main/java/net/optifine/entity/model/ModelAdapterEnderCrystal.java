@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.src.Config;
-import net.optifine.reflect.Reflector;
+
 
 public class ModelAdapterEnderCrystal extends ModelAdapter {
     public ModelAdapterEnderCrystal() {
@@ -29,7 +29,13 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
             return null;
         } else {
             ModelEnderCrystal modelendercrystal = (ModelEnderCrystal) model;
-            return modelPart.equals("cube") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 0) : (modelPart.equals("glass") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 1) : (modelPart.equals("base") ? (ModelRenderer) Reflector.getFieldValue(modelendercrystal, Reflector.ModelEnderCrystal_ModelRenderers, 2) : null));
+            if (modelPart.equals("cube"))
+                return modelendercrystal.cube;
+            if (modelPart.equals("glass"))
+                return modelendercrystal.glass;
+            if (modelPart.equals("base"))
+                return modelendercrystal.base;
+            return null;
         }
     }
 
@@ -47,14 +53,9 @@ public class ModelAdapterEnderCrystal extends ModelAdapter {
         } else {
             RenderEnderCrystal renderendercrystal = (RenderEnderCrystal) render;
 
-            if (!Reflector.RenderEnderCrystal_modelEnderCrystal.exists()) {
-                Config.warn("Field not found: RenderEnderCrystal.modelEnderCrystal");
-                return null;
-            } else {
-                Reflector.setFieldValue(renderendercrystal, Reflector.RenderEnderCrystal_modelEnderCrystal, modelBase);
-                renderendercrystal.shadowSize = shadowSize;
-                return renderendercrystal;
-            }
+            renderendercrystal.modelEnderCrystal = modelBase;
+            renderendercrystal.shadowSize = shadowSize;
+            return renderendercrystal;
         }
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.optifine.reflect.Reflector;
+
 import net.optifine.util.ArrayUtils;
 import net.optifine.util.MathUtils;
 
@@ -245,7 +245,7 @@ public class RandomEntityRule {
                 if (entity instanceof EntityVillager) {
                     EntityVillager entityvillager = (EntityVillager) entity;
                     int j = entityvillager.getProfession();
-                    int k = Reflector.getFieldValueInt(entityvillager, Reflector.EntityVillager_careerId, -1);
+                    int k = entityvillager.careerId;
 
                     if (j < 0 || k < 0) {
                         return false;

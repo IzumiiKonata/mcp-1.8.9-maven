@@ -6,13 +6,17 @@ import net.minecraft.util.MathHelper;
 public class ModelWitch extends ModelVillager {
     public boolean field_82900_g;
 
+    public ModelRenderer witchMole;
+    public ModelRenderer witchHat;
+
+
     public ModelWitch(float p_i46361_1_) {
         super(p_i46361_1_, 0.0F, 64, 128);
-        ModelRenderer field_82901_h = (new ModelRenderer(this)).setTextureSize(64, 128);
-        field_82901_h.setRotationPoint(0.0F, -2.0F, 0.0F);
-        field_82901_h.setTextureOffset(0, 0).addBox(0.0F, 3.0F, -6.75F, 1, 1, 1, -0.25F);
-        this.villagerNose.addChild(field_82901_h);
-        ModelRenderer witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
+        witchMole = (new ModelRenderer(this)).setTextureSize(64, 128);
+        witchMole.setRotationPoint(0.0F, -2.0F, 0.0F);
+        witchMole.setTextureOffset(0, 0).addBox(0.0F, 3.0F, -6.75F, 1, 1, 1, -0.25F);
+        this.villagerNose.addChild(witchMole);
+        witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
         witchHat.setRotationPoint(-5.0F, -10.03125F, -5.0F);
         witchHat.setTextureOffset(0, 64).addBox(0.0F, 0.0F, 0.0F, 10, 2, 10);
         this.villagerHead.addChild(witchHat);

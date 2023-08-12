@@ -15,7 +15,7 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.BlockPosM;
-import net.optifine.reflect.Reflector;
+
 
 import java.util.*;
 

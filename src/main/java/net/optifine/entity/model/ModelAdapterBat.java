@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderBat;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityBat;
-import net.optifine.reflect.Reflector;
+
 
 public class ModelAdapterBat extends ModelAdapter {
     public ModelAdapterBat() {
@@ -23,7 +23,19 @@ public class ModelAdapterBat extends ModelAdapter {
             return null;
         } else {
             ModelBat modelbat = (ModelBat) model;
-            return modelPart.equals("head") ? (ModelRenderer) Reflector.getFieldValue(modelbat, Reflector.ModelBat_ModelRenderers, 0) : (modelPart.equals("body") ? (ModelRenderer) Reflector.getFieldValue(modelbat, Reflector.ModelBat_ModelRenderers, 1) : (modelPart.equals("right_wing") ? (ModelRenderer) Reflector.getFieldValue(modelbat, Reflector.ModelBat_ModelRenderers, 2) : (modelPart.equals("left_wing") ? (ModelRenderer) Reflector.getFieldValue(modelbat, Reflector.ModelBat_ModelRenderers, 3) : (modelPart.equals("outer_right_wing") ? (ModelRenderer) Reflector.getFieldValue(modelbat, Reflector.ModelBat_ModelRenderers, 4) : (modelPart.equals("outer_left_wing") ? (ModelRenderer) Reflector.getFieldValue(modelbat, Reflector.ModelBat_ModelRenderers, 5) : null)))));
+            if (modelPart.equals("head"))
+                return ((ModelBat) model).batHead;
+            if (modelPart.equals("body"))
+                return ((ModelBat) model).batBody;
+            if (modelPart.equals("right_wing"))
+                return ((ModelBat) model).batRightWing;
+            if (modelPart.equals("left_wing"))
+                return ((ModelBat) model).batLeftWing;
+            if (modelPart.equals("outer_right_wing"))
+                return ((ModelBat) model).batOuterRightWing;
+            if (modelPart.equals("outer_left_wing"))
+                return ((ModelBat) model).batOuterLeftWing;
+            return null;
         }
     }
 

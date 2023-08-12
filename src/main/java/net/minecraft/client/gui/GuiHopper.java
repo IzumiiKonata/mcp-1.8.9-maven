@@ -22,7 +22,7 @@ public class GuiHopper extends GuiContainer {
     /**
      * The hopper inventory bound to this GUI instance
      */
-    private final IInventory hopperInventory;
+    public final IInventory hopperInventory;
 
     public GuiHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().thePlayer));
