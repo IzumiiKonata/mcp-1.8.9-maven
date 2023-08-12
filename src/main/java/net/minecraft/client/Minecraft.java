@@ -148,11 +148,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private CrashReport crashReporter;
     public int displayWidth;
     public int displayHeight;
-
-    /**
-     * True if the player is connected to a realms server
-     */
-    private boolean connectedToRealms = false;
     private final Timer timer = new Timer(20.0F);
 
     /**
@@ -2627,21 +2622,5 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         map.put("X-Minecraft-UUID", getMinecraft().getSession().getPlayerID());
         map.put("X-Minecraft-Version", "1.8.9");
         return map;
-    }
-
-    /**
-     * Return true if the player is connected to a realms server
-     */
-    public boolean isConnectedToRealms() {
-        return this.connectedToRealms;
-    }
-
-    /**
-     * Set if the player is connected to a realms server
-     *
-     * @param isConnected The value that set if the player is connected to a realms server or not
-     */
-    public void setConnectedToRealms(boolean isConnected) {
-        this.connectedToRealms = isConnected;
     }
 }

@@ -168,12 +168,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>realms</artifactId>
-            <version>1.7.59</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-actors-migration_2.11</artifactId>
             <version>1.1.0</version>

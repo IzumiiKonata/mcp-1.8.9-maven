@@ -8,7 +8,6 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
-import net.minecraftforge.client.model.ISmartItemModel;
 import net.optifine.CustomItems;
 
 

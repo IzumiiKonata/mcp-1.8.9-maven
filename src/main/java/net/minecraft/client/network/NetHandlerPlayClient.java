@@ -50,7 +50,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.*;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.realms.DisconnectedRealmsScreen;
 import net.minecraft.scoreboard.*;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
@@ -552,11 +551,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         this.gameController.loadWorld(null);
 
         if (this.guiScreenServer != null) {
-            if (this.guiScreenServer instanceof GuiScreenRealmsProxy) {
-                this.gameController.displayGuiScreen((new DisconnectedRealmsScreen(((GuiScreenRealmsProxy) this.guiScreenServer).func_154321_a(), "disconnect.lost", reason)).getProxy());
-            } else {
-                this.gameController.displayGuiScreen(new GuiDisconnected(this.guiScreenServer, "disconnect.lost", reason));
-            }
+            this.gameController.displayGuiScreen(new GuiDisconnected(this.guiScreenServer, "disconnect.lost", reason));
         } else {
             this.gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
         }
