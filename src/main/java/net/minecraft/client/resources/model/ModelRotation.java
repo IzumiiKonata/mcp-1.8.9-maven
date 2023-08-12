@@ -4,17 +4,13 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
-import net.minecraftforge.client.model.IModelPart;
-import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.ITransformation;
-import net.minecraftforge.client.model.TRSRTransformation;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.util.Map;
 
-public enum ModelRotation implements IModelState, ITransformation {
+public enum ModelRotation {
     X0_Y0(0, 0),
     X0_Y90(0, 90),
     X0_Y180(0, 180),
@@ -98,10 +94,6 @@ public enum ModelRotation implements IModelState, ITransformation {
 
     public static ModelRotation getModelRotation(int p_177524_0_, int p_177524_1_) {
         return mapRotations.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360))));
-    }
-
-    public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> p_apply_1_) {
-        return Optional.absent();
     }
 
     public javax.vecmath.Matrix4f getMatrix()
