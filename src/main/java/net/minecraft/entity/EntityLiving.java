@@ -156,7 +156,6 @@ public abstract class EntityLiving extends EntityLivingBase {
      */
     public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
         this.attackTarget = entitylivingbaseIn;
-        Reflector.callVoid(Reflector.ForgeHooks_onLivingSetAttackTarget, this, entitylivingbaseIn);
     }
 
     /**
@@ -510,35 +509,34 @@ public abstract class EntityLiving extends EntityLivingBase {
     /**
      * Makes the entity despawn if requirements are reached
      */
-    protected void despawnEntity() {
-        Object object = null;
-        Object object1 = Reflector.getFieldValue(Reflector.Event_Result_DEFAULT);
-        Object object2 = Reflector.getFieldValue(Reflector.Event_Result_DENY);
-
-        if (this.persistenceRequired) {
+    protected void despawnEntity()
+    {
+        if (this.persistenceRequired)
+        {
             this.entityAge = 0;
-        } else if ((this.entityAge & 31) == 31 && (object = Reflector.call(Reflector.ForgeEventFactory_canEntityDespawn, this)) != object1) {
-            if (object == object2) {
-                this.entityAge = 0;
-            } else {
-                this.setDead();
-            }
-        } else {
+        }
+        else
+        {
             Entity entity = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
 
-            if (entity != null) {
+            if (entity != null)
+            {
                 double d0 = entity.posX - this.posX;
                 double d1 = entity.posY - this.posY;
                 double d2 = entity.posZ - this.posZ;
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-                if (this.canDespawn() && d3 > 16384.0D) {
+                if (this.canDespawn() && d3 > 16384.0D)
+                {
                     this.setDead();
                 }
 
-                if (this.entityAge > 600 && this.rand.nextInt(800) == 0 && d3 > 1024.0D && this.canDespawn()) {
+                if (this.entityAge > 600 && this.rand.nextInt(800) == 0 && d3 > 1024.0D && this.canDespawn())
+                {
                     this.setDead();
-                } else if (d3 < 1024.0D) {
+                }
+                else if (d3 < 1024.0D)
+                {
                     this.entityAge = 0;
                 }
             }

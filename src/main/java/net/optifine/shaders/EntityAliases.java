@@ -1,10 +1,7 @@
 package net.optifine.shaders;
 
 import net.minecraft.src.Config;
-import net.minecraft.util.ResourceLocation;
 import net.optifine.config.ConnectedParser;
-import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.shaders.config.MacroProcessor;
 import net.optifine.util.PropertiesOrdered;
 import net.optifine.util.StrUtils;
@@ -40,40 +37,22 @@ public class EntityAliases {
         reset();
 
         if (shaderPack != null) {
-            if (Reflector.Loader_getActiveModList.exists() && Config.getResourceManager() == null) {
-                Config.dbg("[Shaders] Delayed loading of entity mappings after resources are loaded");
-                updateOnResourcesReloaded = true;
-            } else {
-                List<Integer> list = new ArrayList();
-                String s = "/shaders/entity.properties";
-                InputStream inputstream = shaderPack.getResourceAsStream(s);
+            List<Integer> list = new ArrayList();
+            String s = "/shaders/entity.properties";
+            InputStream inputstream = shaderPack.getResourceAsStream(s);
 
-                if (inputstream != null) {
-                    loadEntityAliases(inputstream, s, list);
-                }
+            if (inputstream != null) {
+                loadEntityAliases(inputstream, s, list);
+            }
 
-                loadModEntityAliases(list);
-
-                if (list.size() > 0) {
-                    entityAliases = toArray(list);
-                }
+            if (list.size() > 0) {
+                entityAliases = toArray(list);
             }
         }
     }
 
     private static void loadModEntityAliases(List<Integer> listEntityAliases) {
-        String[] astring = ReflectorForge.getForgeModIds();
 
-        for (int i = 0; i < astring.length; ++i) {
-            String s = astring[i];
-
-            try {
-                ResourceLocation resourcelocation = new ResourceLocation(s, "shaders/entity.properties");
-                InputStream inputstream = Config.getResourceStream(resourcelocation);
-                loadEntityAliases(inputstream, resourcelocation.toString(), listEntityAliases);
-            } catch (IOException var6) {
-            }
-        }
     }
 
     private static void loadEntityAliases(InputStream in, String path, List<Integer> listEntityAliases) {

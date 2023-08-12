@@ -21,7 +21,6 @@ import net.optifine.VersionCheckThread;
 import net.optifine.config.GlVersion;
 import net.optifine.gui.GuiMessage;
 import net.optifine.reflect.Reflector;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.DisplayModeComparator;
 import net.optifine.util.PropertiesOrdered;
@@ -118,7 +117,6 @@ public class Config {
             gameSettings = p_initGameSettings_0_;
             desktopDisplayMode = Display.getDesktopDisplayMode();
             updateAvailableProcessors();
-            ReflectorForge.putLaunchBlackboard("optifine.ForgeSplashCompatible", Boolean.TRUE);
         }
     }
 

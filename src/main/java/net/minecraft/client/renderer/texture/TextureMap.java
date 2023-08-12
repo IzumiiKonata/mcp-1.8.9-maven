@@ -15,7 +15,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.*;
-import net.optifine.reflect.ReflectorForge;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
@@ -229,11 +228,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                         textureatlassprite3.loadSprite(abufferedimage, animationmetadatasection);
                     } catch (RuntimeException runtimeexception) {
                         logger.error("Unable to parse metadata from " + resourcelocation2, runtimeexception);
-                        ReflectorForge.FMLClientHandler_trackBrokenTexture(resourcelocation2, runtimeexception.getMessage());
                         continue;
                     } catch (IOException ioexception1) {
                         logger.error("Using missing texture, unable to load " + resourcelocation2 + ", " + ioexception1.getClass().getName());
-                        ReflectorForge.FMLClientHandler_trackMissingTexture(resourcelocation2);
                         continue;
                     }
 

@@ -1026,16 +1026,10 @@ public class GameSettings {
     /**
      * Saves the options to the options file.
      */
-    public void saveOptions() {
-        if (Reflector.FMLClientHandler.exists()) {
-            Object object = Reflector.call(Reflector.FMLClientHandler_instance);
-
-            if (object != null && Reflector.callBoolean(object, Reflector.FMLClientHandler_isLoading)) {
-                return;
-            }
-        }
-
-        try {
+    public void saveOptions()
+    {
+        try
+        {
             PrintWriter printwriter = new PrintWriter(new FileWriter(this.optionsFile));
             printwriter.println("invertYMouse:" + this.invertMouse);
             printwriter.println("mouseSensitivity:" + this.mouseSensitivity);
@@ -1053,7 +1047,8 @@ public class GameSettings {
             printwriter.println("fancyGraphics:" + this.fancyGraphics);
             printwriter.println("ao:" + this.ambientOcclusion);
 
-            switch (this.clouds) {
+            switch (this.clouds)
+            {
                 case 0:
                     printwriter.println("renderClouds:false");
                     break;
@@ -1099,20 +1094,25 @@ public class GameSettings {
             printwriter.println("entityShadows:" + this.entityShadows);
             printwriter.println("realmsNotifications:" + this.realmsNotifications);
 
-            for (KeyBinding keybinding : this.keyBindings) {
+            for (KeyBinding keybinding : this.keyBindings)
+            {
                 printwriter.println("key_" + keybinding.getKeyDescription() + ":" + keybinding.getKeyCode());
             }
 
-            for (SoundCategory soundcategory : SoundCategory.values()) {
+            for (SoundCategory soundcategory : SoundCategory.values())
+            {
                 printwriter.println("soundCategory_" + soundcategory.getCategoryName() + ":" + this.getSoundLevel(soundcategory));
             }
 
-            for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+            for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values())
+            {
                 printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + this.setModelParts.contains(enumplayermodelparts));
             }
 
             printwriter.close();
-        } catch (Exception exception) {
+        }
+        catch (Exception exception)
+        {
             logger.error("Failed to save options", exception);
         }
 
