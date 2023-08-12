@@ -5,8 +5,8 @@ import com.google.common.collect.Maps;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjglx.util.vector.Matrix4f;
+import org.lwjglx.util.vector.Vector3f;
 
 import java.util.Map;
 

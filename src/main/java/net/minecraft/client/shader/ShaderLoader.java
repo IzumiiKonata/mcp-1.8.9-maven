@@ -51,11 +51,8 @@ public class ShaderLoader {
             ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + filename + type.getShaderExtension());
             BufferedInputStream bufferedinputstream = new BufferedInputStream(resourceManager.getResource(resourcelocation).getInputStream());
             byte[] abyte = toByteArray(bufferedinputstream);
-            ByteBuffer bytebuffer = BufferUtils.createByteBuffer(abyte.length);
-            bytebuffer.put(abyte);
-            bytebuffer.position(0);
             int i = OpenGlHelper.glCreateShader(type.getShaderMode());
-            OpenGlHelper.glShaderSource(i, bytebuffer);
+            OpenGlHelper.glShaderSource(i, new String(abyte));
             OpenGlHelper.glCompileShader(i);
 
             if (OpenGlHelper.glGetShaderi(i, OpenGlHelper.GL_COMPILE_STATUS) == 0) {
