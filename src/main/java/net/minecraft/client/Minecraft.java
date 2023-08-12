@@ -93,6 +93,7 @@ import org.lwjglx.Sys;
 import org.lwjglx.input.Keyboard;
 import org.lwjglx.input.Mouse;
 import org.lwjglx.opengl.*;
+import org.lwjglx.util.IOUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -103,12 +104,16 @@ import java.net.Proxy;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
+
+import static org.lwjgl.BufferUtils.createByteBuffer;
 
 public class Minecraft implements IThreadListener, IPlayerUsage {
     private static final Logger logger = LogManager.getLogger();
@@ -424,9 +429,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
         logger.info("LWJGL Version: " + Sys.getVersion());
-        this.setWindowIcon();
         this.setInitialDisplayMode();
         this.createDisplay();
+        this.setWindowIcon();
+
         OpenGlHelper.initializeTextures();
         this.framebufferMc = new Framebuffer(this.displayWidth, this.displayHeight, true);
         this.framebufferMc.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
@@ -579,7 +585,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 inputstream1 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
 
                 if (inputstream != null && inputstream1 != null) {
-                    Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(inputstream), this.readImageToBuffer(inputstream1)});
+                    Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(inputstream, 2048), this.readImageToBuffer(inputstream1, 4096)});
                 }
             } catch (IOException ioexception) {
                 logger.error("Couldn't set icon", ioexception);
@@ -687,17 +693,26 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
     }
 
-    private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
-        BufferedImage bufferedimage = ImageIO.read(imageStream);
-        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
-        ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
+    private ByteBuffer readImageToBuffer(InputStream source, int bufferSize) throws IOException {
 
-        for (int i : aint) {
-            bytebuffer.putInt(i << 8 | i >> 24 & 255);
+        ByteBuffer buffer;
+
+        try (
+                ReadableByteChannel rbc = Channels.newChannel(source)
+        ) {
+            buffer = createByteBuffer(bufferSize);
+
+            while ( true ) {
+                int bytes = rbc.read(buffer);
+                if ( bytes == -1 )
+                    break;
+                if ( buffer.remaining() == 0 )
+                    buffer = IOUtil.resizeBuffer(buffer, buffer.capacity() * 2);
+            }
         }
 
-        bytebuffer.flip();
-        return bytebuffer;
+        buffer.flip();
+        return buffer;
     }
 
     private void updateDisplayMode() throws LWJGLException {

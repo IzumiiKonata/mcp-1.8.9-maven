@@ -23,6 +23,8 @@ import org.lwjgl.glfw.GLFWWindowPosCallback;
 import org.lwjgl.glfw.GLFWWindowRefreshCallback;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GLCapabilities;
+import org.lwjgl.stb.STBImage;
+import org.lwjgl.system.MemoryUtil;
 import org.lwjglx.LWJGLException;
 import org.lwjglx.Sys;
 import org.lwjglx.input.Keyboard;
@@ -88,7 +90,7 @@ public class Display {
         create();
     }
 
-    public static <xoffset> void create() throws LWJGLException {
+    public static void create() throws LWJGLException {
         long monitor = glfwGetPrimaryMonitor();
         GLFWVidMode vidmode = glfwGetVideoMode(monitor);
 
@@ -379,9 +381,35 @@ public class Display {
         System.out.println("TODO: Implement Display.setInitialBackground(float, float, float)");
     }
 
-    public static int setIcon(java.nio.ByteBuffer[] icons) {
+    public static int setIcon(ByteBuffer[] icons) {
         // TODO
-        System.out.println("TODO: Implement Display.setIcon(ByteBuffer[])");
+
+        IntBuffer w = MemoryUtil.memAllocInt(1);
+        IntBuffer h = MemoryUtil.memAllocInt(1);
+        IntBuffer comp = MemoryUtil.memAllocInt(1);
+
+        try (GLFWImage.Buffer iconBuffers = GLFWImage.malloc(2)) {
+            ByteBuffer pixels16 = STBImage.stbi_load_from_memory(icons[0], w, h, comp, 4);
+            iconBuffers
+                    .position(0)
+                    .width(w.get(0))
+                    .height(h.get(0))
+                    .pixels(pixels16);
+
+            ByteBuffer pixels32 = STBImage.stbi_load_from_memory(icons[1], w, h, comp, 4);
+            iconBuffers
+                    .position(1)
+                    .width(w.get(0))
+                    .height(h.get(0))
+                    .pixels(pixels32);
+
+            iconBuffers.position(0);
+            glfwSetWindowIcon(Window.handle, iconBuffers);
+
+            STBImage.stbi_image_free(pixels32);
+            STBImage.stbi_image_free(pixels16);
+        }
+
         return 0;
     }
 
