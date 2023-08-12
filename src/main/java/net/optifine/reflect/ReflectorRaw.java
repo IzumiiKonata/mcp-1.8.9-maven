@@ -48,8 +48,7 @@ public class ReflectorRaw {
                 }
             }
 
-            Field[] afield = (Field[]) list.toArray(new Field[list.size()]);
-            return afield;
+            return (Field[]) list.toArray(new Field[list.size()]);
         } catch (Exception var5) {
             return null;
         }
@@ -96,8 +95,7 @@ public class ReflectorRaw {
                 }
             }
 
-            Field[] afield = list.toArray(new Field[list.size()]);
-            return afield;
+            return list.toArray(new Field[list.size()]);
         } catch (Exception var9) {
             return null;
         }

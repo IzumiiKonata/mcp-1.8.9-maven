@@ -49,7 +49,6 @@ public abstract class World implements IBlockAccess {
     public final List<EntityPlayer> playerEntities = Lists.newArrayList();
     public final List<Entity> weatherEffects = Lists.newArrayList();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap();
-    private final long cloudColour = 16777215L;
 
     /**
      * How much light is subtracted from full daylight
@@ -1233,9 +1232,10 @@ public abstract class World implements IBlockAccess {
         float f = this.getCelestialAngle(partialTicks);
         float f1 = MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
-        float f2 = (float) (this.cloudColour >> 16 & 255L) / 255.0F;
-        float f3 = (float) (this.cloudColour >> 8 & 255L) / 255.0F;
-        float f4 = (float) (this.cloudColour & 255L) / 255.0F;
+        long cloudColour = 16777215L;
+        float f2 = (float) (cloudColour >> 16 & 255L) / 255.0F;
+        float f3 = (float) (cloudColour >> 8 & 255L) / 255.0F;
+        float f4 = (float) (cloudColour & 255L) / 255.0F;
         float f5 = this.getRainStrength(partialTicks);
 
         if (f5 > 0.0F) {
@@ -2195,9 +2195,7 @@ public abstract class World implements IBlockAccess {
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(pos);
         float f = biomegenbase.getFloatTemperature(pos);
 
-        if (f > 0.15F) {
-            return false;
-        } else {
+        if (!(f > 0.15F)) {
             if (pos.getY() >= 0 && pos.getY() < 256 && this.getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
                 IBlockState iblockstate = this.getBlockState(pos);
                 Block block = iblockstate.getBlock();
@@ -2213,8 +2211,8 @@ public abstract class World implements IBlockAccess {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     private boolean isWater(BlockPos pos) {
@@ -2610,12 +2608,10 @@ public abstract class World implements IBlockAccess {
                     } else {
                         i = Math.max(i, this.getStrongPower(pos.west(), EnumFacing.WEST));
 
-                        if (i >= 15) {
-                            return i;
-                        } else {
+                        if (i < 15) {
                             i = Math.max(i, this.getStrongPower(pos.east(), EnumFacing.EAST));
-                            return i;
                         }
+                        return i;
                     }
                 }
             }

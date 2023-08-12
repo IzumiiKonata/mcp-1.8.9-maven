@@ -23,10 +23,6 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     protected T modelLeggings;
     protected T modelArmor;
     private final RendererLivingEntity<?> renderer;
-    private final float alpha = 1.0F;
-    private final float colorR = 1.0F;
-    private final float colorG = 1.0F;
-    private final float colorB = 1.0F;
     private boolean skipRenderGlint;
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
 
@@ -70,13 +66,17 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                 }
             }
 
+            float colorB = 1.0F;
+            float colorG = 1.0F;
+            float colorR = 1.0F;
+            float alpha = 1.0F;
             if (Reflector.ForgeHooksClient_getArmorTexture.exists()) {
                 if (ReflectorForge.armorHasOverlay(itemarmor, itemstack)) {
                     int j = itemarmor.getColor(itemstack);
                     float f3 = (float) (j >> 16 & 255) / 255.0F;
                     float f4 = (float) (j >> 8 & 255) / 255.0F;
                     float f5 = (float) (j & 255) / 255.0F;
-                    GlStateManager.color(this.colorR * f3, this.colorG * f4, this.colorB * f5, this.alpha);
+                    GlStateManager.color(colorR * f3, colorG * f4, colorB * f5, alpha);
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, scale);
 
                     if (!Config.isCustomItems() || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, "overlay")) {
@@ -84,7 +84,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                     }
                 }
 
-                GlStateManager.color(this.colorR, this.colorG, this.colorB, this.alpha);
+                GlStateManager.color(colorR, colorG, colorB, alpha);
                 t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, scale);
 
                 if (!this.skipRenderGlint && itemstack.hasEffect() && (!Config.isCustomItems() || !CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_, p_177182_6_, p_177182_7_, scale))) {
@@ -100,7 +100,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                     float f = (float) (i >> 16 & 255) / 255.0F;
                     float f1 = (float) (i >> 8 & 255) / 255.0F;
                     float f2 = (float) (i & 255) / 255.0F;
-                    GlStateManager.color(this.colorR * f, this.colorG * f1, this.colorB * f2, this.alpha);
+                    GlStateManager.color(colorR * f, colorG * f1, colorB * f2, alpha);
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, scale);
 
                     if (!Config.isCustomItems() || !CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, "overlay")) {
@@ -111,7 +111,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                 case IRON:
                 case GOLD:
                 case DIAMOND:
-                    GlStateManager.color(this.colorR, this.colorG, this.colorB, this.alpha);
+                    GlStateManager.color(colorR, colorG, colorB, alpha);
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, scale);
             }
 

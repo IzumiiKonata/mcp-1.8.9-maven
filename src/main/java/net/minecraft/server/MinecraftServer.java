@@ -189,7 +189,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private final PlayerProfileCache profileCache;
     protected final Queue<FutureTask<?>> futureTaskQueue = Queues.newArrayDeque();
     private Thread serverThread;
-    private long currentTime = getCurrentTimeMillis();
 
     public MinecraftServer(Proxy proxy, File workDir) {
         this.serverProxy = proxy;
@@ -482,7 +481,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     public void run() {
         try {
             if (this.startServer()) {
-                this.currentTime = getCurrentTimeMillis();
+                long currentTime = getCurrentTimeMillis();
                 long i = 0L;
                 this.statusResponse.setServerDescription(new ChatComponentText(this.motd));
                 this.statusResponse.setProtocolVersionInfo(new ServerStatusResponse.MinecraftProtocolVersionIdentifier("1.8.9", 47));
@@ -490,12 +489,12 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
                 while (this.serverRunning) {
                     long k = getCurrentTimeMillis();
-                    long j = k - this.currentTime;
+                    long j = k - currentTime;
 
-                    if (j > 2000L && this.currentTime - this.timeOfLastWarning >= 15000L) {
+                    if (j > 2000L && currentTime - this.timeOfLastWarning >= 15000L) {
                         logger.warn("Can't keep up! Did the system time change, or is the server overloaded? Running {}ms behind, skipping {} tick(s)", Long.valueOf(j), Long.valueOf(j / 50L));
                         j = 2000L;
-                        this.timeOfLastWarning = this.currentTime;
+                        this.timeOfLastWarning = currentTime;
                     }
 
                     if (j < 0L) {
@@ -504,7 +503,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                     }
 
                     i += j;
-                    this.currentTime = k;
+                    currentTime = k;
 
                     if (this.worldServers[0].areAllPlayersAsleep()) {
                         this.tick();
@@ -817,7 +816,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 }
             }
 
-            return list;
         } else {
             String[] astring = input.split(" ", -1);
             String s = astring[astring.length - 1];
@@ -828,8 +826,8 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 }
             }
 
-            return list;
         }
+        return list;
     }
 
     /**

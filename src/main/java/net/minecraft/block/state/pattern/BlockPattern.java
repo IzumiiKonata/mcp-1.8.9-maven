@@ -124,7 +124,6 @@ public class BlockPattern {
         private final LoadingCache<BlockPos, BlockWorldState> lcache;
         private final int field_181120_e;
         private final int field_181121_f;
-        private final int field_181122_g;
 
         public PatternHelper(BlockPos posIn, EnumFacing fingerIn, EnumFacing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int p_i46378_5_, int p_i46378_6_, int p_i46378_7_) {
             this.pos = posIn;
@@ -133,7 +132,6 @@ public class BlockPattern {
             this.lcache = lcacheIn;
             this.field_181120_e = p_i46378_5_;
             this.field_181121_f = p_i46378_6_;
-            this.field_181122_g = p_i46378_7_;
         }
 
         public BlockPos getPos() {

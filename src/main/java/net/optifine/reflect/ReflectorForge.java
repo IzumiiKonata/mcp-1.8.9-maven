@@ -66,8 +66,7 @@ public class ReflectorForge {
                 if (abyte == null) {
                     return null;
                 } else {
-                    InputStream inputstream = new ByteArrayInputStream(abyte);
-                    return inputstream;
+                    return new ByteArrayInputStream(abyte);
                 }
             }
         }
@@ -113,8 +112,7 @@ public class ReflectorForge {
                     }
                 }
 
-                String[] astring = list1.toArray(new String[list1.size()]);
-                return astring;
+                return list1.toArray(new String[list1.size()]);
             }
         }
     }

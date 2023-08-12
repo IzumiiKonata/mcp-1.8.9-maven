@@ -3,7 +3,6 @@ package net.minecraft.client.particle;
 import net.minecraft.world.World;
 
 public class EntityEnchantmentTableParticleFX extends EntityFX {
-    private final float field_70565_a;
     private final double coordX;
     private final double coordY;
     private final double coordZ;
@@ -20,7 +19,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX {
         this.posY = this.prevPosY = yCoordIn + ySpeedIn;
         this.posZ = this.prevPosZ = zCoordIn + zSpeedIn;
         float f = this.rand.nextFloat() * 0.6F + 0.4F;
-        this.field_70565_a = this.particleScale = this.rand.nextFloat() * 0.5F + 0.2F;
+        float field_70565_a = this.particleScale = this.rand.nextFloat() * 0.5F + 0.2F;
         this.particleRed = this.particleGreen = this.particleBlue = f;
         this.particleGreen *= 0.9F;
         this.particleRed *= 0.9F;

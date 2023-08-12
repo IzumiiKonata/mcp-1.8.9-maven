@@ -65,7 +65,7 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
     }
 
     public int getInt() {
-        return (int) (this.data & -1L);
+        return (int) (this.data);
     }
 
     public short getShort() {

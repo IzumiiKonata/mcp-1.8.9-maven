@@ -12,26 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mipmaps {
-    private final String iconName;
-    private final int width;
-    private final int height;
-    private final int[] data;
-    private final boolean direct;
-    private final int[][] mipmapDatas;
-    private IntBuffer[] mipmapBuffers;
-    private final Dimension[] mipmapDimensions;
 
     public Mipmaps(String iconName, int width, int height, int[] data, boolean direct) {
-        this.iconName = iconName;
-        this.width = width;
-        this.height = height;
-        this.data = data;
-        this.direct = direct;
-        this.mipmapDimensions = makeMipmapDimensions(width, height, iconName);
-        this.mipmapDatas = generateMipMapData(data, width, height, this.mipmapDimensions);
+        Dimension[] mipmapDimensions = makeMipmapDimensions(width, height, iconName);
+        int[][] mipmapDatas = generateMipMapData(data, width, height, mipmapDimensions);
 
         if (direct) {
-            this.mipmapBuffers = makeMipmapBuffers(this.mipmapDimensions, this.mipmapDatas);
+            IntBuffer[] mipmapBuffers = makeMipmapBuffers(mipmapDimensions, mipmapDatas);
         }
     }
 
@@ -49,8 +36,7 @@ public class Mipmaps {
                 l /= 2;
 
                 if (k <= 0 && l <= 0) {
-                    Dimension[] adimension = (Dimension[]) list.toArray(new Dimension[list.size()]);
-                    return adimension;
+                    return (Dimension[]) list.toArray(new Dimension[list.size()]);
                 }
 
                 if (k <= 0) {
@@ -112,8 +98,7 @@ public class Mipmaps {
     public static int alphaBlend(int c1, int c2, int c3, int c4) {
         int i = alphaBlend(c1, c2);
         int j = alphaBlend(c3, c4);
-        int k = alphaBlend(i, j);
-        return k;
+        return alphaBlend(i, j);
     }
 
     private static int alphaBlend(int c1, int c2) {

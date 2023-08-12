@@ -8,12 +8,10 @@ import net.minecraft.client.gui.spectator.SpectatorMenu;
 import java.util.List;
 
 public class SpectatorDetails {
-    private final ISpectatorMenuView field_178684_a;
     private final List<ISpectatorMenuObject> field_178682_b;
     private final int field_178683_c;
 
     public SpectatorDetails(ISpectatorMenuView p_i45494_1_, List<ISpectatorMenuObject> p_i45494_2_, int p_i45494_3_) {
-        this.field_178684_a = p_i45494_1_;
         this.field_178682_b = p_i45494_2_;
         this.field_178683_c = p_i45494_3_;
     }

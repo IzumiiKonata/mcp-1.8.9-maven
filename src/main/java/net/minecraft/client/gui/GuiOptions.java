@@ -39,7 +39,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
         this.field_146442_a = I18n.format("options.title");
 
         for (GameSettings.Options gamesettings$options : field_146440_f) {
-            if (gamesettings$options.getEnumFloat()) {
+            if (!gamesettings$options.getEnumFloat()) {
                 this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
             } else {
                 GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options, this.game_settings_1.getKeyBinding(gamesettings$options));

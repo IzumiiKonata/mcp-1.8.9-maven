@@ -14,10 +14,6 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
-    /**
-     * this field is used to indicate the 3-pixel wide arms
-     */
-    private final boolean smallArms;
 
     public RenderPlayer(RenderManager renderManager) {
         this(renderManager, false);
@@ -25,7 +21,9 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
 
     public RenderPlayer(RenderManager renderManager, boolean useSmallArms) {
         super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
-        this.smallArms = useSmallArms;
+        /**
+         * this field is used to indicate the 3-pixel wide arms
+         */
         this.addLayer(new LayerBipedArmor(this));
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerArrow(this));

@@ -80,7 +80,6 @@ public class Material {
      * indicates that it can't be pushed.
      */
     private int mobilityFlag;
-    private boolean isAdventureModeExempt;
 
     public Material(MapColor color) {
         this.materialMapColor = color;
@@ -202,7 +201,7 @@ public class Material {
      * @see #isAdventureModeExempt()
      */
     protected Material setAdventureModeExempt() {
-        this.isAdventureModeExempt = true;
+        boolean isAdventureModeExempt = true;
         return this;
     }
 

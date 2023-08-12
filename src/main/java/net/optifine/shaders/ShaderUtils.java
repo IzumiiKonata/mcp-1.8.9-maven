@@ -6,9 +6,7 @@ import net.optifine.shaders.config.ShaderProfile;
 
 public class ShaderUtils {
     public static ShaderOption getShaderOption(String name, ShaderOption[] opts) {
-        if (opts == null) {
-            return null;
-        } else {
+        if (opts != null) {
             for (int i = 0; i < opts.length; ++i) {
                 ShaderOption shaderoption = opts[i];
 
@@ -17,14 +15,12 @@ public class ShaderUtils {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public static ShaderProfile detectProfile(ShaderProfile[] profs, ShaderOption[] opts, boolean def) {
-        if (profs == null) {
-            return null;
-        } else {
+        if (profs != null) {
             for (int i = 0; i < profs.length; ++i) {
                 ShaderProfile shaderprofile = profs[i];
 
@@ -33,8 +29,8 @@ public class ShaderUtils {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public static boolean matchProfile(ShaderProfile prof, ShaderOption[] opts, boolean def) {

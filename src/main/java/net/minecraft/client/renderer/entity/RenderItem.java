@@ -40,11 +40,6 @@ public class RenderItem implements IResourceManagerReloadListener {
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
     /**
-     * False when the renderer is rendering the item's effects into a GUI
-     */
-    private boolean notRenderingEffectsInGUI = true;
-
-    /**
      * Defines the zLevel of rendering of item on GUI.
      */
     public float zLevel;
@@ -75,7 +70,9 @@ public class RenderItem implements IResourceManagerReloadListener {
      * @param isNot If the renderer is not rendering the effects in a GUI
      */
     public void isNotRenderingEffectsInGUI(boolean isNot) {
-        this.notRenderingEffectsInGUI = isNot;
+        /**
+         * False when the renderer is rendering the item's effects into a GUI
+         */
     }
 
     public ItemModelMesher getItemModelMesher() {
@@ -254,7 +251,7 @@ public class RenderItem implements IResourceManagerReloadListener {
             BakedQuad bakedquad = quads.get(i);
             int k = color;
 
-            if (flag && bakedquad.hasTintIndex()) {
+            if (flag && !bakedquad.hasTintIndex()) {
                 k = stack.getItem().getColorFromItemStack(stack, bakedquad.getTintIndex());
 
                 if (Config.isCustomColors()) {
@@ -512,7 +509,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                     if (i1 >= 0) {
                         j = i1 >> 16 & 255;
                         k = i1 >> 8 & 255;
-                        l = i1 >> 0 & 255;
+                        l = i1 & 255;
                     }
                 }
 

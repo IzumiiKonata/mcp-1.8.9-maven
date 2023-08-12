@@ -8,7 +8,6 @@ import java.nio.ByteBuffer;
 
 public class HFNoiseTexture implements ICustomTexture {
     private int texID = GL11.glGenTextures();
-    private final int textureUnit = 15;
 
     public HFNoiseTexture(int width, int height) {
         byte[] abyte = this.genHFNoiseImage(width, height);
@@ -65,7 +64,8 @@ public class HFNoiseTexture implements ICustomTexture {
     }
 
     public int getTextureUnit() {
-        return this.textureUnit;
+        int textureUnit = 15;
+        return textureUnit;
     }
 
     public int getTarget() {

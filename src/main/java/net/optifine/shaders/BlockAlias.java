@@ -43,8 +43,7 @@ public class BlockAlias {
         }
 
         Integer[] ainteger = set.toArray(new Integer[set.size()]);
-        int[] aint = Config.toPrimitive(ainteger);
-        return aint;
+        return Config.toPrimitive(ainteger);
     }
 
     public MatchBlock[] getMatchBlocks(int matchBlockId) {
@@ -58,8 +57,7 @@ public class BlockAlias {
             }
         }
 
-        MatchBlock[] amatchblock = list.toArray(new MatchBlock[list.size()]);
-        return amatchblock;
+        return list.toArray(new MatchBlock[list.size()]);
     }
 
     public String toString() {

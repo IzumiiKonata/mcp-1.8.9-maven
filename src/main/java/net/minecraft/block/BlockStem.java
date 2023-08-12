@@ -158,8 +158,7 @@ public class BlockStem extends BlockBush implements IGrowable {
     }
 
     public Item getItem(World worldIn, BlockPos pos) {
-        Item item = this.getSeedItem();
-        return item;
+        return this.getSeedItem();
     }
 
     /**

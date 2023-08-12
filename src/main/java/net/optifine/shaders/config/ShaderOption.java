@@ -185,8 +185,7 @@ public abstract class ShaderOption {
             if (i < 0) {
                 return 0.0F;
             } else {
-                float f = (float) i / ((float) this.values.length - 1.0F);
-                return f;
+                return (float) i / ((float) this.values.length - 1.0F);
             }
         }
     }

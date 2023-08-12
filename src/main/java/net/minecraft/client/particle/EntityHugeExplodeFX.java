@@ -8,11 +8,6 @@ import net.minecraft.world.World;
 public class EntityHugeExplodeFX extends EntityFX {
     private int timeSinceStart;
 
-    /**
-     * the maximum time for the explosion
-     */
-    private final int maximumTime = 8;
-
     protected EntityHugeExplodeFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1214_8_, double p_i1214_10_, double p_i1214_12_) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
     }
@@ -27,16 +22,20 @@ public class EntityHugeExplodeFX extends EntityFX {
      * Called to update the entity's position/logic.
      */
     public void onUpdate() {
+        /**
+         * the maximum time for the explosion
+         */
+        int maximumTime = 8;
         for (int i = 0; i < 6; ++i) {
             double d0 = this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
             double d1 = this.posY + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
             double d2 = this.posZ + (this.rand.nextDouble() - this.rand.nextDouble()) * 4.0D;
-            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) this.timeSinceStart / (float) this.maximumTime, 0.0D, 0.0D);
+            this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) this.timeSinceStart / (float) maximumTime, 0.0D, 0.0D);
         }
 
         ++this.timeSinceStart;
 
-        if (this.timeSinceStart == this.maximumTime) {
+        if (this.timeSinceStart == maximumTime) {
             this.setDead();
         }
     }

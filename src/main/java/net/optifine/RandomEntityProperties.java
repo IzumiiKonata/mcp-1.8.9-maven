@@ -69,8 +69,7 @@ public class RandomEntityProperties {
             }
         }
 
-        RandomEntityRule[] arandomentityrule = (RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]);
-        return arandomentityrule;
+        return (RandomEntityRule[]) list.toArray(new RandomEntityRule[list.size()]);
     }
 
     public boolean isValid(String path) {

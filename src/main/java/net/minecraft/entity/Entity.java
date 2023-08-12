@@ -1595,13 +1595,11 @@ public abstract class Entity implements ICommandSender {
      * Checks if this entity is inside of an opaque block
      */
     public boolean isEntityInsideOpaqueBlock() {
-        if (this.noClip) {
-            return false;
-        } else {
+        if (!this.noClip) {
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
-                int j = MathHelper.floor_double(this.posY + (double) (((float) ((i >> 0) % 2) - 0.5F) * 0.1F) + (double) this.getEyeHeight());
+                int j = MathHelper.floor_double(this.posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) this.getEyeHeight());
                 int k = MathHelper.floor_double(this.posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * this.width * 0.8F));
                 int l = MathHelper.floor_double(this.posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * this.width * 0.8F));
 
@@ -1614,8 +1612,8 @@ public abstract class Entity implements ICommandSender {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     /**

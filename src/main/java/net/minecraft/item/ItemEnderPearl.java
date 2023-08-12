@@ -16,9 +16,7 @@ public class ItemEnderPearl extends Item {
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        if (playerIn.capabilities.isCreativeMode) {
-            return itemStackIn;
-        } else {
+        if (!playerIn.capabilities.isCreativeMode) {
             --itemStackIn.stackSize;
             worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
@@ -27,7 +25,7 @@ public class ItemEnderPearl extends Item {
             }
 
             playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 }

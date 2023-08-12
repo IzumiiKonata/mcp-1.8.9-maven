@@ -611,17 +611,14 @@ public class StructureOceanMonumentPieces {
                     Iterator iterator = list1.iterator();
                     StructureOceanMonumentPieces.MonumentRoomFitHelper structureoceanmonumentpieces$monumentroomfithelper;
 
-                    while (true) {
+                    do {
                         if (!iterator.hasNext()) {
                             continue label319;
                         }
 
-                        structureoceanmonumentpieces$monumentroomfithelper = (StructureOceanMonumentPieces.MonumentRoomFitHelper) iterator.next();
+                        structureoceanmonumentpieces$monumentroomfithelper = (MonumentRoomFitHelper) iterator.next();
 
-                        if (structureoceanmonumentpieces$monumentroomfithelper.func_175969_a(structureoceanmonumentpieces$roomdefinition)) {
-                            break;
-                        }
-                    }
+                    } while (!structureoceanmonumentpieces$monumentroomfithelper.func_175969_a(structureoceanmonumentpieces$roomdefinition));
 
                     this.field_175843_q.add(structureoceanmonumentpieces$monumentroomfithelper.func_175968_a(this.coordBaseMode, structureoceanmonumentpieces$roomdefinition, p_i45599_1_));
                 }
@@ -1286,7 +1283,7 @@ public class StructureOceanMonumentPieces {
         protected static final int field_175829_j = func_175820_a(4, 1, 0);
         protected StructureOceanMonumentPieces.RoomDefinition field_175830_k;
 
-        protected static final int func_175820_a(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
+        protected static int func_175820_a(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
             return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
         }
 

@@ -75,8 +75,7 @@ public class NaturalProperties {
         }
 
         aint = this.transformVertexData(aint, rotate, flipU);
-        BakedQuad bakedquad = new BakedQuad(aint, i, enumfacing, textureatlassprite);
-        return bakedquad;
+        return new BakedQuad(aint, i, enumfacing, textureatlassprite);
     }
 
     private int[] transformVertexData(int[] vertexData, int rotate, boolean flipU) {
@@ -132,11 +131,11 @@ public class NaturalProperties {
             float f8 = Float.intBitsToFloat(aint[k + 4]);
             float f9 = Float.intBitsToFloat(aint[k + 4 + 1]);
 
-            if (!this.equalsDelta(f8, f, f3) && !this.equalsDelta(f8, f1, f3)) {
+            if (this.equalsDelta(f8, f, f3) && this.equalsDelta(f8, f1, f3)) {
                 return false;
             }
 
-            if (!this.equalsDelta(f9, f4, f7) && !this.equalsDelta(f9, f5, f7)) {
+            if (this.equalsDelta(f9, f4, f7) && this.equalsDelta(f9, f5, f7)) {
                 return false;
             }
         }
@@ -146,6 +145,6 @@ public class NaturalProperties {
 
     private boolean equalsDelta(float x1, float x2, float deltaMax) {
         float f = MathHelper.abs(x1 - x2);
-        return f < deltaMax;
+        return !(f < deltaMax);
     }
 }

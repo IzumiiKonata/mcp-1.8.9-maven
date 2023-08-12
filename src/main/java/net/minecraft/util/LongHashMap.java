@@ -236,10 +236,8 @@ public class LongHashMap<V> {
         }
 
         public final boolean equals(Object p_equals_1_) {
-            if (!(p_equals_1_ instanceof LongHashMap.Entry)) {
-                return false;
-            } else {
-                LongHashMap.Entry<V> entry = (LongHashMap.Entry) p_equals_1_;
+            if (p_equals_1_ instanceof LongHashMap.Entry) {
+                Entry<V> entry = (Entry) p_equals_1_;
                 Object object = Long.valueOf(this.getKey());
                 Object object1 = Long.valueOf(entry.getKey());
 
@@ -250,8 +248,8 @@ public class LongHashMap<V> {
                     return Objects.equals(object2, object3);
                 }
 
-                return false;
             }
+            return false;
         }
 
         public final int hashCode() {

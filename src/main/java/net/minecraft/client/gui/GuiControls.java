@@ -46,7 +46,7 @@ public class GuiControls extends GuiScreen {
         int i = 0;
 
         for (GameSettings.Options gamesettings$options : optionsArr) {
-            if (gamesettings$options.getEnumFloat()) {
+            if (!gamesettings$options.getEnumFloat()) {
                 this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
             } else {
                 this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options, this.options.getKeyBinding(gamesettings$options)));

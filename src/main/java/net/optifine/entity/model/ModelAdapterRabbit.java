@@ -44,9 +44,7 @@ public class ModelAdapterRabbit extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
+        if (mapPartFields == null) {
             mapPartFields = new HashMap();
             mapPartFields.put("left_foot", Integer.valueOf(0));
             mapPartFields.put("right_foot", Integer.valueOf(1));
@@ -60,13 +58,12 @@ public class ModelAdapterRabbit extends ModelAdapter {
             mapPartFields.put("left_ear", Integer.valueOf(9));
             mapPartFields.put("tail", Integer.valueOf(10));
             mapPartFields.put("nose", Integer.valueOf(11));
-            return mapPartFields;
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderRabbit renderrabbit = new RenderRabbit(rendermanager, modelBase, shadowSize);
-        return renderrabbit;
+        return new RenderRabbit(rendermanager, modelBase, shadowSize);
     }
 }

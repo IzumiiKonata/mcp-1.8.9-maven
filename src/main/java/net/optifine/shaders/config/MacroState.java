@@ -113,7 +113,7 @@ public class MacroState {
         boolean flag = false;
         int i = 0;
 
-        while (true) {
+        do {
             flag = false;
             Matcher matcher2 = PATTERN_MACRO.matcher(str);
 
@@ -140,10 +140,7 @@ public class MacroState {
                 }
             }
 
-            if (!flag || i >= 100) {
-                break;
-            }
-        }
+        } while (flag && i < 100);
 
         if (i >= 100) {
             Config.warn("Too many iterations: " + i + ", when resolving: " + str);
@@ -156,13 +153,11 @@ public class MacroState {
 
                 if (iexpression.getExpressionType() == ExpressionType.BOOL) {
                     IExpressionBool iexpressionbool = (IExpressionBool) iexpression;
-                    boolean flag1 = iexpressionbool.eval();
-                    return flag1;
+                    return iexpressionbool.eval();
                 } else if (iexpression.getExpressionType() == ExpressionType.FLOAT) {
                     IExpressionFloat iexpressionfloat = (IExpressionFloat) iexpression;
                     float f = iexpressionfloat.eval();
-                    boolean flag2 = f != 0.0F;
-                    return flag2;
+                    return f != 0.0F;
                 } else {
                     throw new ParseException("Not a boolean or float expression: " + iexpression.getExpressionType());
                 }

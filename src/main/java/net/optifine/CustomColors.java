@@ -94,7 +94,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return false;
+            return true;
         }
     };
     private static final CustomColors.IColorizer COLORIZER_FOLIAGE = new CustomColors.IColorizer() {
@@ -104,7 +104,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return false;
+            return true;
         }
     };
     private static final CustomColors.IColorizer COLORIZER_FOLIAGE_PINE = new CustomColors.IColorizer() {
@@ -113,7 +113,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return CustomColors.foliagePineColors == null;
+            return CustomColors.foliagePineColors != null;
         }
     };
     private static final CustomColors.IColorizer COLORIZER_FOLIAGE_BIRCH = new CustomColors.IColorizer() {
@@ -122,7 +122,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return CustomColors.foliageBirchColors == null;
+            return CustomColors.foliageBirchColors != null;
         }
     };
     private static final CustomColors.IColorizer COLORIZER_WATER = new CustomColors.IColorizer() {
@@ -132,7 +132,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return false;
+            return true;
         }
     };
 
@@ -427,8 +427,7 @@ public class CustomColors {
         if (list.size() <= 0) {
             return null;
         } else {
-            CustomColormap[] acustomcolormap = (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
-            return acustomcolormap;
+            return (CustomColormap[]) list.toArray(new CustomColormap[list.size()]);
         }
     }
 
@@ -474,8 +473,7 @@ public class CustomColors {
         if (list.size() <= 0) {
             return null;
         } else {
-            CustomColormap[][] acustomcolormap = blockListToArray(list);
-            return acustomcolormap;
+            return blockListToArray(list);
         }
     }
 
@@ -551,11 +549,10 @@ public class CustomColors {
 
             if (i < 0) {
                 warn("Invalid color: " + name + " = " + s);
-                return i;
             } else {
                 dbg(name + " = " + s);
-                return i;
             }
+            return i;
         }
     }
 
@@ -566,8 +563,7 @@ public class CustomColors {
             str = str.trim();
 
             try {
-                int i = Integer.parseInt(str, 16) & 16777215;
-                return i;
+                return Integer.parseInt(str, 16) & 16777215;
             } catch (NumberFormatException var2) {
                 return -1;
             }
@@ -645,7 +641,7 @@ public class CustomColors {
         IBlockState iblockstate = renderEnv.getBlockState();
 
         if (blockColormaps != null) {
-            if (!quad.hasTintIndex()) {
+            if (quad.hasTintIndex()) {
                 if (block == Blocks.grass) {
                     iblockstate = BLOCK_STATE_DIRT;
                 }
@@ -663,7 +659,7 @@ public class CustomColors {
             CustomColormap customcolormap = getBlockColormap(iblockstate);
 
             if (customcolormap != null) {
-                if (Config.isSmoothBiomes() && !customcolormap.isColorConstant()) {
+                if (Config.isSmoothBiomes() && customcolormap.isColorConstant()) {
                     return getSmoothColorMultiplier(blockState, blockAccess, blockPos, customcolormap, renderEnv.getColorizerBlockPosM());
                 }
 
@@ -671,7 +667,7 @@ public class CustomColors {
             }
         }
 
-        if (!quad.hasTintIndex()) {
+        if (quad.hasTintIndex()) {
             return -1;
         } else if (block == Blocks.waterlily) {
             return getLilypadColorMultiplier(blockAccess, blockPos);
@@ -722,7 +718,7 @@ public class CustomColors {
                 customcolors$icolorizer = COLORIZER_GRASS;
             }
 
-            return Config.isSmoothBiomes() && !customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(blockState, blockAccess, blockPos, customcolors$icolorizer, renderEnv.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(iblockstate, blockAccess, blockPos);
+            return Config.isSmoothBiomes() && customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(blockState, blockAccess, blockPos, customcolors$icolorizer, renderEnv.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(iblockstate, blockAccess, blockPos);
         }
     }
 
@@ -748,9 +744,7 @@ public class CustomColors {
             if (i >= 0 && i < blockColormaps.length) {
                 CustomColormap[] acustomcolormap = blockColormaps[i];
 
-                if (acustomcolormap == null) {
-                    return null;
-                } else {
+                if (acustomcolormap != null) {
                     for (int j = 0; j < acustomcolormap.length; ++j) {
                         CustomColormap customcolormap = acustomcolormap[j];
 
@@ -759,8 +753,8 @@ public class CustomColors {
                         }
                     }
 
-                    return null;
                 }
+                return null;
             } else {
                 return null;
             }
@@ -774,12 +768,11 @@ public class CustomColors {
         int l = blockPos.getX();
         int i1 = blockPos.getY();
         int j1 = blockPos.getZ();
-        BlockPosM blockposm = blockPosM;
 
         for (int k1 = l - 1; k1 <= l + 1; ++k1) {
             for (int l1 = j1 - 1; l1 <= j1 + 1; ++l1) {
-                blockposm.setXyz(k1, i1, l1);
-                int i2 = colorizer.getColor(blockState, blockAccess, blockposm);
+                blockPosM.setXyz(k1, i1, l1);
+                int i2 = colorizer.getColor(blockState, blockAccess, blockPosM);
                 i += i2 >> 16 & 255;
                 j += i2 >> 8 & 255;
                 k += i2 & 255;
@@ -800,7 +793,7 @@ public class CustomColors {
             customcolors$icolorizer = COLORIZER_WATER;
         }
 
-        return customcolors$icolorizer == null ? block.colorMultiplier(blockAccess, blockPos, 0) : (Config.isSmoothBiomes() && !customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(blockState, blockAccess, blockPos, customcolors$icolorizer, renderEnv.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(blockState, blockAccess, blockPos));
+        return customcolors$icolorizer == null ? block.colorMultiplier(blockAccess, blockPos, 0) : (Config.isSmoothBiomes() && customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(blockState, blockAccess, blockPos, customcolors$icolorizer, renderEnv.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(blockState, blockAccess, blockPos));
     }
 
     public static void updatePortalFX(EntityFX fx) {
@@ -834,8 +827,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = getRedstoneLevel(blockState, 15);
-            int j = redstoneColors.getColor(i);
-            return j;
+            return redstoneColors.getColor(i);
         }
     }
 
@@ -885,8 +877,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = (int) Math.round((double) ((MathHelper.sin(timer) + 1.0F) * (float) (xpOrbColors.getLength() - 1)) / 2.0D);
-            int j = xpOrbColors.getColor(i);
-            return j;
+            return xpOrbColors.getColor(i);
         }
     }
 
@@ -895,8 +886,7 @@ public class CustomColors {
             return -1;
         } else {
             int i = (int) (dur255 * durabilityColors.getLength() * 0.003921568627451F);
-            int j = durabilityColors.getColor(i);
-            return j;
+            return durabilityColors.getColor(i);
         }
     }
 
@@ -958,8 +948,7 @@ public class CustomColors {
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = skyColorFader.getColor(f, f1, f2);
-            return vec3;
+            return skyColorFader.getColor(f, f1, f2);
         }
     }
 
@@ -980,8 +969,7 @@ public class CustomColors {
             f = f * f3;
             f1 = f1 * f4;
             f2 = f2 * f5;
-            Vec3 vec3 = fogColorFader.getColor(f, f1, f2);
-            return vec3;
+            return fogColorFader.getColor(f, f1, f2);
         }
     }
 
@@ -1004,8 +992,7 @@ public class CustomColors {
             float f = (float) j * 0.003921568627451F;
             float f1 = (float) k * 0.003921568627451F;
             float f2 = (float) l * 0.003921568627451F;
-            Vec3 vec3 = underFluidColorFader.getColor(f, f1, f2);
-            return vec3;
+            return underFluidColorFader.getColor(f, f1, f2);
         }
     }
 

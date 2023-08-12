@@ -12,7 +12,6 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 public class VboRegion {
-    private EnumWorldBlockLayer layer = null;
     private int glBufferId = OpenGlHelper.glGenBuffers();
     private int capacity = 4096;
     private int positionTop = 0;
@@ -29,7 +28,6 @@ public class VboRegion {
         this.bufferCountVertex = Config.createDirectIntBuffer(this.capacity);
         this.drawMode = 7;
         this.vertexBytes = DefaultVertexFormats.BLOCK.getNextOffset();
-        this.layer = layer;
         this.bindBuffer();
         long i = this.toBytes(this.capacity);
         OpenGlHelper.glBufferData(OpenGlHelper.GL_ARRAY_BUFFER, i, OpenGlHelper.GL_STATIC_DRAW);

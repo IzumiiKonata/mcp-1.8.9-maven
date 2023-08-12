@@ -413,9 +413,7 @@ public class ModelRenderer {
     }
 
     public ModelRenderer getChild(String p_getChild_1_) {
-        if (p_getChild_1_ == null) {
-            return null;
-        } else {
+        if (p_getChild_1_ != null) {
             if (this.childModels != null) {
                 for (int i = 0; i < this.childModels.size(); ++i) {
                     ModelRenderer modelrenderer = this.childModels.get(i);
@@ -426,8 +424,8 @@ public class ModelRenderer {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public ModelRenderer getChildDeep(String p_getChildDeep_1_) {

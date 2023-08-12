@@ -152,8 +152,7 @@ public class CustomColormap implements CustomColors.IColorizer {
             }
 
             ConnectedParser connectedparser = new ConnectedParser("Colormap");
-            MatchBlock[] amatchblock = connectedparser.parseMatchBlock(this.name);
-            return amatchblock;
+            return connectedparser.parseMatchBlock(this.name);
         }
     }
 
@@ -307,7 +306,7 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     public boolean isColorConstant() {
-        return this.format == 2;
+        return this.format != 2;
     }
 
     public int getColor(BiomeGenBase biome, BlockPos blockPos) {
@@ -419,9 +418,7 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     private MatchBlock getMatchBlock(int blockId) {
-        if (this.matchBlocks == null) {
-            return null;
-        } else {
+        if (this.matchBlocks != null) {
             for (int i = 0; i < this.matchBlocks.length; ++i) {
                 MatchBlock matchblock = this.matchBlocks[i];
 
@@ -430,8 +427,8 @@ public class CustomColormap implements CustomColors.IColorizer {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     public int[] getMatchBlockIds() {

@@ -182,7 +182,7 @@ public class BlockModelRenderer {
             p_renderQuadsSmooth_4_.putBrightness4(blockmodelrenderer$ambientocclusionface.vertexBrightness[0], blockmodelrenderer$ambientocclusionface.vertexBrightness[1], blockmodelrenderer$ambientocclusionface.vertexBrightness[2], blockmodelrenderer$ambientocclusionface.vertexBrightness[3]);
             int j = CustomColors.getColorMultiplier(bakedquad, p_renderQuadsSmooth_2_, p_renderQuadsSmooth_1_, p_renderQuadsSmooth_3_, p_renderQuadsSmooth_6_);
 
-            if (!bakedquad.hasTintIndex() && j == -1) {
+            if (bakedquad.hasTintIndex() && j == -1) {
                 if (separateAoLightValue) {
                     p_renderQuadsSmooth_4_.putColorMultiplierRgba(1.0F, 1.0F, 1.0F, blockmodelrenderer$ambientocclusionface.vertexColorMultiplier[0], 4);
                     p_renderQuadsSmooth_4_.putColorMultiplierRgba(1.0F, 1.0F, 1.0F, blockmodelrenderer$ambientocclusionface.vertexColorMultiplier[1], 3);
@@ -341,7 +341,7 @@ public class BlockModelRenderer {
             p_renderQuadsFlat_7_.putBrightness4(p_renderQuadsFlat_5_, p_renderQuadsFlat_5_, p_renderQuadsFlat_5_, p_renderQuadsFlat_5_);
             int i1 = CustomColors.getColorMultiplier(bakedquad, p_renderQuadsFlat_2_, p_renderQuadsFlat_1_, p_renderQuadsFlat_3_, p_renderQuadsFlat_9_);
 
-            if (bakedquad.hasTintIndex() || i1 != -1) {
+            if (!bakedquad.hasTintIndex() || i1 != -1) {
                 int l;
 
                 if (i1 != -1) {
@@ -405,7 +405,7 @@ public class BlockModelRenderer {
             worldrenderer.addVertexData(bakedquad.getVertexData());
             worldrenderer.putSprite(bakedquad.getSprite());
 
-            if (bakedquad.hasTintIndex()) {
+            if (!bakedquad.hasTintIndex()) {
                 worldrenderer.putColorRGB_F4(red * brightness, green * brightness, blue * brightness);
             } else {
                 worldrenderer.putColorRGB_F4(brightness, brightness, brightness);

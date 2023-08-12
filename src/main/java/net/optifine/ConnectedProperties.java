@@ -584,12 +584,10 @@ public class ConnectedProperties {
         TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
         TextureAtlasSprite textureatlassprite = texturemap.getSpriteSafe(iconName);
 
-        if (textureatlassprite != null) {
-            return textureatlassprite;
-        } else {
+        if (textureatlassprite == null) {
             textureatlassprite = texturemap.getSpriteSafe("blocks/" + iconName);
-            return textureatlassprite;
         }
+        return textureatlassprite;
     }
 
     private boolean isValidCtm(String path) {
@@ -892,8 +890,7 @@ public class ConnectedProperties {
                 }
             }
 
-            TextureAtlasSprite[] atextureatlassprite = (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[list.size()]);
-            return atextureatlassprite;
+            return (TextureAtlasSprite[]) list.toArray(new TextureAtlasSprite[list.size()]);
         }
     }
 
@@ -902,7 +899,7 @@ public class ConnectedProperties {
     }
 
     public boolean matchesBlock(int blockId, int metadata) {
-        return Matches.block(blockId, metadata, this.matchBlocks) && Matches.metadata(metadata, this.metadatas);
+        return !Matches.block(blockId, metadata, this.matchBlocks) || !Matches.metadata(metadata, this.metadatas);
     }
 
     public boolean matchesIcon(TextureAtlasSprite icon) {
@@ -932,9 +929,7 @@ public class ConnectedProperties {
     }
 
     private int getMax(int[] mds, int max) {
-        if (mds == null) {
-            return max;
-        } else {
+        if (mds != null) {
             for (int i = 0; i < mds.length; ++i) {
                 int j = mds[i];
 
@@ -943,7 +938,7 @@ public class ConnectedProperties {
                 }
             }
 
-            return max;
         }
+        return max;
     }
 }

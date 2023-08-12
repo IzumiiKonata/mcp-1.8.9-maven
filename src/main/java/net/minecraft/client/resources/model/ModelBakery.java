@@ -604,8 +604,7 @@ public class ModelBakery {
     }
 
     public ModelBlock getModelBlock(ResourceLocation p_getModelBlock_1_) {
-        ModelBlock modelblock = this.models.get(p_getModelBlock_1_);
-        return modelblock;
+        return this.models.get(p_getModelBlock_1_);
     }
 
     public static void fixModelLocations(ModelBlock p_fixModelLocations_0_, String p_fixModelLocations_1_) {
@@ -631,9 +630,7 @@ public class ModelBakery {
 
     public static ResourceLocation fixModelLocation(ResourceLocation p_fixModelLocation_0_, String p_fixModelLocation_1_) {
         if (p_fixModelLocation_0_ != null && p_fixModelLocation_1_ != null) {
-            if (!p_fixModelLocation_0_.getResourceDomain().equals("minecraft")) {
-                return p_fixModelLocation_0_;
-            } else {
+            if (p_fixModelLocation_0_.getResourceDomain().equals("minecraft")) {
                 String s = p_fixModelLocation_0_.getResourcePath();
                 String s1 = fixResourcePath(s, p_fixModelLocation_1_);
 
@@ -641,8 +638,8 @@ public class ModelBakery {
                     p_fixModelLocation_0_ = new ResourceLocation(p_fixModelLocation_0_.getResourceDomain(), s1);
                 }
 
-                return p_fixModelLocation_0_;
             }
+            return p_fixModelLocation_0_;
         } else {
             return p_fixModelLocation_0_;
         }

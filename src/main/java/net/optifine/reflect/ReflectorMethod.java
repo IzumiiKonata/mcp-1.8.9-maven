@@ -175,8 +175,7 @@ public class ReflectorMethod implements IResolvable {
             }
         }
 
-        Method[] amethod1 = (Method[]) list.toArray(new Method[list.size()]);
-        return amethod1;
+        return (Method[]) list.toArray(new Method[list.size()]);
     }
 
     public void resolve() {

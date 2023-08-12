@@ -91,7 +91,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         this.dataWatcher.addObject(16, Integer.valueOf(0));
         this.dataWatcher.addObject(19, Byte.valueOf((byte) 0));
         this.dataWatcher.addObject(20, Integer.valueOf(0));
-        this.dataWatcher.addObject(21, String.valueOf(""));
+        this.dataWatcher.addObject(21, "");
         this.dataWatcher.addObject(22, Integer.valueOf(0));
     }
 

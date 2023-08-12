@@ -14,7 +14,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PlayerItemModel {
-    private Dimension textureSize = null;
     private boolean usePlayerTexture = false;
     private PlayerItemRenderer[] modelRenderers = new PlayerItemRenderer[0];
     private ResourceLocation textureLocation = null;
@@ -30,7 +29,6 @@ public class PlayerItemModel {
     public static final int ATTACH_CAPE = 6;
 
     public PlayerItemModel(Dimension textureSize, boolean usePlayerTexture, PlayerItemRenderer[] modelRenderers) {
-        this.textureSize = textureSize;
         this.usePlayerTexture = usePlayerTexture;
         this.modelRenderers = modelRenderers;
     }

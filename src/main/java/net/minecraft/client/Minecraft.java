@@ -140,7 +140,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private static Minecraft theMinecraft;
     public PlayerControllerMP playerController;
     private boolean fullscreen;
-    private final boolean enableGLErrorChecking = true;
     private boolean hasCrashed;
 
     /**
@@ -299,7 +298,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
     private final long field_175615_aJ = 0L;
     private final Thread mcThread = Thread.currentThread();
-    private ModelManager modelManager;
 
     /**
      * The BlockRenderDispatcher instance that will be used based off gamesettings
@@ -491,15 +489,15 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.renderEngine.loadTickableTexture(TextureMap.locationBlocksTexture, this.textureMapBlocks);
         this.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
         this.textureMapBlocks.setBlurMipmapDirect(false, this.gameSettings.mipmapLevels > 0);
-        this.modelManager = new ModelManager(this.textureMapBlocks);
-        this.mcResourceManager.registerReloadListener(this.modelManager);
-        this.renderItem = new RenderItem(this.renderEngine, this.modelManager);
+        ModelManager modelManager = new ModelManager(this.textureMapBlocks);
+        this.mcResourceManager.registerReloadListener(modelManager);
+        this.renderItem = new RenderItem(this.renderEngine, modelManager);
         this.renderManager = new RenderManager(this.renderEngine, this.renderItem);
         this.itemRenderer = new ItemRenderer(this);
         this.mcResourceManager.registerReloadListener(this.renderItem);
         this.entityRenderer = new EntityRenderer(this, this.mcResourceManager);
         this.mcResourceManager.registerReloadListener(this.entityRenderer);
-        this.blockRenderDispatcher = new BlockRendererDispatcher(this.modelManager.getBlockModelShapes(), this.gameSettings);
+        this.blockRenderDispatcher = new BlockRendererDispatcher(modelManager.getBlockModelShapes(), this.gameSettings);
         this.mcResourceManager.registerReloadListener(this.blockRenderDispatcher);
         this.renderGlobal = new RenderGlobal(this);
         this.mcResourceManager.registerReloadListener(this.renderGlobal);
@@ -729,17 +727,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     Iterator iterator = set.iterator();
                     DisplayMode displaymode3;
 
-                    while (true) {
+                    do {
                         if (!iterator.hasNext()) {
                             continue label53;
                         }
 
                         displaymode3 = (DisplayMode) iterator.next();
 
-                        if (displaymode3.getBitsPerPixel() == 32 && displaymode3.getWidth() == displaymode1.getWidth() / 2 && displaymode3.getHeight() == displaymode1.getHeight() / 2) {
-                            break;
-                        }
-                    }
+                    } while (displaymode3.getBitsPerPixel() != 32 || displaymode3.getWidth() != displaymode1.getWidth() / 2 || displaymode3.getHeight() != displaymode1.getHeight() / 2);
 
                     displaymode = displaymode3;
                 }
@@ -870,7 +865,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Checks for an OpenGL error. If there is one, prints the error ID and error string.
      */
     private void checkGLError(String message) {
-        if (this.enableGLErrorChecking) {
+        boolean enableGLErrorChecking = true;
+        if (enableGLErrorChecking) {
             int i = GL11.glGetError();
 
             if (i != 0) {
@@ -1372,25 +1368,17 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.displayWidth = Display.getDisplayMode().getWidth();
                 this.displayHeight = Display.getDisplayMode().getHeight();
 
-                if (this.displayWidth <= 0) {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0) {
-                    this.displayHeight = 1;
-                }
             } else {
                 Display.setDisplayMode(new DisplayMode(this.tempDisplayWidth, this.tempDisplayHeight));
                 this.displayWidth = this.tempDisplayWidth;
                 this.displayHeight = this.tempDisplayHeight;
 
-                if (this.displayWidth <= 0) {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0) {
-                    this.displayHeight = 1;
-                }
+            }
+            if (this.displayWidth <= 0) {
+                this.displayWidth = 1;
+            }
+            if (this.displayHeight <= 0) {
+                this.displayHeight = 1;
             }
 
             if (this.currentScreen != null) {

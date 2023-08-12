@@ -134,8 +134,8 @@ public final class WorldSettings {
         ADVENTURE(2, "adventure"),
         SPECTATOR(3, "spectator");
 
-        int id;
-        String name;
+        final int id;
+        final String name;
 
         GameType(int typeId, String nameIn) {
             this.id = typeId;

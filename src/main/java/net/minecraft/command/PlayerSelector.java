@@ -529,9 +529,7 @@ public class PlayerSelector {
     private static Map<String, String> getArgumentMap(String argumentString) {
         Map<String, String> map = Maps.newHashMap();
 
-        if (argumentString == null) {
-            return map;
-        } else {
+        if (argumentString != null) {
             int i = 0;
             int j = -1;
 
@@ -568,7 +566,7 @@ public class PlayerSelector {
                 }
             }
 
-            return map;
         }
+        return map;
     }
 }

@@ -57,8 +57,7 @@ public class DefaultVertexFormats {
             if (field == null) {
                 return null;
             } else {
-                Object object = field.get(null);
-                return object;
+                return field.get(null);
             }
         } catch (Throwable throwable) {
             throwable.printStackTrace();

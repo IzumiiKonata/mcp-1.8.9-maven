@@ -40,7 +40,7 @@ public class GuiVideoSettings extends GuiScreenOF {
                 int j = this.width / 2 - 155 + i % 2 * 160;
                 int k = this.height / 6 + 21 * (i / 2) - 12;
 
-                if (gamesettings$options.getEnumFloat()) {
+                if (!gamesettings$options.getEnumFloat()) {
                     this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
                 } else {
                     this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.guiGameSettings.getKeyBinding(gamesettings$options)));

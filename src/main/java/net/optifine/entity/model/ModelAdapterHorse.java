@@ -48,9 +48,7 @@ public class ModelAdapterHorse extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
+        if (mapPartFields == null) {
             mapPartFields = new HashMap();
             mapPartFields.put("head", Integer.valueOf(0));
             mapPartFields.put("upper_mouth", Integer.valueOf(1));
@@ -91,13 +89,12 @@ public class ModelAdapterHorse extends ModelAdapter {
             mapPartFields.put("horse_right_face_metal", Integer.valueOf(36));
             mapPartFields.put("horse_left_rein", Integer.valueOf(37));
             mapPartFields.put("horse_right_rein", Integer.valueOf(38));
-            return mapPartFields;
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderHorse renderhorse = new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
-        return renderhorse;
+        return new RenderHorse(rendermanager, (ModelHorse) modelBase, shadowSize);
     }
 }

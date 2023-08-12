@@ -72,8 +72,7 @@ public class IntegratedServer extends MinecraftServer {
             NBTTagCompound nbttagcompound = worldinfo.getPlayerNBTTagCompound();
 
             if (nbttagcompound != null && nbttagcompound.hasKey("Dimension")) {
-                int i = nbttagcompound.getInteger("Dimension");
-                PacketThreadUtil.lastDimensionId = i;
+                PacketThreadUtil.lastDimensionId = nbttagcompound.getInteger("Dimension");
                 this.mc.loadingScreen.setLoadingProgress(-1);
             }
         }
@@ -106,11 +105,10 @@ public class IntegratedServer extends MinecraftServer {
             WorldServer worldserver = this.isDemo() ? (WorldServer) (new DemoWorldServer(this, isavehandler, worldinfo, 0, this.theProfiler)).init() : (WorldServer) (new WorldServer(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
             worldserver.initialize(this.theWorldSettings);
             Integer[] ainteger = (Integer[]) Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs, new Object[0]);
-            Integer[] ainteger1 = ainteger;
             int i = ainteger.length;
 
             for (int j = 0; j < i; ++j) {
-                int k = ainteger1[j].intValue();
+                int k = ainteger[j].intValue();
                 WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer) (new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init();
                 worldserver1.addWorldAccess(new WorldManager(this, worldserver1));
 

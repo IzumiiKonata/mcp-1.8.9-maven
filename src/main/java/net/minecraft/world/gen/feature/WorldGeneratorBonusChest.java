@@ -32,9 +32,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
             position = position.down();
         }
 
-        if (position.getY() < 1) {
-            return false;
-        } else {
+        if (position.getY() >= 1) {
             position = position.up();
 
             for (int i = 0; i < 4; ++i) {
@@ -73,7 +71,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 }

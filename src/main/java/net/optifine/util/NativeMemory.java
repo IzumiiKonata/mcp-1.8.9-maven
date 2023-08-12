@@ -25,8 +25,7 @@ public class NativeMemory {
             String[] astring = paths[i];
 
             try {
-                LongSupplier longsupplier = makeLongSupplier(astring);
-                return longsupplier;
+                return makeLongSupplier(astring);
             } catch (Throwable throwable) {
                 list.add(throwable);
             }
@@ -57,7 +56,7 @@ public class NativeMemory {
 
             Method finalMethod = method;
             Object finalObject = object;
-            LongSupplier longsupplier = new LongSupplier() {
+            return new LongSupplier() {
                 private boolean disabled = false;
 
                 public long getAsLong() {
@@ -74,7 +73,6 @@ public class NativeMemory {
                     }
                 }
             };
-            return longsupplier;
         }
     }
 }

@@ -20,9 +20,7 @@ public class ItemGlassBottle extends Item {
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
-        if (movingobjectposition == null) {
-            return itemStackIn;
-        } else {
+        if (movingobjectposition != null) {
             if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 BlockPos blockpos = movingobjectposition.getBlockPos();
 
@@ -48,7 +46,7 @@ public class ItemGlassBottle extends Item {
                 }
             }
 
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 }

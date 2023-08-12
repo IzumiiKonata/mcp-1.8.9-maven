@@ -678,7 +678,7 @@ public class GameSettings {
         } else {
             String s1 = I18n.format(settingOption.getEnumString()) + ": ";
 
-            if (settingOption.getEnumFloat()) {
+            if (!settingOption.getEnumFloat()) {
                 float f1 = this.getOptionFloatValue(settingOption);
                 float f = settingOption.normalizeValue(f1);
                 if (settingOption == Options.MIPMAP_LEVELS && (double) f1 >= 4.0D)
@@ -2772,7 +2772,7 @@ public class GameSettings {
         }
 
         public boolean getEnumFloat() {
-            return this.enumFloat;
+            return !this.enumFloat;
         }
 
         public boolean getEnumBoolean() {

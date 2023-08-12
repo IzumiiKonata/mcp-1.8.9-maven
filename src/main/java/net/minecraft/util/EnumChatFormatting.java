@@ -45,10 +45,6 @@ public enum EnumChatFormatting {
      */
     private final String name;
 
-    /**
-     * The formatting code that produces this format.
-     */
-    private final char formattingCode;
     private final boolean fancyStyling;
 
     /**
@@ -76,7 +72,9 @@ public enum EnumChatFormatting {
 
     EnumChatFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
         this.name = formattingName;
-        this.formattingCode = formattingCodeIn;
+        /**
+         * The formatting code that produces this format.
+         */
         this.fancyStyling = fancyStylingIn;
         this.colorIndex = colorIndex;
         this.controlString = "\u00a7" + formattingCodeIn;

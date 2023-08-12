@@ -76,8 +76,7 @@ public class TextureAnimations {
             }
         }
 
-        TextureAnimation[] atextureanimation1 = (TextureAnimation[]) list.toArray(new TextureAnimation[list.size()]);
-        return atextureanimation1;
+        return (TextureAnimation[]) list.toArray(new TextureAnimation[list.size()]);
     }
 
     private static TextureAnimation[] getTextureAnimations(IResourcePack rp) {
@@ -116,8 +115,7 @@ public class TextureAnimations {
                 }
             }
 
-            TextureAnimation[] atextureanimation = (TextureAnimation[]) list.toArray(new TextureAnimation[list.size()]);
-            return atextureanimation;
+            return (TextureAnimation[]) list.toArray(new TextureAnimation[list.size()]);
         }
     }
 
@@ -162,8 +160,7 @@ public class TextureAnimations {
                                 BufferedImage bufferedimage = readTextureImage(inputstream);
 
                                 if (i + k <= bufferedimage.getWidth() && j + l <= bufferedimage.getHeight()) {
-                                    TextureAnimation textureanimation = new TextureAnimation(s, abyte, s1, resourcelocation, i, j, k, l, props);
-                                    return textureanimation;
+                                    return new TextureAnimation(s, abyte, s1, resourcelocation, i, j, k, l, props);
                                 } else {
                                     Config.warn("TextureAnimation: Animation coordinates are outside the target texture: " + s1);
                                     return null;

@@ -14,7 +14,6 @@ public class GuiAchievement extends Gui {
     private static final ResourceLocation achievementBg = new ResourceLocation("textures/gui/achievement/achievement_background.png");
     private final Minecraft mc;
     private int width;
-    private int height;
     private String achievementTitle;
     private String achievementDescription;
     private Achievement theAchievement;
@@ -50,14 +49,14 @@ public class GuiAchievement extends Gui {
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
         this.width = this.mc.displayWidth;
-        this.height = this.mc.displayHeight;
+        int height = this.mc.displayHeight;
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         this.width = scaledresolution.getScaledWidth();
-        this.height = scaledresolution.getScaledHeight();
+        height = scaledresolution.getScaledHeight();
         GlStateManager.clear(256);
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, this.width, this.height, 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.ortho(0.0D, this.width, height, 0.0D, 1000.0D, 3000.0D);
         GlStateManager.matrixMode(5888);
         GlStateManager.loadIdentity();
         GlStateManager.translate(0.0F, 0.0F, -2000.0F);

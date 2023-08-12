@@ -8,7 +8,6 @@ import net.minecraft.realms.RealmsBridge;
 import java.io.IOException;
 
 public class GuiIngameMenu extends GuiScreen {
-    private int field_146445_a;
     private int field_146444_f;
 
     /**
@@ -16,7 +15,7 @@ public class GuiIngameMenu extends GuiScreen {
      * window resizes, the buttonList is cleared beforehand.
      */
     public void initGui() {
-        this.field_146445_a = 0;
+        int field_146445_a = 0;
         this.buttonList.clear();
         int i = -16;
         int j = 98;

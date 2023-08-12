@@ -29,7 +29,6 @@ public class ShaderManager {
     private static final ShaderDefault defaultShaderUniform = new ShaderDefault();
     private static ShaderManager staticShaderManager = null;
     private static int currentProgram = -1;
-    private static boolean field_148000_e = true;
     private final Map<String, Object> shaderSamplers = Maps.newHashMap();
     private final List<String> samplerNames = Lists.newArrayList();
     private final List<Integer> shaderSamplerLocations = Lists.newArrayList();
@@ -41,8 +40,6 @@ public class ShaderManager {
     private final boolean useFaceCulling;
     private boolean isDirty;
     private final JsonBlendingMode field_148016_p;
-    private final List<Integer> attribLocations;
-    private final List<String> attributes;
     private final ShaderLoader vertexShaderLoader;
     private final ShaderLoader fragmentShaderLoader;
 
@@ -77,14 +74,16 @@ public class ShaderManager {
 
             JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "attributes", null);
 
+            List<String> attributes;
+            List<Integer> attribLocations;
             if (jsonarray1 != null) {
                 int j = 0;
-                this.attribLocations = Lists.newArrayListWithCapacity(jsonarray1.size());
-                this.attributes = Lists.newArrayListWithCapacity(jsonarray1.size());
+                attribLocations = Lists.newArrayListWithCapacity(jsonarray1.size());
+                attributes = Lists.newArrayListWithCapacity(jsonarray1.size());
 
                 for (JsonElement jsonelement1 : jsonarray1) {
                     try {
-                        this.attributes.add(JsonUtils.getString(jsonelement1, "attribute"));
+                        attributes.add(JsonUtils.getString(jsonelement1, "attribute"));
                     } catch (Exception exception1) {
                         JsonException jsonexception2 = JsonException.func_151379_a(exception1);
                         jsonexception2.func_151380_a("attributes[" + j + "]");
@@ -94,8 +93,8 @@ public class ShaderManager {
                     ++j;
                 }
             } else {
-                this.attribLocations = null;
-                this.attributes = null;
+                attribLocations = null;
+                attributes = null;
             }
 
             JsonArray jsonarray2 = JsonUtils.getJsonArray(jsonobject, "uniforms", null);
@@ -124,10 +123,10 @@ public class ShaderManager {
             ShaderLinkHelper.getStaticShaderLinkHelper().linkProgram(this);
             this.setupUniforms();
 
-            if (this.attributes != null) {
-                for (String s2 : this.attributes) {
+            if (attributes != null) {
+                for (String s2 : attributes) {
                     int l = OpenGlHelper.glGetAttribLocation(this.program, s2);
-                    this.attribLocations.add(Integer.valueOf(l));
+                    attribLocations.add(Integer.valueOf(l));
                 }
             }
         } catch (Exception exception3) {
@@ -149,7 +148,7 @@ public class ShaderManager {
         OpenGlHelper.glUseProgram(0);
         currentProgram = -1;
         staticShaderManager = null;
-        field_148000_e = true;
+        boolean field_148000_e = true;
 
         for (int i = 0; i < this.shaderSamplerLocations.size(); ++i) {
             if (this.shaderSamplers.get(this.samplerNames.get(i)) != null) {

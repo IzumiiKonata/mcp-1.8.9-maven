@@ -9,10 +9,6 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 
 public class NpcMerchant implements IMerchant {
-    /**
-     * Instance of Merchants Inventory.
-     */
-    private final InventoryMerchant theMerchantInventory;
 
     /**
      * This merchant's current player customer.
@@ -28,7 +24,10 @@ public class NpcMerchant implements IMerchant {
     public NpcMerchant(EntityPlayer p_i45817_1_, IChatComponent p_i45817_2_) {
         this.customer = p_i45817_1_;
         this.field_175548_d = p_i45817_2_;
-        this.theMerchantInventory = new InventoryMerchant(p_i45817_1_, this);
+        /**
+         * Instance of Merchants Inventory.
+         */
+        InventoryMerchant theMerchantInventory = new InventoryMerchant(p_i45817_1_, this);
     }
 
     public EntityPlayer getCustomer() {

@@ -401,11 +401,9 @@ public class EntityRabbit extends EntityAnimal {
     }
 
     static class AIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<T> {
-        private final EntityRabbit entityInstance;
 
         public AIAvoidEntity(EntityRabbit rabbit, Class<T> p_i46403_2_, float p_i46403_3_, double p_i46403_4_, double p_i46403_6_) {
             super(rabbit, p_i46403_2_, p_i46403_3_, p_i46403_4_, p_i46403_6_);
-            this.entityInstance = rabbit;
         }
 
         public void updateTask() {

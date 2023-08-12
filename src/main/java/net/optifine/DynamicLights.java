@@ -254,8 +254,7 @@ public class DynamicLights {
             }
         }
 
-        double d11 = Config.limit(d0, 0.0D, 15.0D);
-        return d11;
+        return Config.limit(d0, 0.0D, 15.0D);
     }
 
     public static int getLightLevel(ItemStack itemStack) {
@@ -388,7 +387,6 @@ public class DynamicLights {
     }
 
     public static ItemStack getItemStack(EntityItem entityItem) {
-        ItemStack itemstack = entityItem.getDataWatcher().getWatchableObjectItemStack(10);
-        return itemstack;
+        return entityItem.getDataWatcher().getWatchableObjectItemStack(10);
     }
 }

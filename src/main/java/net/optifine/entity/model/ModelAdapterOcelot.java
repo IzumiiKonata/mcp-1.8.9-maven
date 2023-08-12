@@ -44,9 +44,7 @@ public class ModelAdapterOcelot extends ModelAdapter {
     }
 
     private static Map<String, Integer> getMapPartFields() {
-        if (mapPartFields != null) {
-            return mapPartFields;
-        } else {
+        if (mapPartFields == null) {
             mapPartFields = new HashMap();
             mapPartFields.put("back_left_leg", Integer.valueOf(0));
             mapPartFields.put("back_right_leg", Integer.valueOf(1));
@@ -56,13 +54,12 @@ public class ModelAdapterOcelot extends ModelAdapter {
             mapPartFields.put("tail2", Integer.valueOf(5));
             mapPartFields.put("head", Integer.valueOf(6));
             mapPartFields.put("body", Integer.valueOf(7));
-            return mapPartFields;
         }
+        return mapPartFields;
     }
 
     public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
         RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderOcelot renderocelot = new RenderOcelot(rendermanager, modelBase, shadowSize);
-        return renderocelot;
+        return new RenderOcelot(rendermanager, modelBase, shadowSize);
     }
 }

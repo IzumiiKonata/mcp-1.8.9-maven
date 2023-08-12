@@ -47,7 +47,6 @@ public class RenderChunk {
     private final ReentrantLock lockCompiledChunk = new ReentrantLock();
     private ChunkCompileTaskGenerator compileTask = null;
     private final Set<TileEntity> setTileEntities = Sets.newHashSet();
-    private final int index;
     private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
     private final VertexBuffer[] vertexBuffers = new VertexBuffer[EnumWorldBlockLayer.values().length];
     public AxisAlignedBB boundingBox;
@@ -58,7 +57,6 @@ public class RenderChunk {
     public static final EnumWorldBlockLayer[] ENUM_WORLD_BLOCK_LAYERS = EnumWorldBlockLayer.values();
     private final EnumWorldBlockLayer[] blockLayersSingle = new EnumWorldBlockLayer[1];
     private final boolean isMipmaps = Config.isMipmaps();
-    private final boolean fixBlockLayer = true;
     private boolean playerUpdate = false;
     public int regionX;
     public int regionZ;
@@ -74,7 +72,6 @@ public class RenderChunk {
     public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPos blockPosIn, int indexIn) {
         this.world = worldIn;
         this.renderGlobal = renderGlobalIn;
-        this.index = indexIn;
 
         if (!blockPosIn.equals(this.getPosition())) {
             this.setPosition(blockPosIn);
@@ -300,8 +297,7 @@ public class RenderChunk {
 
         try {
             if (this.compileTask != null && this.compileTask.getStatus() == ChunkCompileTaskGenerator.Status.PENDING) {
-                ChunkCompileTaskGenerator chunkcompiletaskgenerator2 = null;
-                return chunkcompiletaskgenerator2;
+                return null;
             }
 
             if (this.compileTask != null && this.compileTask.getStatus() != ChunkCompileTaskGenerator.Status.DONE) {
@@ -311,8 +307,7 @@ public class RenderChunk {
 
             this.compileTask = new ChunkCompileTaskGenerator(this, ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY);
             this.compileTask.setCompiledChunk(this.compiledChunk);
-            ChunkCompileTaskGenerator chunkcompiletaskgenerator = this.compileTask;
-            chunkcompiletaskgenerator1 = chunkcompiletaskgenerator;
+            chunkcompiletaskgenerator1 = this.compileTask;
         } finally {
             this.lockCompileTask.unlock();
         }
@@ -451,9 +446,8 @@ public class RenderChunk {
             }
         }
 
-        if (!this.fixBlockLayer) {
-            return p_fixBlockLayer_2_;
-        } else {
+        boolean fixBlockLayer = true;
+        if (fixBlockLayer) {
             if (this.isMipmaps) {
                 if (p_fixBlockLayer_2_ == EnumWorldBlockLayer.CUTOUT) {
                     Block block = p_fixBlockLayer_1_.getBlock();
@@ -472,8 +466,8 @@ public class RenderChunk {
                 return EnumWorldBlockLayer.CUTOUT;
             }
 
-            return p_fixBlockLayer_2_;
         }
+        return p_fixBlockLayer_2_;
     }
 
     private void postRenderOverlays(RegionRenderCacheBuilder p_postRenderOverlays_1_, CompiledChunk p_postRenderOverlays_2_, boolean[] p_postRenderOverlays_3_) {
@@ -496,8 +490,7 @@ public class RenderChunk {
         BlockPos blockpos1 = p_makeChunkCacheOF_1_.add(16, 16, 16);
         ChunkCache chunkcache = this.createRegionRenderCache(this.world, blockpos, blockpos1, 1);
 
-        ChunkCacheOF chunkcacheof = new ChunkCacheOF(chunkcache, blockpos, blockpos1, 1);
-        return chunkcacheof;
+        return new ChunkCacheOF(chunkcache, blockpos, blockpos1, 1);
     }
 
     public RenderChunk getRenderChunkOffset16(ViewFrustum p_getRenderChunkOffset16_1_, EnumFacing p_getRenderChunkOffset16_2_) {
@@ -521,13 +514,11 @@ public class RenderChunk {
     private Chunk getChunk(BlockPos p_getChunk_1_) {
         Chunk chunk = this.chunk;
 
-        if (chunk != null && chunk.isLoaded()) {
-            return chunk;
-        } else {
+        if (chunk == null || !chunk.isLoaded()) {
             chunk = this.world.getChunkFromBlockCoords(p_getChunk_1_);
             this.chunk = chunk;
-            return chunk;
         }
+        return chunk;
     }
 
     public boolean isChunkRegionEmpty() {

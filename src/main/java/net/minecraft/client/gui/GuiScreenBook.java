@@ -510,10 +510,8 @@ public class GuiScreenBook extends GuiScreen {
                         }
                     }
 
-                    return null;
-                } else {
-                    return null;
                 }
+                return null;
             } else {
                 return null;
             }

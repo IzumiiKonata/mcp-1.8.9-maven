@@ -384,7 +384,7 @@ public final class ItemStack {
      * Compares Item and damage value of the two stacks
      */
     public static boolean areItemsEqual(ItemStack stackA, ItemStack stackB) {
-        return stackA == null && stackB == null || (stackA != null && stackB != null && stackA.isItemEqual(stackB));
+        return stackA == null && stackB == null || (stackA != null && stackA.isItemEqual(stackB));
     }
 
     /**

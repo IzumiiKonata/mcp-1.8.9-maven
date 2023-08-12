@@ -108,9 +108,7 @@ public class CustomGuis {
     private static ResourceLocation getTexturePos(CustomGuiProperties.EnumContainer container, BlockPos pos, IBlockAccess blockAccess, ResourceLocation loc, GuiScreen screen) {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
-        if (acustomguiproperties == null) {
-            return loc;
-        } else {
+        if (acustomguiproperties != null) {
             for (int i = 0; i < acustomguiproperties.length; ++i) {
                 CustomGuiProperties customguiproperties = acustomguiproperties[i];
 
@@ -119,16 +117,14 @@ public class CustomGuis {
                 }
             }
 
-            return loc;
         }
+        return loc;
     }
 
     private static ResourceLocation getTextureEntity(CustomGuiProperties.EnumContainer container, Entity entity, IBlockAccess blockAccess, ResourceLocation loc) {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 
-        if (acustomguiproperties == null) {
-            return loc;
-        } else {
+        if (acustomguiproperties != null) {
             for (int i = 0; i < acustomguiproperties.length; ++i) {
                 CustomGuiProperties customguiproperties = acustomguiproperties[i];
 
@@ -137,8 +133,8 @@ public class CustomGuis {
                 }
             }
 
-            return loc;
         }
+        return loc;
     }
 
     public static void update() {

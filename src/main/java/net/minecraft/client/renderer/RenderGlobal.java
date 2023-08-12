@@ -1252,19 +1252,16 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
         }
 
-        if (l == 0) {
-            this.mc.mcProfiler.endSection();
-            return l;
-        } else {
+        if (l != 0) {
             if (Config.isFogOff() && this.mc.entityRenderer.fogStandard) {
                 GlStateManager.disableFog();
             }
 
             this.mc.mcProfiler.endStartSection("render_" + blockLayerIn);
             this.renderBlockLayer(blockLayerIn);
-            this.mc.mcProfiler.endSection();
-            return l;
         }
+        this.mc.mcProfiler.endSection();
+        return l;
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -1728,7 +1725,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
 
                 if (Config.isCloudsFancy()) {
-                    this.renderCloudsFancy(partialTicks, pass);
+                    this.renderCloudsFancy(pass);
                 } else {
                     float f9 = partialTicks;
                     partialTicks = 0.0F;
@@ -1806,8 +1803,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return false;
     }
 
-    private void renderCloudsFancy(float partialTicks, int pass) {
-        partialTicks = 0.0F;
+    private void renderCloudsFancy(int pass) {
+        float partialTicks = 0.0F;
         GlStateManager.disableCull();
         float f = (float) (this.mc.getRenderViewEntity().lastTickPosY + (this.mc.getRenderViewEntity().posY - this.mc.getRenderViewEntity().lastTickPosY) * (double) partialTicks);
         Tessellator tessellator = Tessellator.getInstance();
@@ -2711,7 +2708,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 int j1 = Items.potionitem.getColorFromDamage(data);
                 float f = (float) (j1 >> 16 & 255) / 255.0F;
                 float f1 = (float) (j1 >> 8 & 255) / 255.0F;
-                float f2 = (float) (j1 >> 0 & 255) / 255.0F;
+                float f2 = (float) (j1 & 255) / 255.0F;
                 EnumParticleTypes enumparticletypes = EnumParticleTypes.SPELL;
 
                 if (Items.potionitem.isEffectInstant(data)) {

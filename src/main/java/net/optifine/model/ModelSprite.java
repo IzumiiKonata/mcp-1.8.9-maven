@@ -10,15 +10,12 @@ import org.lwjgl.opengl.GL11;
 
 public class ModelSprite {
     private ModelRenderer modelRenderer = null;
-    private int textureOffsetX = 0;
-    private int textureOffsetY = 0;
     private float posX = 0.0F;
     private float posY = 0.0F;
     private float posZ = 0.0F;
     private int sizeX = 0;
     private int sizeY = 0;
     private int sizeZ = 0;
-    private float sizeAdd = 0.0F;
     private float minU = 0.0F;
     private float minV = 0.0F;
     private float maxU = 0.0F;
@@ -26,15 +23,12 @@ public class ModelSprite {
 
     public ModelSprite(ModelRenderer modelRenderer, int textureOffsetX, int textureOffsetY, float posX, float posY, float posZ, int sizeX, int sizeY, int sizeZ, float sizeAdd) {
         this.modelRenderer = modelRenderer;
-        this.textureOffsetX = textureOffsetX;
-        this.textureOffsetY = textureOffsetY;
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.sizeZ = sizeZ;
-        this.sizeAdd = sizeAdd;
         this.minU = (float) textureOffsetX / modelRenderer.textureWidth;
         this.minV = (float) textureOffsetY / modelRenderer.textureHeight;
         this.maxU = (float) (textureOffsetX + sizeX) / modelRenderer.textureWidth;

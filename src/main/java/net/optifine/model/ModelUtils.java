@@ -66,8 +66,7 @@ public class ModelUtils {
             list1.add(list3);
         }
 
-        SimpleBakedModel simplebakedmodel = new SimpleBakedModel(list, list1, model.isAmbientOcclusion(), model.isGui3d(), model.getParticleTexture(), model.getItemCameraTransforms());
-        return simplebakedmodel;
+        return new SimpleBakedModel(list, list1, model.isAmbientOcclusion(), model.isGui3d(), model.getParticleTexture(), model.getItemCameraTransforms());
     }
 
     public static List duplicateQuadList(List lists) {
@@ -83,7 +82,6 @@ public class ModelUtils {
     }
 
     public static BakedQuad duplicateQuad(BakedQuad quad) {
-        BakedQuad bakedquad = new BakedQuad(quad.getVertexData().clone(), quad.getTintIndex(), quad.getFace(), quad.getSprite());
-        return bakedquad;
+        return new BakedQuad(quad.getVertexData().clone(), quad.getTintIndex(), quad.getFace(), quad.getSprite());
     }
 }

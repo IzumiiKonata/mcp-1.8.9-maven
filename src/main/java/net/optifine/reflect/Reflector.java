@@ -443,8 +443,7 @@ public class Reflector {
             if (method == null) {
                 return null;
             } else {
-                String s = (String) method.invoke(null, params);
-                return s;
+                return (String) method.invoke(null, params);
             }
         } catch (Throwable throwable) {
             handleException(throwable, null, refMethod, params);
@@ -459,8 +458,7 @@ public class Reflector {
             if (method == null) {
                 return null;
             } else {
-                Object object = method.invoke(null, params);
-                return object;
+                return method.invoke(null, params);
             }
         } catch (Throwable throwable) {
             handleException(throwable, null, refMethod, params);
@@ -557,8 +555,7 @@ public class Reflector {
             if (method == null) {
                 return null;
             } else {
-                String s = (String) method.invoke(obj, params);
-                return s;
+                return (String) method.invoke(obj, params);
             }
         } catch (Throwable throwable) {
             handleException(throwable, obj, refMethod, params);
@@ -573,8 +570,7 @@ public class Reflector {
             if (method == null) {
                 return null;
             } else {
-                Object object = method.invoke(obj, params);
-                return object;
+                return method.invoke(obj, params);
             }
         } catch (Throwable throwable) {
             handleException(throwable, obj, refMethod, params);
@@ -593,8 +589,7 @@ public class Reflector {
             if (field == null) {
                 return null;
             } else {
-                Object object = field.get(obj);
-                return object;
+                return field.get(obj);
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
@@ -609,8 +604,7 @@ public class Reflector {
             if (field == null) {
                 return def;
             } else {
-                boolean flag = field.getBoolean(null);
-                return flag;
+                return field.getBoolean(null);
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
@@ -625,8 +619,7 @@ public class Reflector {
             if (field == null) {
                 return def;
             } else {
-                boolean flag = field.getBoolean(obj);
-                return flag;
+                return field.getBoolean(obj);
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
@@ -651,8 +644,7 @@ public class Reflector {
             if (field == null) {
                 return def;
             } else {
-                float f = field.getFloat(obj);
-                return f;
+                return field.getFloat(obj);
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
@@ -667,8 +659,7 @@ public class Reflector {
             if (field == null) {
                 return def;
             } else {
-                int i = field.getInt(obj);
-                return i;
+                return field.getInt(obj);
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
@@ -683,8 +674,7 @@ public class Reflector {
             if (field == null) {
                 return def;
             } else {
-                long i = field.getLong(obj);
-                return i;
+                return field.getLong(obj);
             }
         } catch (Throwable throwable) {
             Log.error("", throwable);
@@ -734,7 +724,7 @@ public class Reflector {
 
     public static boolean postForgeBusEvent(ReflectorConstructor constr, Object... params) {
         Object object = newInstance(constr, params);
-        return object != null && postForgeBusEvent(object);
+        return postForgeBusEvent(object);
     }
 
     public static boolean postForgeBusEvent(Object event) {
@@ -765,8 +755,7 @@ public class Reflector {
             return null;
         } else {
             try {
-                Object object = constructor.newInstance(params);
-                return object;
+                return constructor.newInstance(params);
             } catch (Throwable throwable) {
                 handleException(throwable, constr, params);
                 return null;
@@ -832,8 +821,7 @@ public class Reflector {
             Throwable throwable = e.getCause();
 
             if (throwable instanceof RuntimeException) {
-                RuntimeException runtimeexception = (RuntimeException) throwable;
-                throw runtimeexception;
+                throw (RuntimeException) throwable;
             } else {
                 Log.error("", e);
             }

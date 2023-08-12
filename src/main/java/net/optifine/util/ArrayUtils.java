@@ -8,9 +8,7 @@ import java.util.List;
 
 public class ArrayUtils {
     public static boolean contains(Object[] arr, Object val) {
-        if (arr == null) {
-            return false;
-        } else {
+        if (arr != null) {
             for (int i = 0; i < arr.length; ++i) {
                 Object object = arr[i];
 
@@ -19,8 +17,8 @@ public class ArrayUtils {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static int[] addIntsToArray(int[] intArray, int[] copyFrom) {
@@ -234,9 +232,7 @@ public class ArrayUtils {
     }
 
     public static boolean equalsOne(Object a, Object[] bs) {
-        if (bs == null) {
-            return false;
-        } else {
+        if (bs != null) {
             for (int i = 0; i < bs.length; ++i) {
                 Object object = bs[i];
 
@@ -245,8 +241,8 @@ public class ArrayUtils {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static boolean equals(Object o1, Object o2) {
@@ -254,9 +250,7 @@ public class ArrayUtils {
     }
 
     public static boolean isSameOne(Object a, Object[] bs) {
-        if (bs == null) {
-            return false;
-        } else {
+        if (bs != null) {
             for (int i = 0; i < bs.length; ++i) {
                 Object object = bs[i];
 
@@ -265,15 +259,14 @@ public class ArrayUtils {
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     public static Object[] removeObjectFromArray(Object[] arr, Object obj) {
         List list = new ArrayList(Arrays.asList(arr));
         list.remove(obj);
-        Object[] aobject = collectionToArray(list, arr.getClass().getComponentType());
-        return aobject;
+        return collectionToArray(list, arr.getClass().getComponentType());
     }
 
     public static int[] toPrimitive(Integer[] arr) {

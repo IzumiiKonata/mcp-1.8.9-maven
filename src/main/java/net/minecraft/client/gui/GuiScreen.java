@@ -326,9 +326,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      * @param component The ChatComponent to check for click
      */
     protected boolean handleComponentClick(IChatComponent component) {
-        if (component == null) {
-            return false;
-        } else {
+        if (component != null) {
             ClickEvent clickevent = component.getChatStyle().getChatClickEvent();
 
             if (isShiftKeyDown()) {
@@ -376,8 +374,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 return true;
             }
 
-            return false;
         }
+        return false;
     }
 
     /**

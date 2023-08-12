@@ -101,9 +101,7 @@ public class ItemMonsterPlacer extends Item {
         } else {
             MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
-            if (movingobjectposition == null) {
-                return itemStackIn;
-            } else {
+            if (movingobjectposition != null) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
@@ -132,8 +130,8 @@ public class ItemMonsterPlacer extends Item {
                     }
                 }
 
-                return itemStackIn;
             }
+            return itemStackIn;
         }
     }
 

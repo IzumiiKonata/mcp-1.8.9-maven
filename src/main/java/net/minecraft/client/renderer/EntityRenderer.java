@@ -107,10 +107,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
      */
     private int rendererUpdateCount;
 
-    /**
-     * Pointed entity
-     */
-    private Entity pointedEntity;
     private MouseFilter mouseFilterXAxis = new MouseFilter();
     private MouseFilter mouseFilterYAxis = new MouseFilter();
     private final float thirdPersonDistance = 4.0F;
@@ -161,18 +157,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
      * Cloud fog mode
      */
     private boolean cloudFog;
-    private final boolean renderHand = true;
-    private final boolean drawBlockOutline = true;
 
     /**
      * Previous frame time in milliseconds
      */
     private long prevFrameTime = Minecraft.getSystemTime();
-
-    /**
-     * End time of last render (ns)
-     */
-    private long renderEndNanoTime;
 
     /**
      * The texture id of the blocklight/skylight texture used for lighting effects
@@ -220,9 +209,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
      * Fog color 1
      */
     private float fogColor1;
-    private final int debugViewDirection = 0;
     private final boolean debugView = false;
-    private final double cameraZoom = 1.0D;
     private double cameraYaw;
     private double cameraPitch;
     private ShaderGroup theShaderGroup;
@@ -239,9 +226,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private long lastServerTime = 0L;
     private int lastServerTicks = 0;
     private int serverWaitTime = 0;
-    private int serverWaitTimeCurrent = 0;
-    private float avgServerTimeDiff = 0.0F;
-    private float avgServerTickDiff = 0.0F;
     private final ShaderGroup[] fxaaShaders = new ShaderGroup[10];
     private boolean loadVisibleChunks = false;
 
@@ -459,7 +443,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             Vec3 vec31 = entity.getLook(partialTicks);
             Vec3 vec32 = vec3.addVector(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0);
-            this.pointedEntity = null;
+            /**
+             * Pointed entity
+             */
+            Entity pointedEntity = null;
             Vec3 vec33 = null;
             float f = 1.0F;
             List<Entity> list = this.mc.theWorld.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0).expand(f, f, f), Predicates.and(EntitySelectors.NOT_SPECTATING, new Predicate<Entity>() {
@@ -477,7 +464,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                 if (axisalignedbb.isVecInside(vec3)) {
                     if (d2 >= 0.0D) {
-                        this.pointedEntity = entity1;
+                        pointedEntity = entity1;
                         vec33 = movingobjectposition == null ? vec3 : movingobjectposition.hitVec;
                         d2 = 0.0D;
                     }
@@ -493,11 +480,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                         if (!flag1 && entity1 == entity.ridingEntity) {
                             if (d2 == 0.0D) {
-                                this.pointedEntity = entity1;
+                                pointedEntity = entity1;
                                 vec33 = movingobjectposition.hitVec;
                             }
                         } else {
-                            this.pointedEntity = entity1;
+                            pointedEntity = entity1;
                             vec33 = movingobjectposition.hitVec;
                             d2 = d3;
                         }
@@ -505,16 +492,16 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 }
             }
 
-            if (this.pointedEntity != null && flag && vec3.distanceTo(vec33) > 3.0D) {
-                this.pointedEntity = null;
+            if (pointedEntity != null && flag && vec3.distanceTo(vec33) > 3.0D) {
+                pointedEntity = null;
                 this.mc.objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, null, new BlockPos(vec33));
             }
 
-            if (this.pointedEntity != null && (d2 < d1 || this.mc.objectMouseOver == null)) {
-                this.mc.objectMouseOver = new MovingObjectPosition(this.pointedEntity, vec33);
+            if (pointedEntity != null && (d2 < d1 || this.mc.objectMouseOver == null)) {
+                this.mc.objectMouseOver = new MovingObjectPosition(pointedEntity, vec33);
 
-                if (this.pointedEntity instanceof EntityLivingBase || this.pointedEntity instanceof EntityItemFrame) {
-                    this.mc.pointedEntity = this.pointedEntity;
+                if (pointedEntity instanceof EntityLivingBase || pointedEntity instanceof EntityItemFrame) {
+                    this.mc.pointedEntity = pointedEntity;
                 }
             }
 
@@ -791,9 +778,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.clipDistance = 173.0F;
         }
 
-        if (this.cameraZoom != 1.0D) {
+        double cameraZoom = 1.0D;
+        if (cameraZoom != 1.0D) {
             GlStateManager.translate((float) this.cameraYaw, (float) (-this.cameraPitch), 0.0F);
-            GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
+            GlStateManager.scale(cameraZoom, cameraZoom, 1.0D);
         }
 
         Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float) this.mc.displayWidth / (float) this.mc.displayHeight, 0.05F, this.clipDistance);
@@ -829,7 +817,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.orientCamera(partialTicks);
 
         if (this.debugView) {
-            switch (this.debugViewDirection) {
+            int debugViewDirection = 0;
+            switch (debugViewDirection) {
                 case 0:
                     GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
                     break;
@@ -1161,6 +1150,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             final int l1 = j1 - Mouse.getY() * j1 / this.mc.displayHeight - 1;
             int i2 = this.mc.gameSettings.limitFramerate;
 
+            /**
+             * End time of last render (ns)
+             */
+            long renderEndNanoTime;
             if (this.mc.theWorld != null) {
                 this.mc.mcProfiler.startSection("level");
                 int j = Math.min(Minecraft.getDebugFPS(), i2);
@@ -1183,7 +1176,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     this.mc.getFramebuffer().bindFramebuffer(true);
                 }
 
-                this.renderEndNanoTime = System.nanoTime();
+                renderEndNanoTime = System.nanoTime();
                 this.mc.mcProfiler.endStartSection("gui");
 
                 if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
@@ -1207,7 +1200,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.matrixMode(5888);
                 GlStateManager.loadIdentity();
                 this.setupOverlayRendering();
-                this.renderEndNanoTime = System.nanoTime();
+                renderEndNanoTime = System.nanoTime();
                 TileEntityRendererDispatcher.instance.renderEngine = this.mc.getTextureManager();
                 TileEntityRendererDispatcher.instance.fontRenderer = this.mc.fontRendererObj;
             }
@@ -1255,7 +1248,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private boolean isDrawBlockOutline() {
-        if (!this.drawBlockOutline) {
+        boolean drawBlockOutline = true;
+        if (!drawBlockOutline) {
             return false;
         } else {
             Entity entity = this.mc.getRenderViewEntity();
@@ -1645,7 +1639,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.mc.mcProfiler.endStartSection("hand");
 
-        if (this.renderHand && !Shaders.isShadowPass) {
+        boolean renderHand = true;
+        if (renderHand && !Shaders.isShadowPass) {
             if (flag) {
                 ShadersRender.renderHand1(this, partialTicks, pass);
                 Shaders.renderCompositeFinal();
@@ -2210,7 +2205,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private void waitForServerThread() {
-        this.serverWaitTimeCurrent = 0;
+        int serverWaitTimeCurrent = 0;
 
         if (Config.isSmoothWorld() && Config.isSingleProcessor()) {
             if (this.mc.isIntegratedServerRunning()) {
@@ -2224,7 +2219,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             Lagometer.timerServer.start();
                             Config.sleep(this.serverWaitTime);
                             Lagometer.timerServer.end();
-                            this.serverWaitTimeCurrent = this.serverWaitTime;
+                            serverWaitTimeCurrent = this.serverWaitTime;
                         }
 
                         long i = System.nanoTime() / 1000000L;
@@ -2260,8 +2255,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         } else {
                             this.lastServerTime = i;
                             this.lastServerTicks = integratedserver.getTickCounter();
-                            this.avgServerTickDiff = 1.0F;
-                            this.avgServerTimeDiff = 50.0F;
+                            float avgServerTickDiff = 1.0F;
+                            float avgServerTimeDiff = 50.0F;
                         }
                     } else {
                         if (this.mc.currentScreen instanceof GuiDownloadTerrain) {
@@ -2377,13 +2372,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         } else if (this.theShaderGroup != null && this.theShaderGroup != this.fxaaShaders[2] && this.theShaderGroup != this.fxaaShaders[4]) {
             return true;
         } else if (p_setFxaaShader_1_ != 2 && p_setFxaaShader_1_ != 4) {
-            if (this.theShaderGroup == null) {
-                return true;
-            } else {
+            if (this.theShaderGroup != null) {
                 this.theShaderGroup.deleteShaderGroup();
                 this.theShaderGroup = null;
-                return true;
             }
+            return true;
         } else if (this.theShaderGroup != null && this.theShaderGroup == this.fxaaShaders[p_setFxaaShader_1_]) {
             return true;
         } else if (this.mc.theWorld == null) {
@@ -2430,7 +2423,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             int i1 = 0;
             boolean flag1 = false;
 
-            while (true) {
+            do {
                 flag1 = false;
 
                 for (int j1 = 0; j1 < 100; ++j1) {
@@ -2464,10 +2457,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     l = System.currentTimeMillis() + 5000L;
                 }
 
-                if (!flag1) {
-                    break;
-                }
-            }
+            } while (flag1);
 
             Config.log("Chunks loaded: " + i1);
             Config.log("Finished loading visible chunks");

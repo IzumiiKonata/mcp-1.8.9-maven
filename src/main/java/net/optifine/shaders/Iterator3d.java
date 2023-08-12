@@ -118,7 +118,7 @@ public class Iterator3d implements Iterator<BlockPos> {
 
         while (iterator3d.hasNext()) {
             BlockPos blockpos2 = iterator3d.next();
-            System.out.println(String.valueOf(blockpos2));
+            System.out.println(blockpos2);
         }
     }
 }

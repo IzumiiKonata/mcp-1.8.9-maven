@@ -892,11 +892,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
             boolean flag3 = itemstack == null || itemstack.getMetadata() >= 0 && itemstack.stackSize <= 64 && itemstack.stackSize > 0;
 
             if (flag1 && flag2 && flag3) {
-                if (itemstack == null) {
-                    this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), null);
-                } else {
-                    this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), itemstack);
-                }
+                this.playerEntity.inventoryContainer.putStackInSlot(packetIn.getSlotId(), itemstack);
 
                 this.playerEntity.inventoryContainer.setCanCraft(this.playerEntity, true);
             } else if (flag && flag2 && flag3 && this.itemDropThreshold < 200) {

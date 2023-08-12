@@ -59,9 +59,7 @@ public class ItemBoat extends Item {
                 }
             }
 
-            if (flag) {
-                return itemStackIn;
-            } else {
+            if (!flag) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
@@ -87,8 +85,8 @@ public class ItemBoat extends Item {
                     playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                 }
 
-                return itemStackIn;
             }
+            return itemStackIn;
         }
     }
 }

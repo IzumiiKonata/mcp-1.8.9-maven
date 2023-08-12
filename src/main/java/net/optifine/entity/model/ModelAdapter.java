@@ -62,7 +62,6 @@ public abstract class ModelAdapter {
             }
         }
 
-        ModelRenderer[] amodelrenderer = list.toArray(new ModelRenderer[list.size()]);
-        return amodelrenderer;
+        return list.toArray(new ModelRenderer[list.size()]);
     }
 }

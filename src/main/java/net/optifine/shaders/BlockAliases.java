@@ -28,9 +28,7 @@ public class BlockAliases {
         } else if (blockId >= 0 && blockId < blockAliases.length) {
             BlockAlias[] ablockalias = blockAliases[blockId];
 
-            if (ablockalias == null) {
-                return blockId;
-            } else {
+            if (ablockalias != null) {
                 for (int i = 0; i < ablockalias.length; ++i) {
                     BlockAlias blockalias = ablockalias[i];
 
@@ -39,8 +37,8 @@ public class BlockAliases {
                     }
                 }
 
-                return blockId;
             }
+            return blockId;
         } else {
             return blockId;
         }

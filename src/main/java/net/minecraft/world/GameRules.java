@@ -109,7 +109,6 @@ public class GameRules {
         private String valueString;
         private boolean valueBoolean;
         private int valueInteger;
-        private double valueDouble;
         private final GameRules.ValueType type;
 
         public Value(String value, GameRules.ValueType type) {
@@ -141,7 +140,7 @@ public class GameRules {
             }
 
             try {
-                this.valueDouble = Double.parseDouble(value);
+                double valueDouble = Double.parseDouble(value);
             } catch (NumberFormatException var3) {
             }
         }

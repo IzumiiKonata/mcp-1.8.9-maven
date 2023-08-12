@@ -16,11 +16,6 @@ public class IntHashMap<V> {
     private int threshold = 12;
 
     /**
-     * The scale factor used to determine when to grow the table
-     */
-    private final float growFactor = 0.75F;
-
-    /**
      * Makes the passed in integer suitable for hashing by a number of shifts
      */
     private static int computeHash(int integer) {
@@ -99,7 +94,11 @@ public class IntHashMap<V> {
             IntHashMap.Entry<V>[] entry1 = new IntHashMap.Entry[p_76047_1_];
             this.copyTo(entry1);
             this.slots = entry1;
-            this.threshold = (int) ((float) p_76047_1_ * this.growFactor);
+            /**
+             * The scale factor used to determine when to grow the table
+             */
+            float growFactor = 0.75F;
+            this.threshold = (int) ((float) p_76047_1_ * growFactor);
         }
     }
 
@@ -214,10 +213,8 @@ public class IntHashMap<V> {
         }
 
         public final boolean equals(Object p_equals_1_) {
-            if (!(p_equals_1_ instanceof IntHashMap.Entry)) {
-                return false;
-            } else {
-                IntHashMap.Entry<V> entry = (IntHashMap.Entry) p_equals_1_;
+            if (p_equals_1_ instanceof IntHashMap.Entry) {
+                Entry<V> entry = (Entry) p_equals_1_;
                 Object object = Integer.valueOf(this.getHash());
                 Object object1 = Integer.valueOf(entry.getHash());
 
@@ -228,8 +225,8 @@ public class IntHashMap<V> {
                     return Objects.equals(object2, object3);
                 }
 
-                return false;
             }
+            return false;
         }
 
         public final int hashCode() {

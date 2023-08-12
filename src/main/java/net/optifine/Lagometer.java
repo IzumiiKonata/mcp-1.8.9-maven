@@ -16,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 public class Lagometer {
     private static Minecraft mc;
     private static GameSettings gameSettings;
-    private static Profiler profiler;
     public static boolean active = false;
     public static Lagometer.TimerNano timerTick = new Lagometer.TimerNano();
     public static Lagometer.TimerNano timerScheduledExecutables = new Lagometer.TimerNano();
@@ -42,7 +41,7 @@ public class Lagometer {
         if (mc == null) {
             mc = Minecraft.getMinecraft();
             gameSettings = mc.gameSettings;
-            profiler = mc.mcProfiler;
+            Profiler profiler = mc.mcProfiler;
         }
 
         if (gameSettings.showDebugInfo && (gameSettings.ofLagometer || gameSettings.showLagometer)) {

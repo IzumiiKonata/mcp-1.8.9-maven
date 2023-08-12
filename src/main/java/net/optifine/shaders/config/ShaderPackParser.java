@@ -115,8 +115,7 @@ public class ShaderPackParser {
                 return new String[0];
             } else {
                 ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(s.getBytes());
-                String[] astring = Config.readLines(bytearrayinputstream);
-                return astring;
+                return Config.readLines(bytearrayinputstream);
             }
         } catch (IOException ioexception) {
             Config.dbg(ioexception.getClass().getName() + ": " + ioexception.getMessage());
@@ -212,8 +211,7 @@ public class ShaderPackParser {
         if (list.size() <= 0) {
             return null;
         } else {
-            ShaderProfile[] ashaderprofile = list.toArray(new ShaderProfile[list.size()]);
-            return ashaderprofile;
+            return list.toArray(new ShaderProfile[list.size()]);
         }
     }
 
@@ -246,8 +244,7 @@ public class ShaderPackParser {
         try {
             ShaderOptionResolver shaderoptionresolver = new ShaderOptionResolver(shaderOptions);
             ExpressionParser expressionparser = new ExpressionParser(shaderoptionresolver);
-            IExpressionBool iexpressionbool = expressionparser.parseBool(val);
-            return iexpressionbool;
+            return expressionparser.parseBool(val);
         } catch (ParseException parseexception) {
             SMCLog.warning(parseexception.getClass().getName() + ": " + parseexception.getMessage());
             return null;
@@ -258,9 +255,7 @@ public class ShaderPackParser {
         Set<String> set = new HashSet();
         String s = props.getProperty("sliders");
 
-        if (s == null) {
-            return set;
-        } else {
+        if (s != null) {
             String[] astring = Config.tokenize(s, " ");
 
             for (int i = 0; i < astring.length; ++i) {
@@ -274,8 +269,8 @@ public class ShaderPackParser {
                 }
             }
 
-            return set;
         }
+        return set;
     }
 
     private static ShaderProfile parseProfile(String name, Properties props, Set<String> parsedProfiles, ShaderOption[] shaderOptions) {
@@ -536,8 +531,7 @@ public class ShaderPackParser {
             }
         }
 
-        ShaderMacro[] ashadermacro = list.toArray(new ShaderMacro[list.size()]);
-        return ashadermacro;
+        return list.toArray(new ShaderMacro[list.size()]);
     }
 
     private static String loadFile(String filePath, IShaderPack shaderPack, int fileIndex, List<String> listFiles, int includeLevel) throws IOException {
@@ -608,8 +602,7 @@ public class ShaderPackParser {
             return null;
         } else {
             CustomUniform[] acustomuniform = list.toArray(new CustomUniform[list.size()]);
-            CustomUniforms customuniforms = new CustomUniforms(acustomuniform, map);
-            return customuniforms;
+            return new CustomUniforms(acustomuniform, map);
         }
     }
 
@@ -631,8 +624,7 @@ public class ShaderPackParser {
                     return null;
                 } else {
                     iexpression = makeExpressionCached(iexpression);
-                    CustomUniform customuniform = new CustomUniform(name, uniformtype, iexpression);
-                    return customuniform;
+                    return new CustomUniform(name, uniformtype, iexpression);
                 }
             }
         } catch (ParseException parseexception) {

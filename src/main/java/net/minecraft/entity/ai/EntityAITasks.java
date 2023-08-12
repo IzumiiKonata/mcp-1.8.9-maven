@@ -18,7 +18,6 @@ public class EntityAITasks {
      */
     private final Profiler theProfiler;
     private int tickCount;
-    private final int tickRate = 3;
 
     public EntityAITasks(Profiler profilerIn) {
         this.theProfiler = profilerIn;
@@ -55,7 +54,8 @@ public class EntityAITasks {
     public void onUpdateTasks() {
         this.theProfiler.startSection("goalSetup");
 
-        if (this.tickCount++ % this.tickRate == 0) {
+        int tickRate = 3;
+        if (this.tickCount++ % tickRate == 0) {
             Iterator iterator = this.taskEntries.iterator();
             label38:
 
@@ -113,8 +113,7 @@ public class EntityAITasks {
      * Determine if a specific AI Task should continue being executed.
      */
     private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry) {
-        boolean flag = taskEntry.action.continueExecuting();
-        return flag;
+        return taskEntry.action.continueExecuting();
     }
 
     /**

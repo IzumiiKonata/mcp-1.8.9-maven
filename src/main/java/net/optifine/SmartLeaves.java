@@ -17,12 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmartLeaves {
-    private static IBakedModel modelLeavesCullAcacia = null;
-    private static IBakedModel modelLeavesCullBirch = null;
-    private static IBakedModel modelLeavesCullDarkOak = null;
-    private static IBakedModel modelLeavesCullJungle = null;
-    private static IBakedModel modelLeavesCullOak = null;
-    private static IBakedModel modelLeavesCullSpruce = null;
     private static List generalQuadsCullAcacia = null;
     private static List generalQuadsCullBirch = null;
     private static List generalQuadsCullDarkOak = null;
@@ -57,12 +51,12 @@ public class SmartLeaves {
 
     public static void updateLeavesModels() {
         List list = new ArrayList();
-        modelLeavesCullAcacia = getModelCull("acacia", list);
-        modelLeavesCullBirch = getModelCull("birch", list);
-        modelLeavesCullDarkOak = getModelCull("dark_oak", list);
-        modelLeavesCullJungle = getModelCull("jungle", list);
-        modelLeavesCullOak = getModelCull("oak", list);
-        modelLeavesCullSpruce = getModelCull("spruce", list);
+        IBakedModel modelLeavesCullAcacia = getModelCull("acacia", list);
+        IBakedModel modelLeavesCullBirch = getModelCull("birch", list);
+        IBakedModel modelLeavesCullDarkOak = getModelCull("dark_oak", list);
+        IBakedModel modelLeavesCullJungle = getModelCull("jungle", list);
+        IBakedModel modelLeavesCullOak = getModelCull("oak", list);
+        IBakedModel modelLeavesCullSpruce = getModelCull("spruce", list);
         generalQuadsCullAcacia = getGeneralQuadsSafe(modelLeavesCullAcacia);
         generalQuadsCullBirch = getGeneralQuadsSafe(modelLeavesCullBirch);
         generalQuadsCullDarkOak = getGeneralQuadsSafe(modelLeavesCullDarkOak);

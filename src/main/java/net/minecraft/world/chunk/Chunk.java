@@ -259,7 +259,7 @@ public class Chunk {
                     int k1 = 15;
                     int i1 = i + 16 - 1;
 
-                    while (true) {
+                    do {
                         int j1 = this.getBlockLightOpacity(j, i1, k);
 
                         if (j1 == 0 && k1 != 15) {
@@ -279,10 +279,7 @@ public class Chunk {
 
                         --i1;
 
-                        if (i1 <= 0 || k1 <= 0) {
-                            break;
-                        }
-                    }
+                    } while (i1 > 0 && k1 > 0);
                 }
             }
         }

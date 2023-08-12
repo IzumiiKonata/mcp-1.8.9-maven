@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 public class ChunkRenderDispatcher {
     private static final Logger logger = LogManager.getLogger();
     private static final ThreadFactory threadFactory = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
-    private final List<ChunkRenderWorker> listThreadedWorkers;
     private final BlockingQueue<ChunkCompileTaskGenerator> queueChunkUpdates;
     private final BlockingQueue<RegionRenderCacheBuilder> queueFreeRenderBuilders;
     private final WorldVertexBufferUploader worldVertexUploader;
@@ -40,7 +39,7 @@ public class ChunkRenderDispatcher {
     }
 
     public ChunkRenderDispatcher(int p_i4_1_) {
-        this.listThreadedWorkers = Lists.newArrayList();
+        List<ChunkRenderWorker> listThreadedWorkers = Lists.newArrayList();
         this.queueChunkUpdates = Queues.newArrayBlockingQueue(100);
         this.worldVertexUploader = new WorldVertexBufferUploader();
         this.vertexUploader = new VertexBufferUploader();
@@ -59,7 +58,7 @@ public class ChunkRenderDispatcher {
             ChunkRenderWorker chunkrenderworker = new ChunkRenderWorker(this);
             Thread thread = threadFactory.newThread(chunkrenderworker);
             thread.start();
-            this.listThreadedWorkers.add(chunkrenderworker);
+            listThreadedWorkers.add(chunkrenderworker);
         }
 
         this.queueFreeRenderBuilders = Queues.newArrayBlockingQueue(this.countRenderBuilders);
@@ -194,12 +193,10 @@ public class ChunkRenderDispatcher {
                         ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator);
                     }
                 });
-                boolean flag2 = this.queueChunkUpdates.offer(chunkcompiletaskgenerator);
-                return flag2;
+                return this.queueChunkUpdates.offer(chunkcompiletaskgenerator);
             }
 
-            boolean flag = true;
-            flag1 = flag;
+            flag1 = true;
         } finally {
             chunkRenderer.getLockCompileTask().unlock();
         }

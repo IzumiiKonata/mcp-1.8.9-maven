@@ -24,12 +24,11 @@ public enum ShaderParameterBool implements IExpressionBool {
     IS_WET("is_wet");
 
     private final String name;
-    private final RenderManager renderManager;
     private static final ShaderParameterBool[] VALUES = values();
 
     ShaderParameterBool(String name) {
         this.name = name;
-        this.renderManager = Minecraft.getMinecraft().getRenderManager();
+        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
     }
 
     public String getName() {
@@ -92,9 +91,7 @@ public enum ShaderParameterBool implements IExpressionBool {
     }
 
     public static ShaderParameterBool parse(String str) {
-        if (str == null) {
-            return null;
-        } else {
+        if (str != null) {
             for (int i = 0; i < VALUES.length; ++i) {
                 ShaderParameterBool shaderparameterbool = VALUES[i];
 
@@ -103,7 +100,7 @@ public enum ShaderParameterBool implements IExpressionBool {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 }

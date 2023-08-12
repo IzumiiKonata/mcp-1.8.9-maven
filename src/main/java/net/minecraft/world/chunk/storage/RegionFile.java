@@ -11,7 +11,6 @@ import java.util.zip.InflaterInputStream;
 
 public class RegionFile {
     private static final byte[] emptySector = new byte[4096];
-    private final File fileName;
     private RandomAccessFile dataFile;
     private final int[] offsets = new int[1024];
     private final int[] chunkTimestamps = new int[1024];
@@ -21,15 +20,13 @@ public class RegionFile {
      * McRegion sizeDelta
      */
     private int sizeDelta;
-    private long lastModified;
 
     public RegionFile(File fileNameIn) {
-        this.fileName = fileNameIn;
         this.sizeDelta = 0;
 
         try {
             if (fileNameIn.exists()) {
-                this.lastModified = fileNameIn.lastModified();
+                long lastModified = fileNameIn.lastModified();
             }
 
             this.dataFile = new RandomAccessFile(fileNameIn, "rw");

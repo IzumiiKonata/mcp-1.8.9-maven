@@ -109,9 +109,7 @@ public class CustomGuiProperties {
     }
 
     private static EnumDyeColor parseEnumDyeColor(String str) {
-        if (str == null) {
-            return null;
-        } else {
+        if (str != null) {
             EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
 
             for (int i = 0; i < aenumdyecolor.length; ++i) {
@@ -126,8 +124,8 @@ public class CustomGuiProperties {
                 }
             }
 
-            return null;
         }
+        return null;
     }
 
     private static ResourceLocation parseTextureLocation(String str, String basePath) {
@@ -265,22 +263,22 @@ public class CustomGuiProperties {
 
     private boolean matchesGeneral(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess) {
         if (this.container != ec) {
-            return false;
+            return true;
         } else {
             if (this.biomes != null) {
                 BiomeGenBase biomegenbase = blockAccess.getBiomeGenForCoords(pos);
 
                 if (!Matches.biome(biomegenbase, this.biomes)) {
-                    return false;
+                    return true;
                 }
             }
 
-            return this.heights == null || this.heights.isInRange(pos.getY());
+            return this.heights != null && !this.heights.isInRange(pos.getY());
         }
     }
 
     public boolean matchesPos(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess, GuiScreen screen) {
-        if (!this.matchesGeneral(ec, pos, blockAccess)) {
+        if (this.matchesGeneral(ec, pos, blockAccess)) {
             return false;
         } else {
             if (this.nbtName != null) {
@@ -394,7 +392,7 @@ public class CustomGuiProperties {
     }
 
     public boolean matchesEntity(CustomGuiProperties.EnumContainer ec, Entity entity, IBlockAccess blockAccess) {
-        if (!this.matchesGeneral(ec, entity.getPosition(), blockAccess)) {
+        if (this.matchesGeneral(ec, entity.getPosition(), blockAccess)) {
             return false;
         } else {
             if (this.nbtName != null) {

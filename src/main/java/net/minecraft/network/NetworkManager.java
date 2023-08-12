@@ -52,7 +52,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
             return new LocalEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("Netty Local Client IO #%d").setDaemon(true).build());
         }
     };
-    private final EnumPacketDirection direction;
     private final Queue<NetworkManager.InboundHandlerTuplePacketListener> outboundPacketsQueue = Queues.newConcurrentLinkedQueue();
     private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
@@ -79,7 +78,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     private boolean disconnected;
 
     public NetworkManager(EnumPacketDirection packetDirection) {
-        this.direction = packetDirection;
     }
 
     public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception {

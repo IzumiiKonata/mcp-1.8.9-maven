@@ -136,11 +136,10 @@ public class ItemPotion extends Item {
             }
 
             playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-            return itemStackIn;
         } else {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 
     /**
@@ -168,10 +167,8 @@ public class ItemPotion extends Item {
                 }
             }
 
-            return false;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public String getItemStackDisplayName(ItemStack stack) {

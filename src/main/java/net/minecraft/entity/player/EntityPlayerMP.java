@@ -58,7 +58,6 @@ import java.util.Set;
 
 public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     private static final Logger logger = LogManager.getLogger();
-    private String translator = "en_US";
 
     /**
      * The NetServerHandler assigned to this player by the ServerConfigurationManager.
@@ -114,7 +113,6 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     private int lastExperience = -99999999;
     private int respawnInvulnerabilityTicks = 60;
     private EntityPlayer.EnumChatVisibility chatVisibility;
-    private boolean chatColours = true;
     private long playerLastActiveTime = System.currentTimeMillis();
 
     /**
@@ -970,9 +968,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     }
 
     public void handleClientSettings(C15PacketClientSettings packetIn) {
-        this.translator = packetIn.getLang();
+        String translator = packetIn.getLang();
         this.chatVisibility = packetIn.getChatVisibility();
-        this.chatColours = packetIn.isColorsEnabled();
+        boolean chatColours = packetIn.isColorsEnabled();
         this.getDataWatcher().updateObject(10, Byte.valueOf((byte) packetIn.getModelPartFlags()));
     }
 
