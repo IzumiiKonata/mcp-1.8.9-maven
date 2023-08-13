@@ -48,7 +48,6 @@ public class ItemCarrotOnAStick extends Item {
             }
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return itemStackIn;
     }
 }

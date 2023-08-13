@@ -52,7 +52,6 @@ public class BlockDeadBush extends BlockBush {
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
             spawnAsEntity(worldIn, pos, new ItemStack(Blocks.deadbush, 1, 0));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te);

@@ -93,7 +93,6 @@ public class ItemPotion extends Item {
             }
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 
         if (!playerIn.capabilities.isCreativeMode) {
             if (stack.stackSize <= 0) {
@@ -135,7 +134,6 @@ public class ItemPotion extends Item {
                 worldIn.spawnEntityInWorld(new EntityPotion(worldIn, playerIn, itemStackIn));
             }
 
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         } else {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         }

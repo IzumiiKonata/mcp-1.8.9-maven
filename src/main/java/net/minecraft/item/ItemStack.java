@@ -130,13 +130,7 @@ public final class ItemStack {
      * tryPlaceItemIntoWorld)
      */
     public boolean onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        boolean flag = this.getItem().onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
-
-        if (flag) {
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this.item)]);
-        }
-
-        return flag;
+        return this.getItem().onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
     }
 
     public float getStrVsBlock(Block blockIn) {
@@ -299,7 +293,6 @@ public final class ItemStack {
 
                     if (entityIn instanceof EntityPlayer) {
                         EntityPlayer entityplayer = (EntityPlayer) entityIn;
-                        entityplayer.triggerAchievement(StatList.objectBreakStats[Item.getIdFromItem(this.item)]);
 
                         if (this.stackSize == 0 && this.getItem() instanceof ItemBow) {
                             entityplayer.destroyCurrentEquippedItem();
@@ -320,22 +313,14 @@ public final class ItemStack {
      * Calls the corresponding fct in di
      */
     public void hitEntity(EntityLivingBase entityIn, EntityPlayer playerIn) {
-        boolean flag = this.item.hitEntity(this, entityIn, playerIn);
-
-        if (flag) {
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this.item)]);
-        }
+        this.item.hitEntity(this, entityIn, playerIn);
     }
 
     /**
      * Called when a Block is destroyed using this ItemStack
      */
     public void onBlockDestroyed(World worldIn, Block blockIn, BlockPos pos, EntityPlayer playerIn) {
-        boolean flag = this.item.onBlockDestroyed(this, worldIn, blockIn, pos, playerIn);
-
-        if (flag) {
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this.item)]);
-        }
+        this.item.onBlockDestroyed(this, worldIn, blockIn, pos, playerIn);
     }
 
     /**
@@ -423,7 +408,6 @@ public final class ItemStack {
     }
 
     public void onCrafting(World worldIn, EntityPlayer playerIn, int amount) {
-        playerIn.addStat(StatList.objectCraftStats[Item.getIdFromItem(this.item)], amount);
         this.item.onCreated(this, worldIn, playerIn);
     }
 

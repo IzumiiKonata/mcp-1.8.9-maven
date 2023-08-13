@@ -33,7 +33,6 @@ public class ItemEmptyMap extends ItemMapBase {
                 playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
             }
 
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
             return itemStackIn;
         }
     }

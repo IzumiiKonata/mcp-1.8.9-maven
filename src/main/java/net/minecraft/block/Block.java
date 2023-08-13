@@ -851,7 +851,6 @@ public class Block {
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
-        player.triggerAchievement(StatList.mineBlockStatArray[getIdFromBlock(this)]);
         player.addExhaustion(0.025F);
 
         if (this.canSilkHarvest() && EnchantmentHelper.getSilkTouchModifier(player)) {

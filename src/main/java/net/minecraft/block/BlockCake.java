@@ -75,7 +75,6 @@ public class BlockCake extends Block {
 
     private void eatCake(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.canEat(false)) {
-            player.triggerAchievement(StatList.field_181724_H);
             player.getFoodStats().addStats(2, 0.1F);
             int i = state.getValue(BITES).intValue();
 

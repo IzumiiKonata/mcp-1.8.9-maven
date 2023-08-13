@@ -100,7 +100,6 @@ public class BlockCauldron extends Block {
                             playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, new ItemStack(Items.bucket));
                         }
 
-                        playerIn.triggerAchievement(StatList.field_181725_I);
                         this.setWaterLevel(worldIn, pos, state, 3);
                     }
 
@@ -116,7 +115,6 @@ public class BlockCauldron extends Block {
                                 ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
                             }
 
-                            playerIn.triggerAchievement(StatList.field_181726_J);
                             --itemstack.stackSize;
 
                             if (itemstack.stackSize <= 0) {
@@ -135,7 +133,6 @@ public class BlockCauldron extends Block {
                         if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && itemarmor.hasColor(itemstack)) {
                             itemarmor.removeColor(itemstack);
                             this.setWaterLevel(worldIn, pos, state, i - 1);
-                            playerIn.triggerAchievement(StatList.field_181727_K);
                             return true;
                         }
                     }
@@ -154,7 +151,6 @@ public class BlockCauldron extends Block {
                                 ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
                             }
 
-                            playerIn.triggerAchievement(StatList.field_181728_L);
 
                             if (!playerIn.capabilities.isCreativeMode) {
                                 --itemstack.stackSize;

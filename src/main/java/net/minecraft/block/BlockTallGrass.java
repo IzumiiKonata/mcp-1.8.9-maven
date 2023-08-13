@@ -75,7 +75,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears) {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
             spawnAsEntity(worldIn, pos, new ItemStack(Blocks.tallgrass, 1, state.getValue(TYPE).getMeta()));
         } else {
             super.harvestBlock(worldIn, player, pos, state, te);

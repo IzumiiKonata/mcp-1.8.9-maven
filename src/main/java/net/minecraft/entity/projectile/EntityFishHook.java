@@ -492,17 +492,14 @@ public class EntityFishHook extends Entity {
         f2 = MathHelper.clamp_float(f2, 0.0F, 1.0F);
 
         if (f < f1) {
-            this.angler.triggerAchievement(StatList.junkFishedStat);
             return WeightedRandom.getRandomItem(this.rand, JUNK).getItemStack(this.rand);
         } else {
             f = f - f1;
 
             if (f < f2) {
-                this.angler.triggerAchievement(StatList.treasureFishedStat);
                 return WeightedRandom.getRandomItem(this.rand, TREASURE).getItemStack(this.rand);
             } else {
                 float f3 = f - f2;
-                this.angler.triggerAchievement(StatList.fishCaughtStat);
                 return WeightedRandom.getRandomItem(this.rand, FISH).getItemStack(this.rand);
             }
         }

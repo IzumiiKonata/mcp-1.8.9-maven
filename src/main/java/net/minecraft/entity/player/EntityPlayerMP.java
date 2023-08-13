@@ -429,17 +429,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         EntityLivingBase entitylivingbase = this.getAttackingEntity();
 
         if (entitylivingbase != null) {
-            EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(Integer.valueOf(EntityList.getEntityID(entitylivingbase)));
-
-            if (entitylist$entityegginfo != null) {
-                this.triggerAchievement(entitylist$entityegginfo.field_151513_e);
-            }
-
             entitylivingbase.addToPlayerScore(this, this.scoreValue);
         }
 
-        this.triggerAchievement(StatList.deathsStat);
-        this.func_175145_a(StatList.timeSinceDeathStat);
         this.getCombatTracker().reset();
     }
 

@@ -16,6 +16,7 @@ import net.minecraft.entity.projectile.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
@@ -409,7 +410,7 @@ public class Bootstrap {
             Block.registerBlocks();
             BlockFire.init();
             Item.registerItems();
-            StatList.init();
+            AchievementList.init();
             registerDispenserBehaviors();
         }
     }

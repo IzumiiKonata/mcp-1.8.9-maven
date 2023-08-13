@@ -135,7 +135,6 @@ public class ItemEnderEye extends Item {
                         --itemStackIn.stackSize;
                     }
 
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                 }
             }
 

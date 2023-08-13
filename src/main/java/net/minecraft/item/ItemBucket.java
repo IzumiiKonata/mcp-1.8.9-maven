@@ -51,13 +51,11 @@ public class ItemBucket extends Item {
 
                     if (material == Material.water && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
                         worldIn.setBlockToAir(blockpos);
-                        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                         return this.fillBucket(itemStackIn, playerIn, Items.water_bucket);
                     }
 
                     if (material == Material.lava && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0) {
                         worldIn.setBlockToAir(blockpos);
-                        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                         return this.fillBucket(itemStackIn, playerIn, Items.lava_bucket);
                     }
                 } else {
@@ -72,7 +70,6 @@ public class ItemBucket extends Item {
                     }
 
                     if (this.tryPlaceContainedLiquid(worldIn, blockpos1) && !playerIn.capabilities.isCreativeMode) {
-                        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                         return new ItemStack(Items.bucket);
                     }
                 }

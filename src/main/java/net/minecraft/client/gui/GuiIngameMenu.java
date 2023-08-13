@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.gui.achievement.GuiAchievements;
-import net.minecraft.client.gui.achievement.GuiStats;
+//import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.resources.I18n;
 
 import java.io.IOException;
@@ -29,7 +29,9 @@ public class GuiIngameMenu extends GuiScreen {
         GuiButton guibutton;
         this.buttonList.add(guibutton = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + i, 98, 20, I18n.format("menu.shareToLan")));
         this.buttonList.add(new GuiButton(5, this.width / 2 - 100, this.height / 4 + 48 + i, 98, 20, I18n.format("gui.achievements")));
-        this.buttonList.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + i, 98, 20, I18n.format("gui.stats")));
+        GuiButton guiStatsButton;
+        this.buttonList.add(guiStatsButton = new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + i, 98, 20, "Where's Statistics?"));
+        guiStatsButton.enabled = false;
         guibutton.enabled = this.mc.isSingleplayer() && !this.mc.getIntegratedServer().getPublic();
     }
 
@@ -69,7 +71,7 @@ public class GuiIngameMenu extends GuiScreen {
                 break;
 
             case 6:
-                this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
+//                this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
                 break;
 
             case 7:

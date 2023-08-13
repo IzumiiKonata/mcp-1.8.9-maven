@@ -34,7 +34,6 @@ public class ItemGlassBottle extends Item {
 
                 if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.water) {
                     --itemStackIn.stackSize;
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 
                     if (itemStackIn.stackSize <= 0) {
                         return new ItemStack(Items.potionitem);

@@ -41,7 +41,6 @@ public class ItemRecord extends Item {
                 ((BlockJukebox) Blocks.jukebox).insertRecord(worldIn, pos, iblockstate, stack);
                 worldIn.playAuxSFXAtEntity(null, 1005, pos, Item.getIdFromItem(this));
                 --stack.stackSize;
-                playerIn.triggerAchievement(StatList.field_181740_X);
             }
             return true;
         } else {

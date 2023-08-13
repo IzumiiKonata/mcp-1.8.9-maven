@@ -3,7 +3,6 @@ package net.minecraft.client.gui.inventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.achievement.GuiAchievements;
-import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -135,7 +134,7 @@ public class GuiInventory extends InventoryEffectRenderer {
         }
 
         if (button.id == 1) {
-            this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
+//            this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
         }
     }
 }

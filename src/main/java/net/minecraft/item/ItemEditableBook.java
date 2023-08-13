@@ -74,7 +74,6 @@ public class ItemEditableBook extends Item {
         }
 
         playerIn.displayGUIBook(itemStackIn);
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return itemStackIn;
     }
 

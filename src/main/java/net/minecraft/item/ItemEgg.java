@@ -26,7 +26,6 @@ public class ItemEgg extends Item {
             worldIn.spawnEntityInWorld(new EntityEgg(worldIn, playerIn));
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return itemStackIn;
     }
 }

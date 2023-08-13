@@ -39,7 +39,6 @@ public class BlockBeacon extends BlockContainer {
 
             if (tileentity instanceof TileEntityBeacon) {
                 playerIn.displayGUIChest((TileEntityBeacon) tileentity);
-                playerIn.triggerAchievement(StatList.field_181730_N);
             }
 
         }

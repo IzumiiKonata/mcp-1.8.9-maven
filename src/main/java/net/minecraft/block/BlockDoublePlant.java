@@ -179,7 +179,6 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
         if (blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS) {
             return false;
         } else {
-            player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
             int i = (blockdoubleplant$enumplanttype == BlockDoublePlant.EnumPlantType.GRASS ? BlockTallGrass.EnumType.GRASS : BlockTallGrass.EnumType.FERN).getMeta();
             spawnAsEntity(worldIn, pos, new ItemStack(Blocks.tallgrass, 2, i));
             return true;

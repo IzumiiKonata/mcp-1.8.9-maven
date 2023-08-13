@@ -94,7 +94,6 @@ public class BlockEnderChest extends BlockContainer {
             } else {
                 inventoryenderchest.setChestTileEntity((TileEntityEnderChest) tileentity);
                 playerIn.displayGUIChest(inventoryenderchest);
-                playerIn.triggerAchievement(StatList.field_181738_V);
                 return true;
             }
         } else {

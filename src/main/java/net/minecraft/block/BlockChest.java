@@ -345,12 +345,6 @@ public class BlockChest extends BlockContainer {
 
             if (ilockablecontainer != null) {
                 playerIn.displayGUIChest(ilockablecontainer);
-
-                if (this.chestType == 0) {
-                    playerIn.triggerAchievement(StatList.field_181723_aa);
-                } else if (this.chestType == 1) {
-                    playerIn.triggerAchievement(StatList.field_181737_U);
-                }
             }
 
         }

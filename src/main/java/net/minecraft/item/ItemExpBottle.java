@@ -29,7 +29,6 @@ public class ItemExpBottle extends Item {
             worldIn.spawnEntityInWorld(new EntityExpBottle(worldIn, playerIn));
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return itemStackIn;
     }
 }

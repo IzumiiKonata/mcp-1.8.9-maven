@@ -44,7 +44,6 @@ public class ItemLilyPad extends ItemColored {
                         --itemStackIn.stackSize;
                     }
 
-                    playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                 }
             }
 

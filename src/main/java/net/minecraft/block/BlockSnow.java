@@ -96,7 +96,6 @@ public class BlockSnow extends Block {
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te) {
         spawnAsEntity(worldIn, pos, new ItemStack(Items.snowball, state.getValue(LAYERS).intValue() + 1, 0));
         worldIn.setBlockToAir(pos);
-        player.triggerAchievement(StatList.mineBlockStatArray[Block.getIdFromBlock(this)]);
     }
 
     /**

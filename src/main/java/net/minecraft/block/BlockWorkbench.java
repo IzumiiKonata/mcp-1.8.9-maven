@@ -25,7 +25,6 @@ public class BlockWorkbench extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
-            playerIn.triggerAchievement(StatList.field_181742_Z);
         }
         return true;
     }

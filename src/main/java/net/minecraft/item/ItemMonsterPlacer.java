@@ -125,7 +125,6 @@ public class ItemMonsterPlacer extends Item {
                                 --itemStackIn.stackSize;
                             }
 
-                            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
                         }
                     }
                 }

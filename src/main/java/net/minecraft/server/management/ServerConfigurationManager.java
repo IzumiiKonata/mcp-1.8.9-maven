@@ -304,7 +304,6 @@ public abstract class ServerConfigurationManager {
      * Called when a player disconnects from the game. Writes player data to disk and removes them from the world.
      */
     public void playerLoggedOut(EntityPlayerMP playerIn) {
-        playerIn.triggerAchievement(StatList.leaveGameStat);
         this.writePlayerData(playerIn);
         WorldServer worldserver = playerIn.getServerForPlayer();
 

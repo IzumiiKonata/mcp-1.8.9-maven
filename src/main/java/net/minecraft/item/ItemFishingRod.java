@@ -44,7 +44,6 @@ public class ItemFishingRod extends Item {
             }
 
             playerIn.swingItem();
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         }
 
         return itemStackIn;

@@ -193,7 +193,6 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
                 player.displayVillagerTradeGui(this);
             }
 
-            player.triggerAchievement(StatList.timesTalkedToVillagerStat);
             return true;
         } else {
             return super.interact(player);

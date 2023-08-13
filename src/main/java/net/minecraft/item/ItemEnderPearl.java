@@ -24,7 +24,6 @@ public class ItemEnderPearl extends Item {
                 worldIn.spawnEntityInWorld(new EntityEnderPearl(worldIn, playerIn));
             }
 
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         }
         return itemStackIn;
     }

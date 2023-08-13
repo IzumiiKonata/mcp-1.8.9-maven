@@ -26,7 +26,6 @@ public class ItemSnowball extends Item {
             worldIn.spawnEntityInWorld(new EntitySnowball(worldIn, playerIn));
         }
 
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return itemStackIn;
     }
 }
